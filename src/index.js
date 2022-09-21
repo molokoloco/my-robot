@@ -3,15 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 //import App from './App';
 //import Dino from './Dino';
-import Robot from './Robot';
+//import Robot from './Robot';
+import Jujuhome from './Jujuhome';
 //import reportWebVitals from './reportWebVitals';
+import WebGL from 'three/examples/jsm/capabilities/WebGL.js';
+
+// if ( WebGL.isWebGL2Available() === false ) {
+//   document.body.appendChild( WebGL.getWebGL2ErrorMessage() );
+// }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Dino/>
-     <App /> */}
-    <Robot/>
+    {/* <Dino/>  <App /><Robot/> */}
+    { WebGL ? <Jujuhome/> : <div>WebGL.getWebGL2ErrorMessage()</div> }
   </React.StrictMode>
 );
 
