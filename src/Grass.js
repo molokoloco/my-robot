@@ -11,17 +11,16 @@ import "./GrassMaterial"
 
 const simplex = createNoise2D()
 
-export default function Grass({ options = { bW: 0.12, bH: 1, joints: 5 }, width = 100, instances = 50000, ...props }) {
+export default function Grass({ options = { bW: 0.12, bH: 0.8, joints: 5 }, width = 60, instances = 50000, ...props }) {
   const { bW, bH, joints } = options
   const materialRef = useRef()
   const [texture, alphaMap] = useLoader(THREE.TextureLoader, [bladeDiffuse, bladeAlpha]) 
   const attributeData = useMemo(() => getAttributeData(instances, width), [instances, width])
-  const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [options])
+  const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [bH, bW, joints])
+  
   const groundGeo = useMemo(() => {
-    
     const geo = new Geometry().fromBufferGeometry(new THREE.PlaneGeometry(width, width, 32, 32))
     //const geo = new THREE.BoxGeometry().fromBufferGeometry(new THREE.PlaneGeometry(width, width, 32, 32))
-
     geo.verticesNeedUpdate = true
     geo.lookAt(new THREE.Vector3(0, 1, 0))
     for (let i = 0; i < geo.vertices.length; i++) {
@@ -31,7 +30,9 @@ export default function Grass({ options = { bW: 0.12, bH: 1, joints: 5 }, width 
     geo.computeVertexNormals()
     return geo.toBufferGeometry()
   }, [width])
+
   useFrame((state) => (materialRef.current.uniforms.time.value = state.clock.elapsedTime / 4))
+
   return (
     <group {...props}>
       <mesh>
@@ -45,7 +46,7 @@ export default function Grass({ options = { bW: 0.12, bH: 1, joints: 5 }, width 
         <grassMaterial ref={materialRef} map={texture} alphaMap={alphaMap} toneMapped={false} />
       </mesh>
       <mesh position={[0, 0, 0]} geometry={groundGeo}>
-        <meshStandardMaterial color="#000f00" />
+        <meshStandardMaterial color="#002500" />
       </mesh>
     </group>
   )

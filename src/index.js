@@ -8,6 +8,11 @@ import Jujuhome from './Jujuhome';
 //import reportWebVitals from './reportWebVitals';
 import WebGL from 'three/examples/jsm/capabilities/WebGL.js';
 
+// if (module.hot && process.env.NODE_ENV !== 'production') {
+//   module.hot.accept();
+//   console.log('hot');
+// }
+
 // if ( WebGL.isWebGL2Available() === false ) {
 //   document.body.appendChild( WebGL.getWebGL2ErrorMessage() );
 // }

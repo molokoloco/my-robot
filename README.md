@@ -2,16 +2,23 @@
 
 ## Sources
 
-* https://github.com/pmndrs/react-three-fiber
-* https://codesandbox.io/s/friendly-cookies-v9mmc
-* https://codesandbox.io/embed/react-three-render3d-qobqy 
 * https://threejs.org/examples/webgl_animation_skinning_morph.html
 * https://threejs.org/examples/webgl2_volume_cloud.html
 
+* https://github.com/pmndrs/react-three-fiber
+* https://github.com/pmndrs/drei#camerashake
 
-https://codesandbox.io/s/staging-and-camerashake-0ycwe?file=/src/style.css:112-132
-https://codesandbox.io/s/grass-shader-5xho4
-https://codesandbox.io/s/spherical-word-cloud-yup2o
+* https://codesandbox.io/s/friendly-cookies-v9mmc
+* https://codesandbox.io/embed/react-three-render3d-qobqy
+* https://codesandbox.io/s/staging-and-camerashake-0ycwe?file=/src/style.css:112-132
+* https://codesandbox.io/s/grass-shader-5xho4
+* https://codesandbox.io/s/spherical-word-cloud-yup2o
+* https://codesandbox.io/s/github/onion2k/r3f-by-example/tree/develop/examples/hooks/
+
+
+TODO
+Auth : https://auth0.com/blog/how-to-configure-create-react-app/
+
 ...
 
 # Getting Started with Create React App
