@@ -103,23 +103,22 @@ function Word({ children, ...props }) {
 }
 
 export default function Words3d({ maxCount = 10, radius = 20, ...props }) {
-  console.log('Words3d()');
+  //console.log('Words3d()');
 
   var ref = useRef()
-
-  var tmpWords = [...randomWords]
-  tmpWords = tmpWords.sort(() => Math.random() - 0.5)
   var wordsLength = randomWords.length
 
-console.log('tmpWords', tmpWords);
-
+  var tmpWords = useMemo(() => {
+    var tmp = [...randomWords]
+    return tmp.sort(() => Math.random() - 0.5)
+    //console.log('tmpWords', tmpWords);
+  })
 
   var words = useMemo(() => {
     const temp = []
     const spherical = new THREE.Spherical()
-    const count = Math.floor(Math.sqrt(wordsLength))  //randomWords.length > maxCount) ? maxCount : randomWords.length;
-    console.log('count', count)
-
+    let count = Math.floor(Math.sqrt(wordsLength))
+    count = count > maxCount ? maxCount : count;
     const phiSpan = Math.PI / (count + 1)
     const thetaSpan = (Math.PI * 2) / count
     for (let i = 1; i < count + 1; i++)
@@ -127,9 +126,9 @@ console.log('tmpWords', tmpWords);
     return temp
   }, [wordsLength, maxCount, radius, tmpWords])
 
-  useFrame(({ clock }) => {
-    ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3
-  })
+  // useFrame(({ clock }) => {
+  //   ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3
+  // })
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
     ref.current.rotation.z = Math.sin(t / 1.5) / 8
@@ -137,10 +136,6 @@ console.log('tmpWords', tmpWords);
     ref.current.rotation.y = Math.sin(t / 4) / 8
     ref.current.position.y = (1 + Math.sin(t / 1.5)) / 10
   })
-
-  //return words.map(([pos, word], index) => <Word key={index} position={pos} children={word} />)
-
-  //console.log('words', words);
 
   words = words.map(([pos, word], index) => <Word key={index} position={pos} children={word} />)
 
