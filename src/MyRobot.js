@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three';
 //import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, useAnimations } from '@react-three/drei';
+import { useGLTF, useAnimations, Edges} from '@react-three/drei';
 import { proxy, useSnapshot } from "valtio"
 
 const state = proxy({
@@ -305,18 +305,15 @@ export default function Robot({ ...props }) {
   // )
 
   return (
-    <>
-      <mesh scale={1.01} renderOrder={0}  onClick={() => alert('Hellooo')} >
-        {/* <Edges visible="true" scale={1.01} renderOrder={0}  onClick={() => alert('Hellooo')} > */}
-          <boxGeometry/>
-          <meshBasicMaterial transparent color="#333" depthTest={true} />
-        {/* </Edges> */}
+    <group ref={ref}>
+      <mesh>
+        <primitive object={scene} {...props}/>
       </mesh>
-      <mesh ref={ref} onClick={(e) => console.log('e.object.material.name1', e)} >
-        <primitive object={scene} onClick={(e) => console.log('e.object.material.name2', e)} {...props} />
-        
+      <mesh position={[0, 2, 0]} onClick={(e) => console.log('e.object.material.name1', e)}>
+        <boxGeometry args={[3, 5, 3]}/>
+        <meshBasicMaterial wireframe opacity={0.5} depthTest={true} />
       </mesh>
-    </>
+    </group>
   )
 }
 

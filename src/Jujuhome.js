@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Dom} from 'react'
 import { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
@@ -12,6 +12,9 @@ import Grass from "./Grass"
 import Words3d from "./Words3d"
 import MySky from './MySky'
 import MyRobot from './MyRobot'
+//import Scroll from './Scroll'
+
+import './index.css'
 
 // https://codesandbox.io/s/fairly-realistic-grass-y4thxd?file=/src/App.jsx:196-273
 import { Grass2 } from './Grass2'
@@ -153,6 +156,81 @@ function MoveCam() {
   //})
 }
 
+// export default function Viewer() {
+//   return (
+//   )
+// }
+
+////////////////////////////////////
+
+function Box({ text, color, ...props }) {
+  const [hovered, set] = useState(false)
+  return (
+    <mesh {...props} onPointerOver={(e) => set(true)} onPointerOut={(e) => set(false)}>
+      <boxGeometry args={[2, 2, 2]} />
+      <meshStandardMaterial color={hovered ? 'hotpink' : color} />
+      {/* <Text
+        position={[0, 0, 1]}
+        color={color} // default
+        anchorX="center" // default
+        anchorY="middle" // default
+      >{text}</Text> */}
+      {/* <Html position={[0, 0, 1]} className="label" center>
+        {text}
+      </Html> */}
+    </mesh>
+  )
+}
+
+function MyScroll(scroll) {
+  const viewport = useThree((state) => state.viewport)
+  const group = useRef()
+  useFrame((state, delta) => {
+    group.current.position.y = THREE.MathUtils.damp(group.current.position.y, viewport.height * scroll.current, 4, delta)
+    // Or: group.current.position.lerp(vec.set(0, viewport.height * scroll.current, 0), 0.1)
+  })
+  return (
+    <group ref={group}>
+      <Box text={<span>This is HTMLThis is HTML</span>} color="blue" />
+      <Box text={<h1>H1 captionThis is HTML</h1>} color="blue" position={[0, -viewport.height, 0]} />
+    </group>
+  )
+}
+
+// function ScrollContainer({ scroll, children }) {
+//   const { viewport } = useThree()
+//   const group = useRef()
+//   useFrame((state, delta) => {
+//     group.current.position.y = THREE.MathUtils.damp(group.current.position.y, viewport.height * scroll.current, 4, delta)
+//     // Or: group.current.position.lerp(vec.set(0, viewport.height * scroll.current, 0), 0.1)
+//   })
+//   return <group ref={group}>{children}</group>
+// }
+
+// function MyScroll() {
+//   const viewport = useThree((state) => state.viewport)
+//   return (
+//     <>
+//       <Box text={<span>This is HTMLThis is HTML</span>} color="aquamarine" />
+//       <Box text={<h1>H1 captionThis is HTML</h1>} color="lightblue" position={[0, -viewport.height, 0]} />
+//     </>
+//   )
+// }
+
+////////////////////////////////////
+const fallback = function() {
+  return (
+  <Text
+    scale={[10, 10, 10]}
+    color="black" // default
+    anchorX="center" // default
+    anchorY="middle" // default
+  >
+    HELLO WORLD
+  </Text>
+  )
+}
+
 // function fallback() {
 //     return (
 //         <mesh scale="2">
@@ -165,19 +243,39 @@ function MoveCam() {
 //     );
 // } // <fallback/>
 
-// export default function Viewer() {
-//   return (
-//   )
-// }
-
 export default function App() {
 
   const [selected, setSelected] = useState([])
+  const cam = useRef();
+
+  const scrollRef = useRef()
+  const scroll = useRef(0)
+
+  function onMouseWheel( e ) {
+    //console.log('onMouseWheel',  e.target.scrollTop);
+    e.target.scrollTop = (e.target.scrollTop - e.wheelDeltaY) // scrollRef
+    scroll.current = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)
+    //console.log('scroll.current',scroll.current);
+  }
+
+  useEffect(() => {
+      window.addEventListener( 'wheel', onMouseWheel, true );
+      return () => { window.removeEventListener( 'wheel', onMouseWheel, true ); };
+  }, []);
 
   return (
     <>
-      <Canvas shadows  dpr={[1, 2]} gl={{antialias: true, outputEncoding: THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}>
-        <Suspense fallback={null}>
+      <Canvas
+        pixelratio={window.devicePixelRatio}
+        shadows dpr={[1, 2]}
+        gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
+        onCreated={(state) => state.events.connect(scrollRef.current)}
+        raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
+      >
+        <Suspense fallback={fallback()}>
+          {/* <ScrollContainer> */}
+          <MyScroll  scroll={scroll}/>
+          {/* </ScrollContainer> */}
           {/* <ambientLight intensity={0.5} /> */}
           {/* <spotLight intensity={0.5} penumbra={1} position={[10, 10, 10]} castShadow /> */}
           {/* <Sky azimuth={0.1} turbidity={10} rayleigh={0.5} inclination={0.6} distance={200} /> */}
@@ -202,21 +300,16 @@ export default function App() {
           <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
             {/* <Environment preset="sunset" /> */}
             {/* <Sparkles count={scaleSparkles.length} size={scaleSparkles} position={[0, 3.8, 0]} scale={[4, 4, 4]} speed={0.3} /> */}
-            <Select multiple box onChange={setSelected}>
+            {/* <Select multiple box onChange={setSelected}> */}
               <MyRobot/>
-            </Select>
+            {/* </Select> */}
             <ContactShadows position={[0, 0, 0]} opacity={0.75} scale={10} blur={2.5} far={4} />
-            {/* <ShakeCamera /> */}
-            <PerspectiveCamera makeDefault position={[10, 10, 5]}/>
-            <OrbitControls makeDefault autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} maxPolarAngle={Math.PI / 2} enableDamping={true} maxDistance={25} minDistance={4}/>
+            <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={0} far={100} zoom="2"/>
+            <OrbitControls makeDefault autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} enableDamping={true} maxDistance={25} minDistance={4} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.DOLLY, RIGHT:THREE.MOUSE.DOLLY}} />
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
+            {/* <ShakeCamera /> */}
           </Stage>
-          
-          {/* <Grass2>
-            <BlobGeometry/>
-          </Grass2> */}
-
           <Grass/>
           {/* <mesh>
             <Html scale={100} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.51]}>
@@ -227,6 +320,9 @@ export default function App() {
       </Canvas>
       <Picker />
       <Panel selected={selected} />
+      <div ref={scrollRef} className="scroll">
+        <div style={{ height: `300vh`, pointerEvents: 'none'}}></div>
+      </div>
     </>
   )
 }
