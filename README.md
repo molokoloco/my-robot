@@ -6,7 +6,7 @@
 * https://threejs.org/examples/webgl2_volume_cloud.html
 
 * https://github.com/pmndrs/react-three-fiber
-* https://github.com/pmndrs/drei#camerashake
+* https://github.com/pmndrs/drei
 
 * https://codesandbox.io/s/friendly-cookies-v9mmc
 * https://codesandbox.io/embed/react-three-render3d-qobqy

@@ -2,11 +2,7 @@ import React from 'react';
 import { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-
-// https://github.com/pmndrs/drei#text
 import { Cloud, useGLTF, OrbitControls, Stage, CameraShake, useAnimations, Html, Text, TrackballControls, Environment, Lightformer, Select, useSelect, Sky, ContactShadows, Edges, useCursor, Sparkles } from '@react-three/drei'
-
-
 import Grass from "./Grass"
 import Words3d from "./Words3d"
 import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js';
@@ -14,26 +10,19 @@ import { Panel, useControls } from './MultiLeva'
 import { HexColorPicker } from "react-colorful"
 import { proxy, useSnapshot } from "valtio"
 
-
 // https://codesandbox.io/s/fairly-realistic-grass-y4thxd?file=/src/App.jsx:196-273
 import { Grass2 } from './Grass2'
 import { BlobGeometry } from './BlobGeometry'
 
-
-
-
-// { find: 'three-nodes', replacement: 'three/examples/jsm/nodes' }
-
 import { NodeMaterial, color, uv, mix, mul, checker } from 'three/examples/jsm/nodes/Nodes.js';
- 
+// { find: 'three-nodes', replacement: 'three/examples/jsm/nodes' }
 
 // Handling controls in Threejs is hard bc 3rd party components that change the camera need to know
 // about controls, or else all changes are overwritten. That is the case for both <Stage and <CameraShake.
 // In latest R3F controls can be set as the default so that other parts of the app may react to it.
 // By setting <OrbitControls makeDefault <Stage and <CameraShake are aware of the controls being used.
 // Should your own components rely on default controls, throughout the three they're available as:
-//   const controls = useThree(state => state.controls)
-
+// const controls = useThree(state => state.controls)
 
 const mobile = ( navigator.userAgent.match(/Android/i)
   || navigator.userAgent.match(/webOS/i)
@@ -43,10 +32,6 @@ const mobile = ( navigator.userAgent.match(/Android/i)
 );
 
 const scaleSparkles = Array.from({ length: 50 }, () => 2.5 + Math.random() * 10)
-
-
-////////////////////////////////////
-
 
 ////////////////////////////////////
 
@@ -219,24 +204,40 @@ function Robot({ scale, ...props }) {
 // new GLTFLoader()
 //   .setPath( 'models/gltf/' )
 //   .load( 'SheenChair.glb', function ( gltf ) {
-
 //     scene.add( gltf.scene );
-
 //     const object = gltf.scene.getObjectByName( 'SheenChair_fabric' );
 
 //     // Convert to NodeMaterial
 //     const material = NodeMaterial.fromMaterial( object.material );
-
 //     const checkerNode = checker( mul( uv(), 5 ) );
-
 //     material.sheenNode = mix( color( 0x00ffff ), color( 0xffff00 ), checkerNode );
 //     material.sheenRoughnessNode = checkerNode;
-
 //     object.material = material;
 
 //   } );
 
 
+
+
+// const mesh = useRef()
+// const [isHovered, setIsHovered] = useState(false);
+// const color = isHovered ? 0xe5d54d : 0xf95b3c;
+
+// const onHover = useCallback((e, value) => {
+//     e.stopPropagation(); // stop it at the first intersection
+//     setIsHovered(value);
+//   }, [setIsHovered]);
+// //...
+
+// <mesh 
+//   ref={mesh}
+//   position={position}
+//   onPointerOver={e => onHover(e, true)}
+//   onPointerOut={e => onHover(e, false)}
+// >
+//   <boxBufferGeometry attach="geometry" args={[0.047, 0.5, 0.29]} />
+//   <meshStandardMaterial color={color} attach="material" />
+// </mesh>
 
 
 
@@ -452,10 +453,10 @@ function MoveCam() {
     //camera.zoom = 3
   //})
 
-  return useFrame((state) => {
+  //return useFrame((state) => {
     //state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, 1.5 + state.mouse.x / 4, 0.075)
     //state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, 1.5 + state.mouse.y / 4, 0.075)
-  })
+  //})
 }
 
 // function fallback() {
@@ -481,10 +482,10 @@ export default function App() {
 
   return (
     <>
-      <Canvas shadows gl={{ antialias: true, outputEncoding: THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.5 }}>
+      <Canvas shadows gl={{ antialias: true, outputEncoding: THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}>
         <Suspense fallback={null}>
-          {/* <ambientLight intensity={0.01} /> */}
-          {/* <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow /> */}
+          <ambientLight intensity={0.5} />
+          <spotLight intensity={0.5} penumbra={1} position={[10, 10, 10]} castShadow />
           {/* <Sky azimuth={0.1} turbidity={10} rayleigh={0.5} inclination={0.6} distance={200} /> */}
           {/* <Environment preset="city">
             <Lightformer
@@ -495,15 +496,16 @@ export default function App() {
               target={[0, 0, 0]} // Target position (optional = undefined)
             />
           </Environment> */}
-          <Cloud position={[-4, 12, -5]} speed={0.2} opacity={1} />
-          <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} />
-          <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} />
-          <Cloud position={[4, 26, 5]} speed={0.2} opacity={0.5} />
-          <Cloud position={[4, 14, 8]} speed={0.2} opacity={0.75} />
+          <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff"/>
+          <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff"/>
+          <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff"/>
+          <Cloud position={[4, 26, 5]} speed={0.2} opacity={0.6} color="#ffffff"/>
+          <Cloud position={[4, 14, 8]} speed={0.2} opacity={0.75} color="#ffffff"/>
           <mesh position={[0, 14, 0]}>
             <Words3d maxCount={10} radius={7} />{/* <TrackballControls /> */}
           </mesh>
-          <Stage contactShadow={{ opacity: 1, blur: 2 }}>
+          <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
+            {/* <Environment preset="sunset" /> */}
             {/* <Sparkles count={scaleSparkles.length} size={scaleSparkles} position={[0, 3.8, 0]} scale={[4, 4, 4]} speed={0.3} /> */}
             <Select multiple box onChange={setSelected}>
               <Robot/>
@@ -515,12 +517,11 @@ export default function App() {
             {/* <MoveCam /> */}
           </Stage>
           
-          {/* <Environment preset="sunset" /> */}
           {/* <Grass2>
             <BlobGeometry/>
           </Grass2> */}
 
-          <Grass receiveShadow/>
+          <Grass/>
           {/* <mesh>
             <Html scale={100} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.51]}>
                 <h1>Hello World !</h1>

@@ -25,7 +25,6 @@ class Words3d extends React.Component { // React.PureComponent ?
     return false;
   }
 
-
   word({ children, ...props }) {
     const color = new THREE.Color()
     const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 2.5, letterSpacing: -0.05, lineHeight: 1, 'material-toneMapped': false }
@@ -75,18 +74,10 @@ class Words3d extends React.Component { // React.PureComponent ?
 */
 
 const randomWords = [
-    '', 'Internet', 'Multimédia', 'développement', 'Photoshop', 'News', 'Réseaux sociaux', '2D/3D', 'Vidéo', 'Animations', 'Audio', 'Dataviz', 'IA ...',
-    '<HTML5/>', 'JavaScript()', 'CSS3{}', 'SVG/PSD/AI', 'NodeJS()', 'Linux', 'PHP/Apache', 'MySQL', 'MangoDB', 'XML/JSON/RSS',
-    'Amazon AWS', 'Google Cloud', 'Docker', 'GIT', 'API', 'WordPress', 'SEO', 'Security', 'Social Networks'
+    '', 'Internet', 'Multimédia', 'développement', 'Photoshop', 'News', 'Réseaux sociaux', '2D/3D', 'Vidéo', 'Animations', 'Audio', 'Dataviz', 'IA',
+    '<HTML5/>', 'JavaScript()', 'CSS3{}', 'WebGL', 'SVG/PSD/AI', 'NodeJS()', 'Linux', 'PHP/Apache', 'MySQL', 'MangoDB', 'XML/JSON/RSS',
+    'Amazon AWS', 'Google Cloud', 'Facebook App', 'Docker', 'GIT', 'API', 'WordPress', 'SEO', 'Security', 'Social Networks'
 ];
-/*
-const randomWords = [
-    '', 'Internet', 'Multimédia', 'développement', 'Photoshop', 'News', 'Réseaux sociaux', '2D/3D', 'Vidéo', 'Animations', 'Audio', 'Dataviz', 'IA ...',
-    '<HTML5/> (Jade/Emmet)', 'JavaScript() (React/jQuery/Tree/Boostrap)', 'CSS3{} (SASS/LESS)', 'SVG/PSD/AI', 'NodeJS{} (NPM/Yarn)', 'Linux (Shell/Cmd)', 'PHP/Apache', 'MySQL', 'MangoDB', 'XML/JSON/RSS',
-    'Amazon AWS (CloudFormation/EC2/S3/...)', 'Google Cloud (Dialog Flow/Translate/Analytics/etc)', 'Docker', 'GIT (GitHub/Gitlab)', 'API (OpenAPI)', 'WordPress (Custom)', 'SEO', 'Security', 'Social Networks'
-];
-*/
-
 
 function Word({ children, ...props }) {
   const color = new THREE.Color()
@@ -116,20 +107,29 @@ export default function Words3d({ maxCount = 10, radius = 20, ...props }) {
 
   var ref = useRef()
 
+  var tmpWords = [...randomWords]
+  tmpWords = tmpWords.sort(() => Math.random() - 0.5)
+  var wordsLength = randomWords.length
+
+console.log('tmpWords', tmpWords);
+
+
   var words = useMemo(() => {
     const temp = []
     const spherical = new THREE.Spherical()
-    const count = randomWords.length > maxCount ? maxCount : randomWords.length;
+    const count = Math.floor(Math.sqrt(wordsLength))  //randomWords.length > maxCount) ? maxCount : randomWords.length;
+    console.log('count', count)
+
     const phiSpan = Math.PI / (count + 1)
     const thetaSpan = (Math.PI * 2) / count
     for (let i = 1; i < count + 1; i++)
-      for (let j = 0; j < count; j++) temp.push([new THREE.Vector3().setFromSpherical(spherical.set(radius, phiSpan * i, thetaSpan * j)), randomWords[i+j]])
+      for (let j = 0; j < count; j++) temp.push([new THREE.Vector3().setFromSpherical(spherical.set(radius, phiSpan * i, thetaSpan * j)), tmpWords.shift()]) // randomWords[i+j]
     return temp
-  }, [maxCount, radius])
+  }, [wordsLength, maxCount, radius, tmpWords])
 
-  // useFrame(({ clock }) => (
-  //   ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3)
-  // })
+  useFrame(({ clock }) => {
+    ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3
+  })
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
     ref.current.rotation.z = Math.sin(t / 1.5) / 8
@@ -139,6 +139,8 @@ export default function Words3d({ maxCount = 10, radius = 20, ...props }) {
   })
 
   //return words.map(([pos, word], index) => <Word key={index} position={pos} children={word} />)
+
+  //console.log('words', words);
 
   words = words.map(([pos, word], index) => <Word key={index} position={pos} children={word} />)
 
