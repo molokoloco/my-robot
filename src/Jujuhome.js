@@ -231,11 +231,11 @@ const fallback = function() {
   return (
   <Text
     scale={[10, 10, 10]}
-    color="black" // default
+    color="white" // default
     anchorX="center" // default
     anchorY="middle" // default
   >
-    HELLO WORLD
+    Loading...
   </Text>
   )
 }
@@ -310,7 +310,7 @@ export default function App() {
             />
           </Environment> */}
           <MySky/>
-          {/* <fog attach="fog" color="#205806" near={25} far={100} /> */}
+          <Grass/>
           <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
           <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
           <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff" depthTest={true}/>
@@ -323,17 +323,17 @@ export default function App() {
             {/* <Environment preset="sunset" /> */}
             {/* <Sparkles count={scaleSparkles.length} size={scaleSparkles} position={[0, 3.8, 0]} scale={[4, 4, 4]} speed={0.3} /> */}
             {/* <Select multiple box onChange={setSelected}> */}
-              <MyRobot/>
+            <MyRobot/>
             {/* </Select> */}
             <ContactShadows position={[0, 0, 0]} opacity={0.75} scale={10} blur={2.5} far={4} />
-            <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={1} far={100} zoom="2"/>
+            <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={0.1} far={50} zoom="2"/>
             {/* this._controls.mouseButtons = { ORBIT: THREE.MOUSE.RIGHT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.LEFT }; */}
             <OrbitControls makeDefault autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} enableDamping={true} maxDistance={36} minDistance={3.6} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}} />
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
             {/* <ShakeCamera /> */}
           </Stage>
-          <Grass/>
+          <fog attach="fog" color="#205806" near={25} far={100} />
           {/* <mesh>
             <Html scale={100} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.51]}>
                 <h1>Hello World !</h1>

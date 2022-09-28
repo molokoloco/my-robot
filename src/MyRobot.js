@@ -1,9 +1,11 @@
 import React from 'react';
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { useGLTF, useAnimations, Edges} from '@react-three/drei';
 import { proxy, useSnapshot } from "valtio"
+
+import pixTrans from './assets/pix.png';
 
 // const state = proxy({
 //   current: null,
@@ -12,8 +14,6 @@ import { proxy, useSnapshot } from "valtio"
 //     mesh: "#ffffff"
 //   },
 // })
-
-
 
 let previousAction, mixer, actions, activeAction, face;
 const api = { state: 'Idle' };
@@ -55,7 +55,7 @@ export default function Robot({ ...props }) {
 
   //actions['Idle'].play()
 
-  const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];
+  const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting']; //, 'Standing'
   const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
 
   mixer = new THREE.AnimationMixer(scene);
@@ -117,9 +117,9 @@ export default function Robot({ ...props }) {
         var rdmEmote = emotes[Math.floor(Math.random()*emotes.length)];
         api[rdmEmote]();
         console.log('rdmEmote', rdmEmote);
-      }, 4000)
+      }, 6000)
 
-    }, 8000)
+    }, 10000)
     return () => clearInterval(interval);
   }, []);
 
@@ -144,10 +144,12 @@ export default function Robot({ ...props }) {
       if (obj.name == 'Head_4') {
         obj.material.color = new THREE.Color( 'blue' ).convertSRGBToLinear()
       }
-      else  obj.material.color = new THREE.Color( 'yellow' ).convertSRGBToLinear()
+      else obj.material.color = new THREE.Color( 'yellow' ).convertSRGBToLinear()
       obj.material.needsUpdate = true;
     }
   })
+
+  const [textureTrans] = useLoader(THREE.TextureLoader, [pixTrans]) 
 
   return (
     <group ref={ref} dispose={null} {...props}>
@@ -159,14 +161,15 @@ export default function Robot({ ...props }) {
         onPointerOut={() => setHovered(false)}
         onClick={(e) => {
           var rdmAction = states[Math.floor(Math.random()*states.length)];
+          console.log('onClick', rdmAction);
           fadeToAction(rdmAction, 0.5);
           //var t = actionsList[Math.floor(Math.random()*actionsList.length)];
           //actions[t].play()
           //setIndex((index + 1) % names.length)
-          console.log('onClick');
         }}>
         <boxGeometry args={[3, 5, 3]}/>
-        <meshBasicMaterial wireframe  />
+        <meshBasicMaterial opacity="0" transparent="true" depthTest={true}/>
+        {/* wireframe  map={textureTrans} alphaTest="true" needUpdate="true" transparent="false" opacity="0.5" depthWrite="false" side={THREE.DoubleSide} color   */}
       </mesh>
     </group>
   )
