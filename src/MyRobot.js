@@ -1,39 +1,208 @@
 import React from 'react';
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three';
-//import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, useAnimations, Edges} from '@react-three/drei';
 import { proxy, useSnapshot } from "valtio"
 
-const state = proxy({
-  current: null,
-  items: {
-    laces: "#ffffff",
-    mesh: "#ffffff"
-  },
-})
+// const state = proxy({
+//   current: null,
+//   items: {
+//     laces: "#ffffff",
+//     mesh: "#ffffff"
+//   },
+// })
+
+
+
+let previousAction, mixer, actions, activeAction, face;
+const api = { state: 'Idle' };
+
+function fadeToAction(name, duration) {
+  previousAction = activeAction;
+  activeAction = actions[name];
+  if (previousAction !== activeAction) {
+    previousAction.fadeOut(duration);
+  }
+  activeAction
+    .reset()
+    .setEffectiveTimeScale(1)
+    .setEffectiveWeight(1)
+    .fadeIn(duration)
+    .play();
+}
 
 export default function Robot({ ...props }) {
   console.log('Robot()');
 
   const ref = useRef()
-  const snap = useSnapshot(state)
 
-  // Drei's useGLTF hook sets up draco automatically, that's how it differs from useLoader(GLTFLoader, url)
-  // { nodes, materials } are extras that come from useLoader, these do not exist in threejs/GLTFLoader
-  // nodes is a named collection of meshes, materials a named collection of materials
-  const {nodes, scene, materials, animations} = useGLTF('https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb')
-  const { actions } = useAnimations(animations, scene)
+  const { nodes, scene, materials, animations } = useGLTF('https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb')
+  //const { ref, actions, names, mixer } = useAnimations(animations, scene) //
 
-  const [isHovered, setIsHovered] = useState(false);
-  const color = isHovered ? 0xe5d54d : 0xf95b3c;
+  const [hovered, setHovered] = useState(false)
+  const [index, setIndex] = useState(0)
 
-  const onHover = useCallback((e, value) => {
-    e.stopPropagation(); // stop it at the first intersection
-    setIsHovered(value);
-  }, [setIsHovered]);
+  useEffect(() => void (document.body.style.cursor = hovered ? "pointer" : "auto"), [hovered])
+  
+  // const [isHovered, setIsHovered] = useState(false);
+  // const color = isHovered ? 0xe5d54d : 0xf95b3c;
 
-  // https://codesandbox.io/s/shoe-configurator-qxjoj?file=/src/App.js:1403-3292
+  // const onHover = useCallback((e, value) => {
+  //   e.stopPropagation(); // stop it at the first intersection
+  //   setIsHovered(value);
+  // }, [setIsHovered]);
+
+  //actions['Idle'].play()
+
+  const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting', 'Standing'];
+  const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
+
+  mixer = new THREE.AnimationMixer(scene);
+  actions = {};
+
+  for (let i = 0; i < animations.length; i++) {
+    const clip = animations[i];
+    const action = mixer.clipAction(clip);
+    actions[clip.name] = action;
+
+    if (emotes.indexOf(clip.name) >= 0 || states.indexOf(clip.name) >= 4) {
+      action.clampWhenFinished = true;
+      action.loop = THREE.LoopOnce;
+    }
+  }
+
+  function createEmoteCallback(name) {
+    api[name] = function () {
+      fadeToAction(name, 0.2);
+      mixer.addEventListener('finished', restoreState);
+    };
+    //emoteFolder.add(api, name);
+  }
+
+  function restoreState() {
+    mixer.removeEventListener('finished', restoreState);
+    fadeToAction(api.state, 0.2);
+  }
+
+  for (let i = 0; i < emotes.length; i++) {
+    createEmoteCallback(emotes[i]);
+  }
+
+  // expressions
+  face = scene.getObjectByName('Head_4');
+
+  const expressions = Object.keys(face.morphTargetDictionary);
+  //const expressionFolder = gui.addFolder('Expressions');
+  //for (let i = 0; i < expressions.length; i++) {
+  //   expressionFolder
+  //     .add(face.morphTargetInfluences, i, 0, 1, 0.01)
+  //     .name(expressions[i]);
+  // }
+
+  //console.log('api', api, 'states', states, 'emotes', emotes, 'expressions', expressions);
+  
+  useEffect(() => {
+
+    activeAction = actions[api.state];
+    activeAction.play();
+
+    const interval = setInterval(() => {
+
+      var rdmAction = states[Math.floor(Math.random()*states.length)];
+      fadeToAction(rdmAction, 0.5);
+      console.log('rdmAction', rdmAction);
+      
+      setTimeout(() => {
+        var rdmEmote = emotes[Math.floor(Math.random()*emotes.length)];
+        api[rdmEmote]();
+        console.log('rdmEmote', rdmEmote);
+      }, 4000)
+
+    }, 8000)
+    return () => clearInterval(interval);
+  }, []);
+
+  // let mixer = new THREE.AnimationMixer(scene);
+  // animations.forEach((clip) => {
+  //     const action = mixer.clipAction(clip);
+  //     action.play();
+  // });
+  useFrame((state, delta) => {
+      mixer.update(delta);
+  }, [mixer]);
+
+  scene.traverse((obj) => { // Recolor the ROBOT
+    if (obj.isMesh) {
+      // console.log('obj', obj.name)
+      // obj FootL_1 LowerLegL_1 LegL LowerLegR_1 LegR Head_2 Head_3 Head_4 ArmL 
+      // ShoulderL_1 ArmR ShoulderR_1 Torso_2 Torso_3 FootR_1 HandR_1 HandR_2 HandL_1 HandL_2
+      obj.receiveShadow = true
+      obj.castShadow = true
+      // const material = NodeMaterial.fromMaterial( obj.material )
+      // obj.material = new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } )
+      if (obj.name == 'Head_4') {
+        obj.material.color = new THREE.Color( 'blue' ).convertSRGBToLinear()
+      }
+      else  obj.material.color = new THREE.Color( 'yellow' ).convertSRGBToLinear()
+      obj.material.needsUpdate = true;
+    }
+  })
+
+  return (
+    <group ref={ref} dispose={null} {...props}>
+      <mesh>
+        <primitive object={scene}/>
+      </mesh>
+      <mesh position={[0, 2, 0]}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+        onClick={(e) => {
+          var rdmAction = states[Math.floor(Math.random()*states.length)];
+          fadeToAction(rdmAction, 0.5);
+          //var t = actionsList[Math.floor(Math.random()*actionsList.length)];
+          //actions[t].play()
+          //setIndex((index + 1) % names.length)
+          console.log('onClick');
+        }}>
+        <boxGeometry args={[3, 5, 3]}/>
+        <meshBasicMaterial wireframe  />
+      </mesh>
+    </group>
+  )
+}
+
+
+  //console.log('obj', obj.name)
+  // obj.onPointerOver = (e) => {
+  // //e.stopPropagation()
+  // //set(e.object.material.name)
+  // }
+  // obj.onPointerOut = (e) => {
+  // //e.intersections.length === 0 && set(null)
+  // }
+  // obj.onPointerMissed = () => (state.current = null)
+  // obj.onClick = (e) => {
+  // e.stopPropagation();
+  // //state.current = e.object.material.name
+  // }
+
+  // return (
+  //   <group
+  //     ref={ref}
+  //     dispose={null}>
+  //     {/* <mesh receiveShadow castShadow geometry={nodes.shoe.geometry} material={materials.laces} material-color={snap.items.laces} /> */}
+  //     {/* {meshs} */}
+  //     <primitive object={scene} {...props} 
+  //       onPointerOver={(e) => (e.stopPropagation(), set(e.object.material.name))}
+  //       onPointerOut={(e) => e.intersections.length === 0 && set(null)}
+  //       onPointerMissed={() => (state.current = null)}
+  //       onClick={(e) => (e.stopPropagation(), (state.current = e.object.material.name), console.log('e.object.material.name', e.object.material.name) )}/>
+  //   </group>
+  // )
+
+
+// https://codesandbox.io/s/shoe-configurator-qxjoj?file=/src/App.js:1403-3292
   // Cursor showing current color
   // const [hovered, set] = useState(null)
   // useEffect(() => {
@@ -55,14 +224,6 @@ export default function Robot({ ...props }) {
   // const isSelected = !!selected.find((sel) => sel === store)
   // useCursor(hovered)
 
-  useEffect(() => {
-
-    // Dance Death Idle Jump No Punch Running Sitting Standing ThumbsUp WalkJump Walking Wave Yes
-    actions.Idle.play()
-    // mixer.clipAction(animations[0], ref.current).play(), [])
-  
-  }, [actions, scene])
-  
 
   // const [start] = useState(() => Math.random() * 5000)
   // const [mixer] = useState(() => new THREE.AnimationMixer())
@@ -248,72 +409,4 @@ export default function Robot({ ...props }) {
   //   meshs += <mesh receiveShadow castShadow geometry={nodes[key].geometry} material={nodes[key].material} material-color="red"/>
   // }
 
-  scene.traverse((obj) => { // Recolor the ROBOT
-    if (obj.isMesh) {
-      // console.log('obj', obj.name)
-      // obj FootL_1 LowerLegL_1 LegL LowerLegR_1 LegR Head_2 Head_3 Head_4 ArmL 
-      // ShoulderL_1 ArmR ShoulderR_1 Torso_2 Torso_3 FootR_1 HandR_1 HandR_2 HandL_1 HandL_2
-      obj.receiveShadow = true
-      obj.castShadow = true
-      // obj.onClick = ((e) => console.log('clicked:'+obj.name))
-
-      
-      obj.onClick = (e) => {
-        e.stopPropagation();
-        //state.current = e.object.material.name
-        console.log('e.object.material.name0', e.object.material.name)
-      }
-
-      // const material = NodeMaterial.fromMaterial( obj.material )
-      // obj.material = new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } )
-      if (obj.name == 'Head_4') obj.material.color = new THREE.Color( 'red' ).convertSRGBToLinear()
-      else  obj.material.color = new THREE.Color( 'yellow' ).convertSRGBToLinear()
-      obj.material.needsUpdate = true;
-    }
-    else {
-      //console.log('obj', obj.name)
-
-      obj.onPointerOver = (e) => {
-        e.stopPropagation()
-        //set(e.object.material.name)
-        console.log('e.obj onPointerOver')
-      }
-      obj.onPointerOut = (e) => {
-        //e.intersections.length === 0 && set(null)
-      }
-      obj.onPointerMissed = () => (state.current = null)
-      obj.onClick = (e) => {
-        e.stopPropagation();
-        //state.current = e.object.material.name
-        console.log('e.object.material.name', e.object.material.name)
-      }
-    }
-  })
-
-  // return (
-  //   <group
-  //     ref={ref}
-  //     dispose={null}>
-  //     {/* <mesh receiveShadow castShadow geometry={nodes.shoe.geometry} material={materials.laces} material-color={snap.items.laces} /> */}
-  //     {/* {meshs} */}
-  //     <primitive object={scene} {...props} 
-  //       onPointerOver={(e) => (e.stopPropagation(), set(e.object.material.name))}
-  //       onPointerOut={(e) => e.intersections.length === 0 && set(null)}
-  //       onPointerMissed={() => (state.current = null)}
-  //       onClick={(e) => (e.stopPropagation(), (state.current = e.object.material.name), console.log('e.object.material.name', e.object.material.name) )}/>
-  //   </group>
-  // )
-
-  return (
-    <group ref={ref}>
-      <mesh>
-        <primitive object={scene} {...props}/>
-      </mesh>
-      <mesh position={[0, 2, 0]} onClick={(e) => console.log('e.object.material.name1', e)}>
-        <boxGeometry args={[3, 5, 3]}/>
-        <meshBasicMaterial wireframe opacity={0.5} depthTest={true} />
-      </mesh>
-    </group>
-  )
-}
-
+  //const [set, state] = useState(false);

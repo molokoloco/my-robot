@@ -1,12 +1,14 @@
 import React, {Dom} from 'react'
 import { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, extend, createRoot, events } from '@react-three/fiber';
 import { Cloud, useGLTF, OrbitControls, PerspectiveCamera, Stage, CameraShake, useAnimations, Html, Text, TrackballControls, Environment, Lightformer, Select, useSelect, ContactShadows, Edges, useCursor, Sparkles } from '@react-three/drei' //Sky, 
 import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
 import { Panel, useControls } from './MultiLeva'
 import { HexColorPicker } from "react-colorful"
 import { proxy, useSnapshot } from "valtio"
+
+import ReactDOM from 'react-dom/client';
 
 import Grass from "./Grass"
 import Words3d from "./Words3d"
@@ -16,9 +18,13 @@ import MyRobot from './MyRobot'
 
 import './index.css'
 
+// https://docs.pmnd.rs/react-three-fiber/api/canvas
+// Register the THREE namespace as native JSX elements.
+
+
 // https://codesandbox.io/s/fairly-realistic-grass-y4thxd?file=/src/App.jsx:196-273
-import { Grass2 } from './Grass2'
-import { BlobGeometry } from './BlobGeometry'
+// import { Grass2 } from './Grass2'
+// import { BlobGeometry } from './BlobGeometry'
 
 import { NodeMaterial, color, uv, mix, mul, checker } from 'three/examples/jsm/nodes/Nodes.js';
 // { find: 'three-nodes', replacement: 'three/examples/jsm/nodes' }
@@ -29,6 +35,9 @@ import { NodeMaterial, color, uv, mix, mul, checker } from 'three/examples/jsm/n
 // By setting <OrbitControls makeDefault <Stage and <CameraShake are aware of the controls being used.
 // Should your own components rely on default controls, throughout the three they're available as:
 // const controls = useThree(state => state.controls)
+
+
+extend(THREE)
 
 const mobile = ( navigator.userAgent.match(/Android/i)
   || navigator.userAgent.match(/webOS/i)
@@ -241,10 +250,10 @@ const fallback = function() {
 //           </Html>
 //         </mesh>
 //     );
-// } // <fallback/>
+// } // <fallback/>*
+
 
 export default function App() {
-
   const [selected, setSelected] = useState([])
   const cam = useRef();
 
@@ -263,20 +272,32 @@ export default function App() {
       return () => { window.removeEventListener( 'wheel', onMouseWheel, true ); };
   }, []);
 
+
+  // function onWindowResize() {
+	// 		var SCREEN_WIDTH = $(window).width() - 300;
+	// 		var SCREEN_HEIGHT = $(window).height() -150;
+  //     $("#container").attr("width",SCREEN_WIDTH);
+  //     $("#container").attr("height",SCREEN_HEIGHT);            
+  //                           camera.position.set(0, 0, 10)
+	// 		camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
+	// 	camera.updateProjectionMatrix();
+	// 		renderer.setSize( SCREEN_WIDTH,SCREEN_HEIGHT );
+	// 	}
+
   return (
     <>
       <Canvas
-        pixelratio={window.devicePixelRatio}
+        pixelratio={[1, 1]}
         shadows dpr={[1, 2]}
         gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
-        onCreated={(state) => state.events.connect(scrollRef.current)}
+        //onCreated={(state) => state.events.connect(scrollRef.current)}
         raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
       >
         <Suspense fallback={fallback()}>
           {/* <ScrollContainer> */}
-          <MyScroll  scroll={scroll}/>
+          {/* <MyScroll  scroll={scroll}/> */}
           {/* </ScrollContainer> */}
-          {/* <ambientLight intensity={0.5} /> */}
+          <ambientLight intensity={0.3} />
           {/* <spotLight intensity={0.5} penumbra={1} position={[10, 10, 10]} castShadow /> */}
           {/* <Sky azimuth={0.1} turbidity={10} rayleigh={0.5} inclination={0.6} distance={200} /> */}
           {/* <Environment preset="city">
@@ -289,13 +310,14 @@ export default function App() {
             />
           </Environment> */}
           <MySky/>
-          <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff"/>
-          <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff"/>
-          <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff"/>
-          <Cloud position={[4, 26, 5]} speed={0.2} opacity={0.6} color="#ffffff"/>
-          <Cloud position={[4, 14, 8]} speed={0.2} opacity={0.75} color="#ffffff"/>
-          <mesh position={[0, 14, 0]}>
-            <Words3d maxCount={10} radius={7} />{/* <TrackballControls /> */}
+          {/* <fog attach="fog" color="#205806" near={25} far={100} /> */}
+          <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
+          <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
+          <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff" depthTest={true}/>
+          <Cloud position={[4, 26, 5]} speed={0.2} opacity={0.6} color="#ffffff" depthTest={true}/>
+          <Cloud position={[4, 14, 8]} speed={0.2} opacity={0.75} color="#ffffff" depthTest={true}/>
+          <mesh position={[0, 10, 0]}>
+            <Words3d maxCount={100} radius={4} />{/* <TrackballControls /> */}
           </mesh>
           <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
             {/* <Environment preset="sunset" /> */}
@@ -304,8 +326,9 @@ export default function App() {
               <MyRobot/>
             {/* </Select> */}
             <ContactShadows position={[0, 0, 0]} opacity={0.75} scale={10} blur={2.5} far={4} />
-            <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={0} far={100} zoom="2"/>
-            <OrbitControls makeDefault autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} enableDamping={true} maxDistance={25} minDistance={4} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.DOLLY, RIGHT:THREE.MOUSE.DOLLY}} />
+            <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={1} far={100} zoom="2"/>
+            {/* this._controls.mouseButtons = { ORBIT: THREE.MOUSE.RIGHT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.LEFT }; */}
+            <OrbitControls makeDefault autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} enableDamping={true} maxDistance={36} minDistance={3.6} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}} />
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
             {/* <ShakeCamera /> */}
@@ -319,10 +342,22 @@ export default function App() {
         </Suspense>
       </Canvas>
       <Picker />
-      <Panel selected={selected} />
-      <div ref={scrollRef} className="scroll">
+      {/* <Panel selected={selected} /> */}
+      {/* <div ref={scrollRef} className="scroll">
         <div style={{ height: `300vh`, pointerEvents: 'none'}}></div>
-      </div>
+      </div> */}
     </>
   )
 }
+
+// // Create a react root
+// const root = createRoot(document.querySelector('canvas'))
+// root.configure({ events }) // , camera: { position: [0, 0, 50] }
+// window.addEventListener('resize', () => {
+//   console.log('resize');
+//   root.configure({ size: { width: window.innerWidth, height: window.innerHeight } })
+// })
+// window.dispatchEvent(new Event('resize'))
+// //root.render(<App />)
+// ReactDOM.render(<App />, root);
+// // root.unmount()

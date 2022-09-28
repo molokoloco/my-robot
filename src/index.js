@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-//import App from './App';
-//import Dino from './Dino';
-//import Robot from './Robot';
 import Jujuhome from './Jujuhome';
 //import reportWebVitals from './reportWebVitals';
 import WebGL from 'three/examples/jsm/capabilities/WebGL.js';
@@ -20,7 +17,6 @@ import WebGL from 'three/examples/jsm/capabilities/WebGL.js';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Dino/>  <App /><Robot/> */}
     { WebGL ? <Jujuhome/> : <div>WebGL.getWebGL2ErrorMessage()</div> }
   </React.StrictMode>
 );

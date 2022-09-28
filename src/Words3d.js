@@ -81,7 +81,7 @@ const randomWords = [
 
 function Word({ children, ...props }) {
   const color = new THREE.Color()
-  const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 0.6, letterSpacing: -0.05, lineHeight: 1, 'material-toneMapped': false }
+  const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 0.3, letterSpacing: 0, lineHeight: 1 }
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
   const over = (e) => {
