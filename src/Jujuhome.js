@@ -260,17 +260,32 @@ const MyOrbitControls = () => {
   const { camera, gl } = useThree();
   useEffect(
       () => {
-        const controls = new OrbitControls(camera, document.querySelector('body')); // gl.domElement
+        const controls = new OrbitControls(camera, document.querySelector('main')); // gl.domElement
         controls.makeDefault = true;
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.5;
+        
+        controls.enableRotate = true;
         controls.rotateSpeed = 1;
+
         controls.enableZoom = true;
+        controls.minZoom = 1;
+        controls.maxZoom = 3;
+
         controls.enablePan = true;
+        controls.panSpeed = 1;
+
         controls.enableDamping = true;
-        controls.maxPolarAngle = Math.PI / 2;
+
+        controls.minPolarAngle = 0.5;
+        controls.maxPolarAngle = Math.PI / 2.2;
+
+        controls.minAzimuthAngle = -Math.PI / 2;
+        controls.maxAzimuthAngle = Math.PI / 2;
+
         controls.maxDistance = 36;
         controls.minDistance = 3.6;
+
         controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY};
       
         return () => {
@@ -289,18 +304,17 @@ export default function App() {
   const scrollRef = useRef()
   const scroll = useRef(0)
 
-  function onMouseWheel( e ) {
-    //console.log('onMouseWheel',  e.target.scrollTop);
-    e.target.scrollTop = (e.target.scrollTop - e.wheelDeltaY) // scrollRef
-    scroll.current = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)
-    //console.log('scroll.current',scroll.current);
-  }
+  // function onMouseWheel( e ) {
+  //   //console.log('onMouseWheel',  e.target.scrollTop);
+  //   e.target.scrollTop = (e.target.scrollTop - e.wheelDeltaY) // scrollRef
+  //   scroll.current = e.target.scrollTop / (e.target.scrollHeight - e.target.clientHeight)
+  //   //console.log('scroll.current',scroll.current);
+  // }
 
-  useEffect(() => {
-      window.addEventListener( 'wheel', onMouseWheel, true );
-      return () => { window.removeEventListener( 'wheel', onMouseWheel, true ); };
-  }, []);
-
+  // useEffect(() => {
+  //     window.addEventListener( 'wheel', onMouseWheel, true );
+  //     return () => { window.removeEventListener( 'wheel', onMouseWheel, true ); };
+  // }, []);
 
   // function onWindowResize() {
 	// 		var SCREEN_WIDTH = $(window).width() - 300;

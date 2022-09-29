@@ -9,36 +9,20 @@ $(function() {
 
     "use strict";
 
-
-
-    var simulateMouseEvent = function simulateMouseEvent(target, type, e) {
-        target.dispatchEvent(new MouseEvent(type, {
-            'view': window,
-            'bubbles': false,
-            'cancelable': true,
-            'clientX': e.clientX,
-            'clientY': e.clientY,
-            'pageX': e.pageX,
-            'pageY': e.pageY
-        }));
-        //console.log('o');
-    };
-
-
     // Div behing canvas prevent event...
 
-    var $canvas = $('canvas').focus(),
-        canvas = $canvas[0],
-        int = null;
+    // var $canvas = $('canvas').focus(),
+    //     canvas = $canvas[0],
+    //     int = null;
 
-    $("body")
-        .on('click dblclick hover mousedown mouseenter mouseleave mouseout mouseover mouseup mousemove', function( event ) { //  
-             if (!int) int = setTimeout(function() {
-                canvas.dispatchEvent(new MouseEvent(event.type, event));
-                //console.log(event.type, event);
-                int = null;
-             }, 100);
-        });
+    // $("body")
+    //     .on('click dblclick hover mousedown mouseenter mouseleave mouseout mouseover mouseup mousemove', function( event ) { //  
+    //          if (!int) int = setTimeout(function() {
+    //             canvas.dispatchEvent(new MouseEvent(event.type, event));
+    //             //console.log(event.type, event);
+    //             int = null;
+    //          }, 100);
+    //     });
 
     // https://monim67.github.io/bootstrap-datetimepicker/
     // https://bootstrap-datepicker.readthedocs.io/en/latest/
