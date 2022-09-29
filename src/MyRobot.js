@@ -142,7 +142,7 @@ export default function Robot({ ...props }) {
       // const material = NodeMaterial.fromMaterial( obj.material )
       // obj.material = new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } )
       if (obj.name == 'Head_4') {
-        obj.material.color = new THREE.Color( 'blue' ).convertSRGBToLinear()
+        obj.material.color = new THREE.Color( 'pink' ).convertSRGBToLinear()
       }
       else obj.material.color = new THREE.Color( 'yellow' ).convertSRGBToLinear()
       obj.material.needsUpdate = true;
@@ -168,8 +168,9 @@ export default function Robot({ ...props }) {
           //setIndex((index + 1) % names.length)
         }}>
         <boxGeometry args={[3, 5, 3]}/>
-        <meshBasicMaterial opacity="0" transparent="true" depthTest={true}/>
-        {/* wireframe  map={textureTrans} alphaTest="true" needUpdate="true" transparent="false" opacity="0.5" depthWrite="false" side={THREE.DoubleSide} color   */}
+        <meshBasicMaterial map={textureTrans} color={0xff00ff} alphaTest="0.5" />
+        {/* <meshBasicMaterial opacity="0" transparent="true" thickness="0" transmission="0" depthTest={true}/> */}
+        {/* wireframe map={textureTrans} alphaTest="true" needUpdate="true" transparent="false" opacity="0.5" depthWrite="false" side={THREE.DoubleSide} color   */}
       </mesh>
     </group>
   )
