@@ -24,6 +24,13 @@ $(function() {
     //          }, 100);
     //     });
 
+    $(window).on('mousewheel', function( event ) {
+        //if (!int) int = setTimeout(function(e) {
+            $("main").scrollTop($("main").scrollTop() - event.originalEvent.wheelDelta)
+            //int = null;
+        //}, 100, event);
+    });
+
     // https://monim67.github.io/bootstrap-datetimepicker/
     // https://bootstrap-datepicker.readthedocs.io/en/latest/
 
