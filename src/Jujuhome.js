@@ -2,7 +2,9 @@ import React, {Dom} from 'react'
 import { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend, createRoot, events } from '@react-three/fiber';
-import { Cloud, useGLTF, OrbitControls, PerspectiveCamera, Stage, CameraShake, useAnimations, Html, Text, TrackballControls, Environment, Lightformer, Select, useSelect, ContactShadows, Edges, useCursor, Sparkles } from '@react-three/drei' //Sky, 
+import { Cloud, useGLTF, PerspectiveCamera, Stage, CameraShake, useAnimations, Html, Text, TrackballControls, Environment, Lightformer, Select, useSelect, ContactShadows, Edges, useCursor, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+
 import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
 import { Panel, useControls } from './MultiLeva'
 import { HexColorPicker } from "react-colorful"
@@ -252,6 +254,33 @@ const fallback = function() {
 //     );
 // } // <fallback/>*
 
+////////////////////////////////////
+
+const MyOrbitControls = () => {
+  const { camera, gl } = useThree();
+  useEffect(
+      () => {
+        const controls = new OrbitControls(camera, document.querySelector('body')); // gl.domElement
+        controls.makeDefault = true;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.5;
+        controls.rotateSpeed = 1;
+        controls.enableZoom = true;
+        controls.enablePan = true;
+        controls.enableDamping = true;
+        controls.maxPolarAngle = Math.PI / 2;
+        controls.maxDistance = 36;
+        controls.minDistance = 3.6;
+        controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY};
+      
+        return () => {
+          controls.dispose();
+        };
+      },
+      [camera, gl]
+  );
+  return null;
+};
 
 export default function App() {
   const [selected, setSelected] = useState([])
@@ -327,8 +356,9 @@ export default function App() {
             {/* </Select> */}
             <ContactShadows position={[0, 0, 0]} opacity={0.75} scale={10} blur={2.5} far={4} />
             <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={0.1} far={50} zoom="2"/>
+            <MyOrbitControls/>
             {/* this._controls.mouseButtons = { ORBIT: THREE.MOUSE.RIGHT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.LEFT }; */}
-            <OrbitControls makeDefault autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} enableDamping={true} maxDistance={36} minDistance={3.6} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}} />
+            {/* <OrbitControls makeDefault args={["PerspectiveCamera", "document"]} autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} maxDistance={36} minDistance={3.6} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}} /> */}
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
             {/* <ShakeCamera /> */}

@@ -1,0 +1,311 @@
+/*
+    Copyright : Julien Guézennec © 2022 https://julienweb.fr
+    Repository : https://github.com/molokoloco/medoucine/
+
+    + https://getbootstrap.com/docs/5.2/getting-started/introduction/
+*/
+
+
+/* Default styles
+-------------------------------------------------- */
+
+@import url('https://rsms.me/inter/inter.css');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  min-height: 100vh;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden;
+  background: hotpink;
+}
+
+body {
+	color: rgb(255, 255, 255);
+	font-size: 14px;
+	line-height: 24px;
+	overscroll-behavior: none;
+	margin: 0;
+	font-family: 'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body > * > * {
+	color: hotpink;
+}
+a {
+	color: #ff0;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+button {
+	cursor: pointer;
+	text-transform: uppercase;
+}
+
+a,
+button,
+input,
+select {
+	pointer-events: auto;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -3px;
+  line-height: 0.7em;
+}
+
+.scroll {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  top: 0;
+  left: 0;
+}
+.label {
+  pointer-events: none;
+}
+
+
+
+main {
+    position: absolute;
+    top: 54px;
+    left:0;
+    right: 0;
+    bottom: 0;
+    overflow-y: scroll;
+    z-index: 20;
+}
+
+main > .container {
+    height: 300vh;
+}}
+
+/* Custom styles
+-------------------------------------------------- */
+
+.medoucineBg {
+    background-color: hotpink;
+}
+
+.bulleBg {
+    display: inline-block;
+    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 0 5px;
+}
+
+#aide {
+    padding-left: 10px;
+}
+
+#aide i {
+    font-size: 20px;
+}
+
+#cabinetRecurentOptions {
+    background-color: #faf4f1;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: hotpink;
+    background-color: #d0e2d9;
+}
+
+
+/* Boostrap overide
+--------------------------------------------------  */
+
+.boostrapCustom {
+    --bs-body-color: rgb(24, 24, 24);
+    --bs-btn-border-radius: 20px;
+    --bs-body-font-size: 13px;
+    --bs-btn-font-size: 13px;
+}
+
+.btn-outline-success {
+    --bs-btn-color: hotpink;
+    --bs-btn-border-color: hotpink;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: hotpink;
+    --bs-btn-hover-border-color: hotpink;
+    --bs-btn-focus-shadow-rgb: 25, 135, 84;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: hotpink;
+    --bs-btn-active-border-color: hotpink;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: hotpink;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: hotpink;
+    --bs-gradient: none;
+}
+
+.navbar {
+    padding: 2px;
+    color: #ffffff;
+}
+
+#navigation,
+#navigation a {
+    color: hotpink;
+    font-size: 12px;
+}
+
+#navigation {
+    margin-bottom: 20px;
+}
+
+.nav-link,
+.navbar-nav .nav-link,
+.navbar-nav .nav-link.active {
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold;
+    height: 35px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+/* .nav-item:has(.active) {
+    border-bottom: 3px #FFF solid;
+} */
+
+.nav-item:has(.active)::after {
+    content: "";
+    position: absolute;
+    top: 49%;
+    width: 100%;
+    border-bottom: 3px #FFF solid;
+    padding: 12px;
+    z-index: 1;
+}
+
+.navbar-nav .nav-link:hover {
+    text-decoration: underline;
+}
+
+.btn {
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+
+/* Boostrap overide form
+--------------------------------------------------  */
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control,
+.form-select {
+    border-radius: 20px!important;
+}
+
+.form-check-input:checked {
+    background-color: hotpink;
+    border-color: hotpink;
+}
+
+.form-check-inline {
+    margin-right: 5px;
+}
+
+#cabinetDate,
+#cabinetDateRepetition {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background: #fff url("../img/input-cal.png") no-repeat right center;
+}
+
+.customFormCheck .form-check-input {
+    display: none;
+}
+
+.customFormCheck .form-check-input:checked+.form-check-label {
+    background-color: hotpink;
+    color: #fff;
+}
+
+.customFormCheck .form-check-label {
+    border-radius: 50%;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.customFormCheck .form-check-label:hover {
+    background-color: #d0e2d9;
+}
+
+select,
+[type="checkbox"] {
+    cursor: pointer;
+}
+
+
+/* jQuery UI Sortables
+--------------------------------------------------  */
+
+#consultationsOrder {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#consultationsOrder li {
+    margin: 0 3px 3px 3px;
+    padding: 5px 5px 5px 15px;
+    height: 30px;
+    line-height: 30px;
+    color: rgb(24, 24, 24);
+    font-weight: 400;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.closeSortable i {
+    color: rgb(24, 24, 24);
+}
+
+.ui-state-default {
+    border: none;
+}
