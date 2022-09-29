@@ -281,10 +281,10 @@ const MyOrbitControls = () => {
         controls.maxPolarAngle = Math.PI / 2.2;
 
         controls.minAzimuthAngle = -Math.PI / 2;
-        controls.maxAzimuthAngle = Math.PI / 2;
-
-        controls.maxDistance = 36;
+        controls.maxAzimuthAngle = Math.PI / 2;        controls.maxDistance = 36;
         controls.minDistance = 3.6;
+
+        controls.zoom = 14;
 
         controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY};
       

@@ -47,7 +47,7 @@ body > * > * {
 	color: hotpink;
 }
 a {
-	color: #ff0;
+	color: hotpink;
 	text-decoration: none;
 }
 
@@ -73,6 +73,10 @@ h1 {
   line-height: 0.7em;
 }
 
+h4 {
+    color: yellow;
+}
+
 .scroll {
   position: absolute;
   width: 100vw;
@@ -85,19 +89,18 @@ h1 {
   pointer-events: none;
 }
 
-
-
 main {
     position: absolute;
-    top: 54px;
+    top: 60px;
     left:0;
     right: 0;
-    bottom: 0;
+    bottom: 30px;
     overflow-y: scroll;
     z-index: 20;
 }
 
 main > .container {
+    padding-top: 60px;
     height: 300vh;
 }}
 
@@ -171,6 +174,7 @@ footer {
 .navbar {
     padding: 2px;
     color: #ffffff;
+    height: 60px;
 }
 
 #navigation,
@@ -199,14 +203,25 @@ footer {
     position: relative;
 }
 
+.navbar-brand {
+    color: yellow;
+    line-height: 60px;
+    width: 180px;
+    text-align: center;
+}
+
 /* .nav-item:has(.active) {
     border-bottom: 3px #FFF solid;
 } */
 
+.card {
+    background-color: #fff9;
+}
+
 .nav-item:has(.active)::after {
     content: "";
     position: absolute;
-    top: 49%;
+    top: 23px;
     width: 100%;
     border-bottom: 3px #FFF solid;
     padding: 12px;
