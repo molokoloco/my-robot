@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
-import * as THREE from 'three';
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
-import { useGLTF, useAnimations, Edges} from '@react-three/drei';
+import * as THREE from 'three'
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
+import { useGLTF, useAnimations, Edges} from '@react-three/drei'
 import { proxy, useSnapshot } from "valtio"
 
-import pixTrans from './assets/pix.png';
+import pixTrans from './assets/pix.png'
 
 // const state = proxy({
 //   current: null,
@@ -15,8 +15,8 @@ import pixTrans from './assets/pix.png';
 //   },
 // })
 
-let previousAction, mixer, actions, activeAction, face;
-const api = { state: 'Idle' };
+let previousAction, mixer, actions, activeAction, face
+const api = { state: 'Idle' }
 
 function fadeToAction(name, duration) {
   previousAction = activeAction;
@@ -33,7 +33,7 @@ function fadeToAction(name, duration) {
 }
 
 export default function Robot({ ...props }) {
-  console.log('Robot()');
+  console.log('Robot()')
 
   const ref = useRef()
 
@@ -55,44 +55,44 @@ export default function Robot({ ...props }) {
 
   //actions['Idle'].play()
 
-  const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting']; //, 'Standing'
-  const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp'];
+  const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death', 'Sitting'] //, 'Standing'
+  const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp']
 
-  mixer = new THREE.AnimationMixer(scene);
-  actions = {};
+  mixer = new THREE.AnimationMixer(scene)
+  actions = {}
 
   for (let i = 0; i < animations.length; i++) {
-    const clip = animations[i];
-    const action = mixer.clipAction(clip);
-    actions[clip.name] = action;
+    const clip = animations[i]
+    const action = mixer.clipAction(clip)
+    actions[clip.name] = action
 
     if (emotes.indexOf(clip.name) >= 0 || states.indexOf(clip.name) >= 4) {
-      action.clampWhenFinished = true;
-      action.loop = THREE.LoopOnce;
+      action.clampWhenFinished = true
+      action.loop = THREE.LoopOnce
     }
   }
 
   function createEmoteCallback(name) {
     api[name] = function () {
-      fadeToAction(name, 0.2);
-      mixer.addEventListener('finished', restoreState);
-    };
+      fadeToAction(name, 0.2)
+      mixer.addEventListener('finished', restoreState)
+    }
     //emoteFolder.add(api, name);
   }
 
   function restoreState() {
-    mixer.removeEventListener('finished', restoreState);
-    fadeToAction(api.state, 0.2);
+    mixer.removeEventListener('finished', restoreState)
+    fadeToAction(api.state, 0.2)
   }
 
   for (let i = 0; i < emotes.length; i++) {
-    createEmoteCallback(emotes[i]);
+    createEmoteCallback(emotes[i])
   }
 
   // expressions
-  face = scene.getObjectByName('Head_4');
+  face = scene.getObjectByName('Head_4')
 
-  const expressions = Object.keys(face.morphTargetDictionary);
+  const expressions = Object.keys(face.morphTargetDictionary)
   //const expressionFolder = gui.addFolder('Expressions');
   //for (let i = 0; i < expressions.length; i++) {
   //   expressionFolder
@@ -104,23 +104,23 @@ export default function Robot({ ...props }) {
   
   useEffect(() => {
 
-    activeAction = actions[api.state];
-    activeAction.play();
+    activeAction = actions[api.state]
+    activeAction.play()
 
     const interval = setInterval(() => {
 
-      var rdmAction = states[Math.floor(Math.random()*states.length)];
-      fadeToAction(rdmAction, 0.5);
-      console.log('rdmAction', rdmAction);
+      var rdmAction = states[Math.floor(Math.random() * states.length)]
+      fadeToAction(rdmAction, 0.5)
+      console.log('rdmAction', rdmAction)
       
       setTimeout(() => {
-        var rdmEmote = emotes[Math.floor(Math.random()*emotes.length)];
+        var rdmEmote = emotes[Math.floor(Math.random() * emotes.length)]
         api[rdmEmote]();
-        console.log('rdmEmote', rdmEmote);
+        console.log('rdmEmote', rdmEmote)
       }, 6000)
 
     }, 10000)
-    return () => clearInterval(interval);
+    return () => clearInterval(interval)
   }, []);
 
   // let mixer = new THREE.AnimationMixer(scene);
@@ -145,7 +145,7 @@ export default function Robot({ ...props }) {
         obj.material.color = new THREE.Color( 'pink' ).convertSRGBToLinear()
       }
       else obj.material.color = new THREE.Color( 'yellow' ).convertSRGBToLinear()
-      obj.material.needsUpdate = true;
+      obj.material.needsUpdate = true
     }
   })
 
@@ -160,10 +160,10 @@ export default function Robot({ ...props }) {
         onPointerOver={() => setHovered(true)}
         onPointerOut={() => setHovered(false)}
         onClick={(e) => {
-          var rdmAction = states[Math.floor(Math.random()*states.length)];
-          console.log('onClick', rdmAction);
-          fadeToAction(rdmAction, 0.5);
-          //var t = actionsList[Math.floor(Math.random()*actionsList.length)];
+          var rdmAction = states[Math.floor(Math.random()*states.length)]
+          console.log('onClick', rdmAction)
+          fadeToAction(rdmAction, 0.5)
+          //var t = actionsList[Math.floor(Math.random()*actionsList.length)]
           //actions[t].play()
           //setIndex((index + 1) % names.length)
         }}>

@@ -1,0 +1,23 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Julien Guézennec
+N:;Julien;Guézennec;;
+NICKNAME:Molokoloco
+EMAIL;TYPE=INTERNET;TYPE=HOME:molokoloco@gmail.com
+EMAIL;TYPE=INTERNET:molokoloco@yahoo.com
+TEL;TYPE=CELL:0661756498
+TEL;TYPE=HOME:+33951025619
+ADR;TYPE=HOME:;;6 Rue Lépine;Pantin;;93500;FR;6 Rue Lépine\n93500 Pantin\nF
+ R
+item1.URL:https\://julienweb.fr
+item1.X-ABLabel:Website
+item2.URL:https\://www.linkedin.com/in/julien-guezennec/
+item2.X-ABLabel:LinkedIn
+item3.URL:https\://github.com/molokoloco
+item3.X-ABLabel:GitHub
+ROLE:WebDev
+NOTE:Gender: Male
+PHOTO:https://lh3.googleusercontent.com/contacts/ABsqpluE6rEdYcVqTofg7QSLle
+ T07pVBBuOu3GA5OBdtjxKVm63VUNuB
+CATEGORIES:POTOS DEKONOS,myContacts,starred
+END:VCARD

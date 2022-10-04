@@ -31,6 +31,15 @@ $(function() {
         //}, 100, event);
     });
 
+    $( "main > .container section" )
+        .draggable({
+            axis: 'y',
+            scroll: true,
+            scrollSensitivity: 100,
+            scrollSpeed: 100//,
+            //containment: "parent"
+        });
+
     // https://monim67.github.io/bootstrap-datetimepicker/
     // https://bootstrap-datepicker.readthedocs.io/en/latest/
 

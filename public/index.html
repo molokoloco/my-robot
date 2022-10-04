@@ -207,43 +207,6 @@
     </div>
     <!-- Modal Gérer mon cabinet -->
 
-    <!-- Modal Gérer mes consultations -->
-    <div class="modal fade" id="consultations" tabindex="-1" aria-labelledby="consultationsLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form id="consultationsForm" class="needs-validation" novalidate>
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="consultationsLabel">Gérer mes consultations</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col col-12 mb-3">
-                                <label for="consultationsListe" class="form-label">Types de consultations</label>
-                                <span id="consultationsListe" class="autocomplete-select"></span>
-                                <div class="invalid-feedback">Vous devez choisir un type.</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-12 mb-3">
-                                <label for="consultationsOrder" class="form-label">Ordre de préférence</label>
-                                <ul id="consultationsOrder">
-                                    <!-- <li class="ui-state-default"><i class="bi bi-grip-vertical"></i> 1-Naturopathie <a href="#" class="closeSortable"><i class="bi bi-x"></i></a></li> -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light text-success" data-bs-dismiss="modal"><strong>Annuler</strong></button>
-                        <button type="submit" class="btn btn-success">Enregistrer</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- Modal Gérer mes consultations -->
-    <!--Modal-->
-
     <!--React App-->
     <div id="root"></div>
     <!--React App-->
@@ -270,8 +233,8 @@
                             <div class="card-body">
                                 <p class="card-text"><h3>Creative Developer</h3>
                                 <strong>Mobile, Desktop & Web, Cross-platform code, Fast Websites & Futur apps</strong></p>
-                                <p class="card-text">Je suis Julien Guézennec, un Webmaster, un WebDev/Designer Internet, un développeur logiciel, français, avec le surnom et l'ID "molokoloco".<br/>
-                                Je suis spécialisé dans le développement front-end d'applications mobiles et web.<br/>
+                                <p class="card-text">Je suis Julien Guézennec, un webmaster et architecte logiciel français, avec le pseudo de "Molokoloco".<br/>
+                                J'ai créé mon premier site Web en 1998 (Pour Alcatel Lannion) et je suis tombé amoureux du développement et du multimédia. Depuis, je n'ai jamais cessé d'apprendre des choses. Je suis spécialisé dans le développement front-end et back-end de sites mobiles et web.<br/>
                                 J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de la performance, de la maintenabilité et de l'évolutivité.</p>
                                 <ul>
                                     <li >Freelance web</li>
@@ -281,9 +244,7 @@
                                     <li >E-commerce</li>
                                     <li>Réseaux sociaux</li>
                                 </ul>
-                                <p class="card-text"><strong>Contact :</strong> <a href="mailto:julien.guezennec@gmail.com">julien.guezennec@gmail.com</a></p>
-                                <br/>
-                                <p><button id="btnCabinet" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cabinet">Entrer en contact</button></p>
+                                <p class="text-center"><button id="btnCabinet" type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cabinet">Entrer en contact</button></p><!-- <a href="mailto:julien.guezennec@gmail.com">julien.guezennec@gmail.com</a> -->
                             </div>
                         </div>
                     </div>
@@ -292,7 +253,7 @@
                         
                         <div class="card border-light mb-3" style="max-width: 540px;">
                             <div class="card-body">
-                                <p class="card-text"><h3>Home made code artworks</h3></p>
+                                <p class="card-text"><h3>Craft Code & Design</h3></p>
                                 <p><a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/etienne-chouard-centralite-du-tirage-au-sort-en-democratie/" title="My Book ReadR V2 – HTML5 / jQuery polished “Page as a Book” reader">MyBookReadR V2</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/" title="jQuery Colonize plugin : In-between titles multicols paragraphs with CSS3">jQuery.colonize</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/dynamisez-vos-pages-web-avec-jquery-boxfx-js/" title="Dynamisez vos pages web avec jQuery.boxFx.js">jQuery.boxFx</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/mutli-screen-flat-3d-analogue-clock-with-jquery-and-css3-v2-3/" title="Multi-screen “Flat 3D” analogue clock (jQuery/CSS3)">jQuery.flatClock3d</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/wall/" title="Try the speed Wall !" target="_blank">The RSS Wall</a> • <a href="https://web.archive.org/web/20160311233601/http://home.b2bweb.fr/" title="GoogleBot is Fast Web Start • CodeBot is Fast Coding Tools • TwitterBot is full access to twitter" target="_blank">FastWebStart</a> • <a href="https://web.archive.org/web/20160311233601/http://www.braincer.fr/" title="Braincer is a 3D music visualizer : ♫ Playing ♫" target="_blank">Braincer.fr</a><br>
                                 My latest sources and sheets :<br>
                                 <a href="https://web.archive.org/web/20160311233601/https://github.com/molokoloco/" target="_blank" title="Molokoloco Github sources repository">Github sources</a> • <a href="https://web.archive.org/web/20160311233601/http://code.google.com/p/molokoloco-coding-project/w/list" target="_blank" title="Molokoloco coding project on Google Code">Personnal wikis</a> • <a href="https://web.archive.org/web/20160311233601/http://jsfiddle.net/user/molokoloco/" target="_blank" title="Fiddles posted by Molokoloco">jsFiddle examples</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/best-must-know-ressources-for-building-the-new-web-%E2%98%85/" title="Best “must know” open sources to build the new Web">WebDev bookmarks</a></p>
@@ -301,23 +262,9 @@
                         <br/>
                         <div class="card border-light mb-3" style="max-width: 540px;">
                             <div class="card-body">
-                                <p class="card-text"><h3>Design</h3></p>
-                                <p class="card-text">Architecte logiciel, j'ai créé mon premier site Web en 1998 et je suis tombé amoureux du développement Web. Depuis, je n'ai jamais cessé d'apprendre des choses.<br/>
-                                    Au fil des années, j'ai affiné ma façon d'aborder le développement, ce qui me permet de prendre en toute confiance des choix de conception de haut niveau lors de la création d'applications Web et mobiles, et de sélectionner des outils adaptés à l'interface utilisateur dont vous avez besoin.</p>
-                            </div>
-                        </div> 
-                    </div>
- 
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12 mb-4 ms-auto">
-
-                        <div class="card border-light mb-3">
-                            <div class="card-body">
                                 <p class="card-text"><h3>Follow Me</h3>
                                     <ul>
-                                        <li><a href="sms:+33678135439">
+                                        <li>
                                             <svg viewBox="0 0 24 24" width="36" height="36" fill="hsl(219.1, 100%, 99%)">
                                                 <path d="m2.001 9.352c0 1.873.849 2.943 1.683 3.943.031 1 .085 1.668-.333 3.183 1.748-.558 2.038-.778 3.008-1.374 1
                                                 .244 1.474.381 2.611.491-.094.708-.081 1.275.055 2.023-.752-.06-1.528-.178-2.33-.374-1.397.857-4.481
@@ -331,26 +278,26 @@
                                                 0c0-.453-.368-.82-.82-.82s-.82.367-.82.82.368.82.82.82.82-.367.82-.82z">
                                                 </path>
                                             </svg>
-                                            <span>Text Me: +33 6 61 75 64 98</span>
-                                        </a></li>
-                                        <li ><a href="mailto:molokoloco@gmaim.com">
+                                            <span>SMS : <a href="sms:+33678135439">+33 6 61 75 64 98</a></span>
+                                        </li>
+                                        <li >
                                             <svg viewBox="0 0 24 24" width="36" height="36" fill="hsl(219.1, 100%, 99%)">
                                                 <path d="m12 12.713-11.985-9.713h23.971zm-5.425-1.822-6.575-5.329v12.501zm10.85 0 6.575 7.172v-12.501zm-1.557
                                                 1.261-3.868 3.135-3.868-3.135-8.11 8.848h23.956z">
                                                 </path>
                                             </svg>
-                                            <span>Email Me: molokoloco@gmail.com</span>
-                                        </a></li>
-                                        <li ><a href="tel:+33678135439">
+                                            <span>Mail : <a href="mailto:julien.guezennec@gmail.com">julien.guezennec@gmail.com</a></span>
+                                        </li>
+                                        <li >
                                             <svg viewBox="0 0 24 24" width="36" height="36" fill="hsl(219.1, 100%, 99%)">
                                                 <path d="m20 22.621-3.521-6.795c-.008.004-1.974.97-2.064 1.011-2.24
                                                 1.086-6.799-7.82-4.609-8.994l2.083-1.026-3.493-6.817-2.106 1.039c-7.202 3.755 4.233 25.982 11.6
                                                 22.615.121-.055 2.102-1.029 2.11-1.033z">
                                                 </path>
                                             </svg>
-                                            <span>Call Me:  +33 6 61 75 64 98</span>
-                                        </a></li>
-                                        <li ><a href="https://twitter.com/molokoloco">
+                                            <span>Appel :  <a href="tel:+33678135439">+33 6 61 75 64 98</a></span>
+                                        </li>
+                                        <li >
                                             <svg viewBox="0 0 30 25" width="36" height="36" fill="hsl(219.1, 100%, 99%)">
                                                 <path d="m30 2.88565824c-1.1041883.49036576-2.2902965.82035307-3.5352486.9691935 1.2714895-.76150918
                                                 2.246452-1.96723203 2.7056651-3.40486905-1.1884158.70497289-2.5060574 1.21726088-3.9090804
@@ -367,9 +314,9 @@
                                                 1.2034152-.86881274 2.2476058-1.95223261 3.0725741-3.18564671z">
                                                 </path>
                                             </svg>
-                                            <span>Message Me: @molokoloco on Twitter</span>
-                                        </a></li>
-                                        <li ><a href="https://www.linkedin.com/in/julien-guezennec/">
+                                            <span>Message : <a href="https://twitter.com/molokoloco">@molokoloco</a> on Twitter</span>
+                                        </li>
+                                        <li >
                                             <svg viewBox="0 0 30 30" width="36" height="36" fill="hsl(219.1, 100%, 99%)">
                                                 <path d="m27.2727273 0h-24.54545457c-1.50681818 0-2.72727273 1.22045455-2.72727273 2.72727273v24.54545457c0
                                                 1.5068182 1.22045455 2.7272727 2.72727273 2.7272727h24.54545457c1.5068182 0 2.7272727-1.2204545
@@ -382,9 +329,9 @@
                                                 3.8059091-2.0904545 4.0731818 0 4.8259091 2.6809091 4.8259091 6.1663636z">
                                                 </path>
                                             </svg>
-                                            <span>Reach Me: @molokoloco on LinkedIn</span>
-                                        </a></li>
-                                        <li><a href="/MaximeThirouin.vcf" style="text-decoration: none;">
+                                            <span>Réseau : <a href="https://www.linkedin.com/in/julien-guezennec/">@julien-guezennec</a> on LinkedIn</span>
+                                        </li>
+                                        <li>
                                             <svg viewBox="0 0 30 30"
                                                 width="36" height="36" fill="hsl(219.1, 100%, 99%)">
                                                 <path d="m12.9325926 1.9057037c-6.08014816 0-11.0268889 4.94674074-11.0268889 11.0268889 0 3.2673333 1.43577778
@@ -407,14 +354,27 @@
                                                 0-12.9325926-5.7893333-12.9325926-12.9325926 0-7.1422963 5.7902963-12.9325926 12.9325926-12.9325926s12.9335555
                                                 5.7902963 12.9335555 12.9325926c0 7.1432593-5.7912592 12.9325926-12.9335555 12.9325926" fill-rule="evenodd" transform="translate(2 2)"></path>
                                             </svg>
-                                            <span>Save Me: Get my contact infos</span>
-                                        </a></li>
+                                            <span>Info de contact: <a href="%PUBLIC_URL%/contacts-Julien-Guézennec.vcf">Contacts.VCF</a></span>
+                                        </li>
                                     </ul>
                                 </p>
                             </div>
+                        </div> 
+                    </div>
+ 
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-lg-12 mb-4 ms-auto">
+
+                        <div class="card border-light mb-3">
+                            <div class="card-body">
+                                cqdsqsd
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                
             </section>
             <!--Section: Content-->
 

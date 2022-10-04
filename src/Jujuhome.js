@@ -369,7 +369,7 @@ export default function App() {
             <MyRobot/>
             {/* </Select> */}
             <ContactShadows position={[0, 0, 0]} opacity={0.75} scale={10} blur={2.5} far={4} />
-            <PerspectiveCamera ref={cam} makeDefault position={[10, 10, 5]} fov={60} near={0.1} far={50} zoom="2"/>
+            <PerspectiveCamera ref={cam} makeDefault position={[10, 20, 10]} fov={60} near={0.1} far={50} zoom="1"/>
             <MyOrbitControls/>
             {/* this._controls.mouseButtons = { ORBIT: THREE.MOUSE.RIGHT, ZOOM: THREE.MOUSE.MIDDLE, PAN: THREE.MOUSE.LEFT }; */}
             {/* <OrbitControls makeDefault args={["PerspectiveCamera", "document"]} autoRotate={true} autoRotateSpeed={0.5} enableZoom={true} enablePan={true} rotateSpeed={1} enableDamping={true} maxPolarAngle={Math.PI / 2} maxDistance={36} minDistance={3.6} mouseButtons={{LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}} /> */}

@@ -20,7 +20,7 @@ function getYPosition(x, z) {
   return y
 }
 
-export default function Grass({ options = { bW: 0.04, bH: 0.5, joints: 5 }, width = 60, instances = 100000, ...props }) {
+export default function Grass({ options = { bW: 0.04, bH: 0.5, joints: 5 }, width = 60, instances = 80000, ...props }) {
   const { bW, bH, joints } = options
   const materialRef = useRef()
   const [texture, alphaMap, earth] = useLoader(THREE.TextureLoader, [bladeDiffuse, bladeAlpha, grass]) 
