@@ -1,19 +1,37 @@
 #root {
   /* overflow: hidden; */
-  height: 100vh;
+  /* height: 100vh;
   width: 100vw;
-  min-height: 100vh;
-  -webkit-touch-callout: none;
+  min-height: 100vh; */
+  /* -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none;
-  overflow: hidden;
-  background: rgb(35, 35, 148);
+  user-select: none; */
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  z-index: 1;
 }
 
-.scroll {
+/* #root::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./assets/view.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+} */
+
+/* .scroll {
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -24,4 +42,4 @@
 
 .label {
   pointer-events: none;
-}
+} */

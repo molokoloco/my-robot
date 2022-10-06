@@ -99,6 +99,7 @@ function Word({ children, ...props }) {
     ref.current.quaternion.copy(camera.quaternion) // Make text face the camera
     ref.current.material.color.lerp(color.set(hovered ? 'yellow' : '#0971f1'), 0.1)
   })
+  
   return <Text ref={ref} onPointerOver={over} onPointerOut={out} onClick={() => console.log('clicked')} {...props} {...fontProps} children={children} />
 }
 
