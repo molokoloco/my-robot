@@ -2,7 +2,7 @@
 
 ## DEMO : https://molokoloco.github.io/my-robot/build/
 
-![Demo screen](https://raw.githubusercontent.com/molokoloco/my-robot/main/public/img/capture-myrobot.jpg?raw=true "Demo in progress")
+![Demo screen](https://raw.githubusercontent.com/molokoloco/my-robot/main/public/img/capture-myrobot.png?raw=true "Demo in progress")
 
 ```
 {
