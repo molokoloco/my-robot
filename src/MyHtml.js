@@ -4,21 +4,27 @@ import * as THREE from 'three';
 import { Html } from '@react-three/drei' 
 
 export default function MyHtml(props) { 
-  const group = useRef()
+  const group1 = useRef()
+  const group2 = useRef()
 
   // Make it float
   useFrame((state) => {
     const t = state.clock.getElapsedTime()
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, Math.cos(t / 2) / 20, 0.1)
-    group.current.rotation.y = THREE.MathUtils.lerp(group.current.rotation.y, Math.sin(t / 4) / 20, 0.1)
-    group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, Math.sin(t / 8) / 20, 0.1)
-    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, (-2 + Math.sin(t / 2)) / 2, 0.1)
+    group1.current.rotation.x = THREE.MathUtils.lerp(group1.current.rotation.x, Math.cos(t / 2) / 20, 0.1)
+    group1.current.rotation.y = THREE.MathUtils.lerp(group1.current.rotation.y, Math.sin(t / 4) / 20, 0.1)
+    group1.current.rotation.z = THREE.MathUtils.lerp(group1.current.rotation.z, Math.sin(t / 8) / 20, 0.1)
+    group1.current.position.y = THREE.MathUtils.lerp(group1.current.position.y, (Math.sin(t / 2)) / 2, 0.1)
+
+    group2.current.rotation.x = THREE.MathUtils.lerp(group2.current.rotation.x, Math.cos(t / 2) / 20, 0.1)
+    group2.current.rotation.y = THREE.MathUtils.lerp(group2.current.rotation.y, Math.sin(t / 4) / 20, 0.1)
+    group2.current.rotation.z = THREE.MathUtils.lerp(group2.current.rotation.z, Math.sin(t / 8) / 20, 0.1)
+    group2.current.position.y = THREE.MathUtils.lerp(group2.current.position.y, (Math.sin(t / 2)) / 2, 0.1)
   })
 
   return (
-    <group ref={group} {...props} dispose={null}  position={[0, 5, -10]}>
-      <mesh>
-        <Html transform scale={1} rotation={[0, 0, 0]} position={[-15, 0, 0]}>
+    <>
+      <mesh ref={group1} {...props} dispose={null} position={[-15, 15, -6]}>
+        <Html transform>
             <div className="card border-light mb-3" style={{width: '500px'}}>
                 <div className="card-body">
                     <h3>Creative Developer</h3>
@@ -32,8 +38,8 @@ export default function MyHtml(props) {
               </div>
         </Html>
       </mesh>
-      <mesh>
-        <Html transform scale={1} rotation={[0, 0, 0]} position={[5, 0, 0]}>
+      <mesh ref={group2} position={[8, 15, -6]}>
+        <Html transform scale={1} rotation={[0, 0, 0]}>
           <div className="col-lg-6 mb-4 ms-auto">
                   <div className="card border-light mb-3" style={{width: '500px'}}>
                       <div className="card-body">
@@ -145,6 +151,6 @@ export default function MyHtml(props) {
               </div>
           </Html>
         </mesh>
-    </group>
+    </>
   )
 }

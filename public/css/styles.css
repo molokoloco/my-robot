@@ -32,7 +32,7 @@ body {
   background: hotpink;
 }
 
-p,
+/* p,
 a {
   -webkit-touch-callout: all;
   -webkit-user-select: all;
@@ -40,7 +40,7 @@ a {
   -moz-user-select: all;
   -ms-user-select: all;
   user-select: all;
-}
+} */
 
 body {
 	color: rgb(255, 255, 255);
@@ -117,13 +117,27 @@ main > .container {
 }
 
 #card1 {
-  position: absolute;
-  top: 20%;
-  left: 10%;
-  bottom: 10%;
-  width: 25%;
-  z-index: 100;
-  overflow: auto;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    bottom: 10%;
+    width: 25%;
+    z-index: 100;
+    overflow: auto;
+
+    display: none;
+}
+
+#card2 {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    bottom: 10%;
+    width: 25%;
+    z-index: 100;
+    overflow: auto;
+
+    display: none;
 }
 
 /* Custom styles

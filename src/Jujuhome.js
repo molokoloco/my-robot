@@ -273,7 +273,7 @@ const MyOrbitControls = () => {
 
         controls.zoom = 14;
 
-        //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY};
+        controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY};
       
         return () => {
           controls.dispose();
@@ -359,7 +359,7 @@ export default function App() {
             {/* <Select multiple box onChange={setSelected}> */}
             <MyRobot/>
             {/* </Select> */}
-            <PerspectiveCamera ref={cam} makeDefault position={[10, 20, 10]} fov={60} near={0.1} far={50} zoom="1"/>
+            <PerspectiveCamera ref={cam} makeDefault fov={60} near={0.1} far={50} zoom="1"/>
             <MyOrbitControls/>
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
