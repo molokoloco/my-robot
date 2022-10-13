@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/my-robot/build/static/css/main.34d57150.css",
-    "main.js": "/my-robot/build/static/js/main.1f1fa38e.js",
+    "main.js": "/my-robot/build/static/js/main.2c22d9ca.js",
     "static/media/grass.jpg": "/my-robot/build/static/media/grass.63947fd76ffb0a9c6c8a.jpg",
     "static/media/blade_diffuse.jpg": "/my-robot/build/static/media/blade_diffuse.afc6a995c517c5c0bb32.jpg",
     "index.html": "/my-robot/build/index.html",
     "static/media/blade_alpha.jpg": "/my-robot/build/static/media/blade_alpha.fd72bbc9635d5a296576.jpg",
     "main.34d57150.css.map": "/my-robot/build/static/css/main.34d57150.css.map",
-    "main.1f1fa38e.js.map": "/my-robot/build/static/js/main.1f1fa38e.js.map"
+    "main.2c22d9ca.js.map": "/my-robot/build/static/js/main.2c22d9ca.js.map"
   },
   "entrypoints": [
     "static/css/main.34d57150.css",
-    "static/js/main.1f1fa38e.js"
+    "static/js/main.2c22d9ca.js"
   ]
 }

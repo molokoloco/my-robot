@@ -27,15 +27,13 @@ export default function MyHtml(props) {
         <Html transform>
             <div className="card border-light mb-3" style={{width: '600px'}}>
                 <div className="card-body">
-                    <h3>Développeur créatif</h3>
+                    <h3 className="text-center">Développeur créatif</h3>
                     <p className="card-text"><strong>Bureau, mobile, code multi-plateforme, sites rapides & applications du futur</strong></p>
                     <p className="card-text">Je suis Julien Guézennec, webmaster sous le pseudo de "Molokoloco".<br/>
-                    J'ai créé mon premier site Web en 1998 (Pour Alcatel Lannion) et je suis tombé amoureux d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai jamais cessé d'apprendre des choses. Je suis spécialisé dans le développement front-end et back-end de sites mobiles et web et expert dans de nombreux domaines.<br/>
+                    J'ai créé mon premier site Web en 1998 (Pour Alcatel Lannion) et je suis tombé amoureux d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai jamais cessé d'apprendre. Je suis spécialisé dans le développement front et back-end de sites mobiles et web et expert dans de nombreux domaines.<br/>
                     J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de la performance, de la maintenabilité et de l'évolutivité.</p>
                     <p><strong>Freelance web • Conception Internet • Consultant • Formation • E-commerce • Réseaux sociaux • A l'écoute du marché</strong></p>
-                    <p className="text-center"><button id="btnCabinet" type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cabinet">Entrer en contact</button></p>
-                    <br/>
-                    <h3>Suivons-nous !</h3>
+                    <h3 className="text-center">Connectons-nous !</h3>
                     <ul className="list-unstyled">
                         <li>
                             <svg viewBox="0 0 24 24" width="36" height="36" fill="hsl(219.1, 100%, 99%)">
@@ -133,9 +131,15 @@ export default function MyHtml(props) {
                                 0-12.9325926-5.7893333-12.9325926-12.9325926 0-7.1422963 5.7902963-12.9325926 12.9325926-12.9325926s12.9335555
                                 5.7902963 12.9335555 12.9325926c0 7.1432593-5.7912592 12.9325926-12.9335555 12.9325926" fillRule="evenodd" transform="translate(2 2)"></path>
                             </svg>
-                            <span>Mes contacts : <a href="%PUBLIC_URL%/contacts-Julien-Guézennec.vcf">Contacts.VCF</a> sur votre mobile</span>
+                            <span>Carte de visite : <a href="%PUBLIC_URL%/contacts-Julien-Guézennec.vcf">Julien-Guézennec.VCF</a> sur mobile</span>
                         </li>
                     </ul>
+                    <p className="text-center"><button id="btnCabinet" type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#cabinet">Formulaire de contact</button></p>
+                    <br/>
+                    <h3 className="text-center">Quelques travaux</h3>
+                    <p><a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/etienne-chouard-centralite-du-tirage-au-sort-en-democratie/" title="My Book ReadR V2 – HTML5 / jQuery polished “Page as a Book” reader">MyBookReadR V2</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/" title="jQuery Colonize plugin : In-between titles multicols paragraphs with CSS3">jQuery.colonize</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/dynamisez-vos-pages-web-avec-jquery-boxfx-js/" title="Dynamisez vos pages web avec jQuery.boxFx.js">jQuery.boxFx</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/mutli-screen-flat-3d-analogue-clock-with-jquery-and-css3-v2-3/" title="Multi-screen “Flat 3D” analogue clock (jQuery/CSS3)">jQuery.flatClock3d</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/wall/" title="Try the speed Wall !" target="_blank">The RSS Wall</a> • <a href="https://web.archive.org/web/20160311233601/http://home.b2bweb.fr/" title="GoogleBot is Fast Web Start • CodeBot is Fast Coding Tools • TwitterBot is full access to twitter" target="_blank">FastWebStart</a> • <a href="https://web.archive.org/web/20160311233601/http://www.braincer.fr/" title="Braincer is a 3D music visualizer : ♫ Playing ♫" target="_blank">Braincer.fr</a><br/>
+                    My latest sources and sheets :<br/>
+                    <a href="https://web.archive.org/web/20160311233601/https://github.com/molokoloco/" target="_blank" title="Molokoloco Github sources repository">Github sources</a> • <a href="https://web.archive.org/web/20160311233601/http://code.google.com/p/molokoloco-coding-project/w/list" target="_blank" title="Molokoloco coding project on Google Code">Personnal wikis</a> • <a href="https://web.archive.org/web/20160311233601/http://jsfiddle.net/user/molokoloco/" target="_blank" title="Fiddles posted by Molokoloco">jsFiddle examples</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/best-must-know-ressources-for-building-the-new-web-%E2%98%85/" title="Best “must know” open sources to build the new Web">WebDev bookmarks</a></p>
                 </div>
             </div>
         </Html>
@@ -145,11 +149,11 @@ export default function MyHtml(props) {
           <div className="col-lg-6 mb-4 ms-auto">
                   <div className="card border-light mb-3" style={{width: '600px'}}>
                       <div className="card-body">
-                            <h3>Webmaster "Full Stack"</h3>
-                            <p>"Internet advocate", au fil de mon expérience, j'ai réalisé des sites de e-commerces, des interfaces d'administrations, des web-TV, des agendas/planning, des dataviz, des chatbots, de la 3D, des APIs, des campagnes d'emailing, de la sécurité, des télécommandes sur mobile, des players vidéos sur TV, des applis photos, de la visio-conférence, du peer 2 peer, du temps réel, etc, tout ce qui est imaginable sur Internet devant vous !</p>
+                            <h3 className="text-center">Webmaster "Full Stack"</h3>
+                            <p>"<i>Internet advocate</i>", au fil de mon expérience, j'ai réalisé des sites de e-commerces, des interfaces d'administrations, des quizz/FAQ/sondages, des web-TV, des agendas/planning, des dataviz, des chatbots, de la 3D, des APIs, des campagnes d'emailing, de la sécurité, des télécommandes sur mobile, des players vidéos sur TV, des applis photos, de la visio-conférence, du peer 2 peer, du temps réel, de l'IA/NPL, etc, tout ce qui est imaginable sur Internet devant vous !</p>
                             <p>Je conçois et code mais, au besoin, je m'occupe aussi de : design, cachier des charges/gestion de projet, planning, formations, démonstrations techniques/marketing, community management, ...</p>
-                            <h3>Craft Code & Design</h3>
-                            <p><strong>Front-office (Mutli-OS/Multi-Device) :</strong></p>
+                            <h3 className="text-center">Craft Code & Design</h3>
+                            <p><strong>Front-office (Mutli-OS/Multi-Device)</strong></p>
                             <ul>
                                 <li><strong>Langages :</strong> JavaScript, HTML5, CSS3, XML, JSON, RSS, WebGL, Canvas, WebSocket, ...</li>
                                 <li><strong>Outils :</strong> jQuery, REACT, LESS, SASS, Three.JS, Custom, NPM, WebPack, Grunt, ...</li>
@@ -158,22 +162,17 @@ export default function MyHtml(props) {
                                 <li><strong>Techniques :</strong> Intégration, accessibilité, internationnalisation, design/UX, animation, intéractivité, multimédia, Pixel/2D/3D, audio, streaming, typographie, SEO, wording, sécurité, mailing, dataviz, IA, veille, community managment, ...</li>
                                 <li><strong>Accompagnement :</strong> Formation, démonstration/présentations, ...</li>
                             </ul>
-                            <p><strong>Back-office (Linux, Windows) :</strong></p>
+                            <p><strong>Back-office (Linux, Windows)</strong></p>
                             <ul>
-                                <li><strong>Langages :</strong> JavaScript, PHP, OpenAPI, YAML, XML, JSON, RSS, WebSocket ...</li>
+                                <li><strong>Langages :</strong> JavaScript, PHP, templates, OpenAPI, YAML, XML, JSON, RSS, WebSocket ...</li>
                                 <li><strong>Frameworks :</strong> Express.js, Fastify.js, Wordpress (PHP), Socket.io, Custom, ...</li>
                                 <li><strong>Bases de données :</strong> MySQL, MongoDB, Redis, SQLite, ...</li>
                                 <li><strong>Logiciels :</strong> NodeJS, Git/GitHub, GitLab, Cmd/Shell/Bash, OpenSSH, Apache, Nginx, Docker, VirtualBox, ...</li>
                                 <li><strong>Services :</strong> Google Cloud, Facebook App, Amazon AWS, CDN, ...</li>
                                 <li><strong>Techniques :</strong> Sécurité, CRON, monitoring, dashboard, streaming, cache, ...</li>
-                                <li><strong>Hébergements :</strong> OVH, Gandi, AWS, Google, GitHub, ...</li>
+                                <li><strong>Hébergements :</strong> OVH, Gandi, AWS, Google, GitHub, "Serverless", ...</li>
                                 <li><strong>Accompagnements :</strong> Documentation, formation, démonstration/présentations, ...</li>
                             </ul>
-                            <br/>
-                            <h3>Exemples</h3>
-                            <p><a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/etienne-chouard-centralite-du-tirage-au-sort-en-democratie/" title="My Book ReadR V2 – HTML5 / jQuery polished “Page as a Book” reader">MyBookReadR V2</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/jquery-colonize-plugin-in-between-titles-multicols-paragraphes-with-css3/" title="jQuery Colonize plugin : In-between titles multicols paragraphs with CSS3">jQuery.colonize</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/dynamisez-vos-pages-web-avec-jquery-boxfx-js/" title="Dynamisez vos pages web avec jQuery.boxFx.js">jQuery.boxFx</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/mutli-screen-flat-3d-analogue-clock-with-jquery-and-css3-v2-3/" title="Multi-screen “Flat 3D” analogue clock (jQuery/CSS3)">jQuery.flatClock3d</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/wall/" title="Try the speed Wall !" target="_blank">The RSS Wall</a> • <a href="https://web.archive.org/web/20160311233601/http://home.b2bweb.fr/" title="GoogleBot is Fast Web Start • CodeBot is Fast Coding Tools • TwitterBot is full access to twitter" target="_blank">FastWebStart</a> • <a href="https://web.archive.org/web/20160311233601/http://www.braincer.fr/" title="Braincer is a 3D music visualizer : ♫ Playing ♫" target="_blank">Braincer.fr</a><br/>
-                            My latest sources and sheets :<br/>
-                            <a href="https://web.archive.org/web/20160311233601/https://github.com/molokoloco/" target="_blank" title="Molokoloco Github sources repository">Github sources</a> • <a href="https://web.archive.org/web/20160311233601/http://code.google.com/p/molokoloco-coding-project/w/list" target="_blank" title="Molokoloco coding project on Google Code">Personnal wikis</a> • <a href="https://web.archive.org/web/20160311233601/http://jsfiddle.net/user/molokoloco/" target="_blank" title="Fiddles posted by Molokoloco">jsFiddle examples</a> • <a href="https://web.archive.org/web/20160311233601/http://www.b2bweb.fr/molokoloco/best-must-know-ressources-for-building-the-new-web-%E2%98%85/" title="Best “must know” open sources to build the new Web">WebDev bookmarks</a></p>
                       </div>
                   </div>
               </div>

@@ -355,8 +355,8 @@ export default function App() {
               target={[0, 0, 0]} // Target position (optional = undefined)
             />
           </Environment> */}
-          {/* <MySky/>
-          <Grass/> */}
+          <MySky/>
+          <Grass/>
           <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
           <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
           <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff" depthTest={true}/>
