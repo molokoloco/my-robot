@@ -9,8 +9,6 @@
 /* Default styles
 -------------------------------------------------- */
 
-@import url('https://rsms.me/inter/inter.css');
-
 * {
 	margin: 0;
 	padding: 0;
@@ -44,11 +42,11 @@ a {
 
 body {
 	color: rgb(255, 255, 255);
-	font-size: 14px;
-	line-height: 24px;
+	font-size: 13px;
+	line-height: 18px;
 	overscroll-behavior: none;
 	margin: 0;
-	font-family: 'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+	font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -83,8 +81,16 @@ h1 {
   line-height: 0.7em;
 }
 
+h5 {
+    font-size: 24px;
+}
+
 h4 {
     color: yellow;
+}
+
+h5 {
+    font-size: 16px;
 }
 
 .scroll {
@@ -95,54 +101,9 @@ h4 {
   top: 0;
   left: 0;
 }
+
 .label {
   pointer-events: none;
-}
-
-main {
-    position: absolute;
-    top: 60px;
-    left:0;
-    right: 0;
-    bottom: 30px;
-    overflow-y: scroll;
-    z-index: 20;
-
-    display: none;
-}
-
-main > .container {
-    padding-top: 60px;
-    height: 300vh;
-}
-
-#card1 {
-    position: absolute;
-    top: 20%;
-    left: 10%;
-    bottom: 10%;
-    width: 25%;
-    z-index: 100;
-    overflow: auto;
-
-    display: none;
-}
-
-#card2 {
-    position: absolute;
-    top: 20%;
-    right: 10%;
-    bottom: 10%;
-    width: 25%;
-    z-index: 100;
-    overflow: auto;
-
-    display: none;
-}
-
-
-ul > li > svg {
-    margin-right: 10px;
 }
 
 /* Custom styles
@@ -196,6 +157,10 @@ footer {
     --bs-card-color: #b71968;
 }
 
+.btn-primary {
+ --bs-btn-bg: hotpink;
+}
+
 .btn-outline-success {
     --bs-btn-color: hotpink;
     --bs-btn-border-color: hotpink;
@@ -211,6 +176,73 @@ footer {
     --bs-btn-disabled-bg: transparent;
     --bs-btn-disabled-border-color: hotpink;
     --bs-gradient: none;
+}
+
+/* Boostrap customize
+--------------------------------------------------  */
+
+main {
+    position: absolute;
+    top: 60px;
+    left:0;
+    right: 0;
+    bottom: 30px;
+    overflow-y: scroll;
+    z-index: 20;
+
+    display: none; /* ! */
+}
+
+main > .container {
+    padding-top: 60px;
+    height: 300vh;
+}
+
+.card {
+    background-color: #ffffffc7;
+}
+
+#card1 {
+    position: absolute;
+    top: 110px;
+    left: 50px;
+    width: 30%;
+    bottom: 50px;
+    z-index: 100;
+    overflow: auto;
+}
+
+#card2 {
+    position: absolute;
+    top: 110px;
+    right: 50px;
+    width: 30%;
+    bottom: 50px;
+    z-index: 100;
+    overflow: auto;
+}
+
+@media (max-width: 768px) {
+    #card1 {
+        top: 110px;
+        left: 50px;
+        width: initial;
+        right: 50px;
+        bottom: initial;
+        height: 40%;
+    }
+    #card2 {
+        top: 55%;
+        left: 50px;
+        right: 50px;
+        width: initial;
+        bottom: initial;
+        height: 40%;
+    }
+}
+
+.card ul > li > svg {
+    margin: 2px 6px 3px 0;
 }
 
 .navbar {
@@ -246,24 +278,55 @@ footer {
 }
 
 .navbar-brand {
-    color: yellow;
+    color: #fff;
     line-height: 60px;
     width: 180px;
     text-align: center;
+    text-shadow: 0 1px 0 #ccc,
+                0 2px 0 #bbb,
+                0 3px 0 #aaa,
+                0 4px 1px rgba(0,0,0,.1),
+                0 0 5px rgba(0,0,0,.1),
+                0 1px 3px rgba(0,0,0,.3),
+                0 2px 5px rgba(0,0,0,.2),
+                0 4px 10px rgba(0,0,0,.25),
+                0 8px 10px rgba(0,0,0,.2),
+                0 12px 20px rgba(0,0,0,.15);
+    transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+}
+
+.navbar-brand:focus, .navbar-brand:hover {
+    text-decoration: none;
+    color: yellow;
+    text-shadow: 0 0 0 #ccc,
+                0 0 0 #bbb,
+                0 0 0 #aaa,
+                0 0 0 rgba(0,0,0,.1),
+                0 0 0 rgba(0,0,0,.1),
+                0 0 0 rgba(0,0,0,.3),
+                0 0 0 rgba(0,0,0,.2),
+                0 0 10px rgba(0,0,0,.25),
+                0 8px 10px rgba(0,0,0,.2),
+                0 12px 20px rgba(0,0,0,.15);
+    transform: translate(3px, 3px);
+    -webkit-transform: translate(3px, 3px);
+    -moz-transform: translate(3px, 3px);
+    -o-transform: translate(3px, 3px);
+    -ms-transform: translate(3px, 3px);
 }
 
 /* .nav-item:has(.active) {
     border-bottom: 3px #FFF solid;
 } */
 
-.card {
-    background-color: #fff9;
-}
-
 .nav-item:has(.active)::after {
     content: "";
     position: absolute;
-    top: 23px;
+    top: 20px;
     width: 100%;
     border-bottom: 3px #FFF solid;
     padding: 12px;

@@ -4,6 +4,9 @@ import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { Text } from '@react-three/drei'
 
+import stop from './assets/stop.mp3' // https://pixabay.com/sound-effects/search/beeps/
+
+const stopSound =   new Audio(stop);
 
 /*
 class Words3d extends React.Component { // React.PureComponent ?
@@ -81,7 +84,7 @@ const randomWords = [
 
 function Word({ children, ...props }) {
   const color = new THREE.Color()
-  const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 0.3, letterSpacing: 0, lineHeight: 1 }
+  const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 0.4, letterSpacing: 0, lineHeight: 1 }
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
   const over = (e) => {
@@ -97,10 +100,10 @@ function Word({ children, ...props }) {
 
   useFrame(({ camera }) => {
     ref.current.quaternion.copy(camera.quaternion) // Make text face the camera
-    ref.current.material.color.lerp(color.set(hovered ? 'yellow' : '#0971f1'), 0.1)
+    ref.current.material.color.lerp(color.set(hovered ? 'yellow' : 'hotpink'), 0.1)
   })
   
-  return <Text ref={ref} onPointerOver={over} onPointerOut={out} onClick={() => console.log('clicked')} {...props} {...fontProps} children={children} />
+  return <Text ref={ref} onPointerOver={over} onPointerOut={out} onClick={() => stopSound.play()} {...props} {...fontProps} children={children} />
 }
 
 export default function Words3d({ maxCount = 10, radius = 20, ...props }) {

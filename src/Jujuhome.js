@@ -259,35 +259,29 @@ const MyOrbitControls = () => {
 
   useEffect(
       () => {
-        
-        controls.makeDefault = true;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.2;
-        
-        controls.enableRotate = true;
-        controls.rotateSpeed = 1;
-
-        controls.enableZoom = true;
-        controls.minZoom = 1;
-        controls.maxZoom = 3;
-
-        controls.enablePan = true;
-        controls.panSpeed = 1;
-
-        controls.enableDamping = true;
-
-        controls.minPolarAngle = 0.5;
-        controls.maxPolarAngle = Math.PI / 2.2;
-        //controls.minAzimuthAngle = -Math.PI / 2;
-        //controls.maxAzimuthAngle = Math.PI / 2;
-
-        controls.maxDistance = 36;
-        controls.minDistance = 3.6;
-
-        controls.zoom = 14;
-
-        controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY};
-      
+        controls.makeDefault = true
+        controls.enableDamping = true
+        controls.dampingFactor = 0.1
+        controls.autoRotate = true
+        controls.autoRotateSpeed = 0.2
+        controls.enableRotate = true
+        controls.rotateSpeed = 1
+        controls.enableZoom = true
+        controls.minZoom = 1
+        //controls.maxZoom = 10
+        //controls.noZoom = true // enableZoom = false
+        controls.zoom = 10
+        controls.enablePan = true
+        controls.panSpeed = 1
+        controls.enableDamping = true
+        controls.minPolarAngle = 0.5
+        controls.maxPolarAngle = Math.PI / 2.2
+        //controls.minAzimuthAngle = -Math.PI / 2
+        //controls.maxAzimuthAngle = Math.PI / 2
+        controls.maxDistance = 24
+        controls.minDistance = 3.6
+        //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
+        //controls.screenSpacePanning = true
         return () => {
           controls.dispose();
         };
@@ -331,15 +325,14 @@ export default function App() {
     <>
       <Suspense fallback={fallback()}>
         <Canvas
-        pixelratio={[1, 1]}
-        shadows
-        dpr={[1, 2]}
-        gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
-        //onCreated={(state) => state.events.connect(scrollRef.current)}
-        //camera={{ position: [-2, 2, 6], fov: 50, near: 1, far: 20 }}
-        raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
-      >
-        
+          pixelratio={[1, 1]}
+          shadows
+          dpr={[1, 2]}
+          gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
+          //onCreated={(state) => state.events.connect(scrollRef.current)}
+          //camera={{ position: [-2, 2, 6], fov: 50, near: 1, far: 20 }}
+          raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
+          >
           {/* <ScrollContainer> */}
           {/* <MyScroll  scroll={scroll}/> */}
           {/* </ScrollContainer> */}
@@ -358,10 +351,7 @@ export default function App() {
           <MySky/>
           <Grass/>
           <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
-          <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
-          <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff" depthTest={true}/>
-          <Cloud position={[4, 26, 5]} speed={0.2} opacity={0.6} color="#ffffff" depthTest={true}/>
-          <Cloud position={[4, 14, 8]} speed={0.2} opacity={0.75} color="#ffffff" depthTest={true}/>
+          <Cloud position={[4, 15, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
           <mesh position={[0, 10, 0]}>
             <Words3d maxCount={100} radius={4} />
           </mesh>
@@ -371,9 +361,9 @@ export default function App() {
             {/* <Sparkles count={scaleSparkles.length} size={scaleSparkles} position={[0, 3.8, 0]} scale={[4, 4, 4]} speed={0.3} /> */}
             {/* <Select multiple box onChange={setSelected}> */}
             <MyRobot/>
-            <MyHtml/>
+            {/* <MyHtml/> */}
             {/* </Select> */}
-            <PerspectiveCamera ref={cam} makeDefault fov={60} near={0.1} far={50} zoom="0.8"/>
+            <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.4"/>
             <MyOrbitControls/>
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}

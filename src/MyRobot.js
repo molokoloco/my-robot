@@ -6,6 +6,9 @@ import { useGLTF, useAnimations, Edges, ContactShadows} from '@react-three/drei'
 import { proxy, useSnapshot } from "valtio"
 
 import pixTrans from './assets/pix.png'
+import start from './assets/start.mp3'
+
+const startSound =   new Audio(start);
 
 // const state = proxy({
 //   current: null,
@@ -145,11 +148,15 @@ export default function Robot({ ...props }) {
     document.body.style.cursor = (value ? 'pointer' : 'auto')
   }, []); //setHovered
 
+
+
   const robotClick = useCallback((e) => {
     //setActive(!active);
     rdmAction = 'Dance' //states[Math.floor(Math.random() * states.length)]
     fadeToAction(rdmAction, 0.5)
     console.log('robotClick', rdmAction)
+
+    startSound.play()
     
     // activeAction = actions[rdmAction]
     // activeAction.play()
@@ -187,6 +194,7 @@ export default function Robot({ ...props }) {
       // const material = NodeMaterial.fromMaterial( obj.material )
       // obj.material = new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } )
       obj.material.color = new THREE.Color(obj.name == 'Head_4' ? 'pink' : 'yellow' ).convertSRGBToLinear()
+      obj.material.flatShading =  false
       obj.material.needsUpdate = true
       //MyMesh.push(getMesh(obj.name));
     }
