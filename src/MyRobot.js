@@ -195,7 +195,7 @@ export default function Robot({ ...props }) {
   // onContextMenu
 
   return (
-    <group ref={ref} dispose={null} {...props}>
+    <group ref={ref} dispose={null} {...props} position={[0, -0.7, 0]} >
       {/* {MyMesh} */}
       <mesh castShadow={false} >{/* raycast={useCamera(anotherCamera)} */}
         <primitive object={scene} onClick={console.log} />
@@ -203,8 +203,7 @@ export default function Robot({ ...props }) {
       <mesh position={[0, 2, 0]} visible={false} 
         onPointerOver={(e) => onHover(e, true)}
         onPointerOut={(e) => onHover(e, false)}
-        onPointerDown={robotClick}
-        >
+        onPointerDown={robotClick} >
         <boxGeometry args={[3*1.2, 5*1.2, 3*1.2]}/>
         <meshBasicMaterial alphaTest="0.5" wireframe />
         {/* <meshBasicMaterial opacity="0" transparent="true" thickness="0" transmission="0" depthTest={true}/> */}

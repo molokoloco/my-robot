@@ -1,4 +1,4 @@
-# Work in progress by Julien Guéznet 2022 aka molokoloco ^^
+# [Work in progress] Julien Guézennec 2022 (aka molokoloco) ^^
 
 ## DEMO : https://molokoloco.github.io/my-robot/build/
 

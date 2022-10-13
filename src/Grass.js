@@ -25,11 +25,12 @@ export default function Grass({ options = { bW: 0.04, bH: 0.5, joints: 5 }, widt
   const materialRef = useRef()
   const [texture, alphaMap, earth] = useLoader(THREE.TextureLoader, [bladeDiffuse, bladeAlpha, grass]) 
   const attributeData = useMemo(() => getAttributeData(instances, width), [instances, width])
+  //const baseGeom = useMemo(() => new THREE.SphereGeometry(bW, 6, joints).translate(0, bH / 2, 0), [bH, bW, joints])
   const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [bH, bW, joints])
 
   const groundGeo = useMemo(() => {
+    //const geo = new Geometry().fromBufferGeometry(new THREE.SphereGeometry(width/2, 32, 32))
     const geo = new Geometry().fromBufferGeometry(new THREE.PlaneGeometry(width, width, 32, 32))
-    //const geo = new THREE.BoxGeometry().fromBufferGeometry(new THREE.PlaneGeometry(width, width, 32, 32))
     geo.verticesNeedUpdate = true
     geo.lookAt(new THREE.Vector3(0, 1, 0))
     for (let i = 0; i < geo.vertices.length; i++) {

@@ -1,5 +1,5 @@
 import React, {Dom} from 'react'
-import { Suspense, useEffect, useRef, useState, useMemo, useCallback } from 'react'
+import { Suspense, useEffect, useRef, useState, useMemo, useCallback, CSSProperties } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend, createRoot, events } from '@react-three/fiber';
 import { Cloud, useGLTF, PerspectiveCamera, Stage, CameraShake, useAnimations, Html, Text, TrackballControls, Environment, Lightformer, Select, useSelect, ContactShadows, Edges, useCursor, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
@@ -11,6 +11,8 @@ import { HexColorPicker } from "react-colorful"
 import { proxy, useSnapshot } from "valtio"
 
 import ReactDOM from 'react-dom/client';
+
+import BarLoader from "react-spinners/ClipLoader";
 
 import Grass from "./Grass"
 import Words3d from "./Words3d"
@@ -216,15 +218,19 @@ const scaleSparkles = Array.from({ length: 50 }, () => 2.5 + Math.random() * 10)
 
 ////////////////////////////////////
 const fallback = function() {
+
+  const override = { // https://www.npmjs.com/package/react-spinners
+    margin: "20px auto",
+    clear: "both"
+  }
+
   return (
-  <Text
-    scale={[10, 10, 10]}
-    color="white" // default
-    anchorX="center" // default
-    anchorY="middle" // default
-  >
-    Loading...
-  </Text>
+  <>
+    <div className="h-100 d-flex align-items-center justify-content-center">
+      <h4 className="text-center">Chargement...<br/>
+      <BarLoader cssOverride={override} color="yellow" /></h4>
+    </div>
+  </>
   )
 }
 
@@ -244,12 +250,19 @@ const fallback = function() {
 
 const MyOrbitControls = () => {
   const { camera, gl } = useThree();
+
+  const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
+
+  useFrame(({ camera }) => {
+    controls.update();
+  })
+
   useEffect(
       () => {
-        const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
+        
         controls.makeDefault = true;
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.5;
+        controls.autoRotateSpeed = 0.2;
         
         controls.enableRotate = true;
         controls.rotateSpeed = 1;
@@ -265,9 +278,9 @@ const MyOrbitControls = () => {
 
         controls.minPolarAngle = 0.5;
         controls.maxPolarAngle = Math.PI / 2.2;
+        //controls.minAzimuthAngle = -Math.PI / 2;
+        //controls.maxAzimuthAngle = Math.PI / 2;
 
-        controls.minAzimuthAngle = -Math.PI / 2;
-        controls.maxAzimuthAngle = Math.PI / 2;
         controls.maxDistance = 36;
         controls.minDistance = 3.6;
 
@@ -316,7 +329,8 @@ export default function App() {
 
   return (
     <>
-      <Canvas
+      <Suspense fallback={fallback()}>
+        <Canvas
         pixelratio={[1, 1]}
         shadows
         dpr={[1, 2]}
@@ -325,7 +339,7 @@ export default function App() {
         //camera={{ position: [-2, 2, 6], fov: 50, near: 1, far: 20 }}
         raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
       >
-        <Suspense fallback={fallback()}>
+        
           {/* <ScrollContainer> */}
           {/* <MyScroll  scroll={scroll}/> */}
           {/* </ScrollContainer> */}
@@ -341,8 +355,8 @@ export default function App() {
               target={[0, 0, 0]} // Target position (optional = undefined)
             />
           </Environment> */}
-          <MySky/>
-          <Grass/>
+          {/* <MySky/>
+          <Grass/> */}
           <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
           <Cloud position={[4, 22, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
           <Cloud position={[-4, 18, -10]} speed={0.2} opacity={1} color="#ffffff" depthTest={true}/>
@@ -351,22 +365,22 @@ export default function App() {
           <mesh position={[0, 10, 0]}>
             <Words3d maxCount={100} radius={4} />
           </mesh>
+          <fog attach="fog" color="#205806" near={25} far={100} />
           <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
-            {/* <fog attach="fog" color="#205806" near={25} far={100} /> */}
-            <MyHtml/>
             {/* <Environment preset="sunset" /> */}
             {/* <Sparkles count={scaleSparkles.length} size={scaleSparkles} position={[0, 3.8, 0]} scale={[4, 4, 4]} speed={0.3} /> */}
             {/* <Select multiple box onChange={setSelected}> */}
             <MyRobot/>
+            <MyHtml/>
             {/* </Select> */}
-            <PerspectiveCamera ref={cam} makeDefault fov={60} near={0.1} far={50} zoom="1"/>
+            <PerspectiveCamera ref={cam} makeDefault fov={60} near={0.1} far={50} zoom="0.8"/>
             <MyOrbitControls/>
             {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
             {/* <ShakeCamera /> */}
           </Stage>
-        </Suspense>
-      </Canvas>
+        </Canvas>
+      </Suspense>
       {/* <Picker /> */}
       {/* <Panel selected={selected} /> */}
       {/* <div ref={scrollRef} className="scroll">
