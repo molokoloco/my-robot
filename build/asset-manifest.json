@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/my-robot/build/static/css/main.34d57150.css",
-    "main.js": "/my-robot/build/static/js/main.20aa2381.js",
-    "static/media/grass.jpg": "/my-robot/build/static/media/grass.63947fd76ffb0a9c6c8a.jpg",
-    "static/media/start.mp3": "/my-robot/build/static/media/start.31f371aa54d6099a48e0.mp3",
-    "static/media/blade_diffuse.jpg": "/my-robot/build/static/media/blade_diffuse.afc6a995c517c5c0bb32.jpg",
-    "static/media/blade_alpha.jpg": "/my-robot/build/static/media/blade_alpha.fd72bbc9635d5a296576.jpg",
-    "index.html": "/my-robot/build/index.html",
-    "static/media/stop.mp3": "/my-robot/build/static/media/stop.37210172330c490b3141.mp3",
-    "main.34d57150.css.map": "/my-robot/build/static/css/main.34d57150.css.map",
-    "main.20aa2381.js.map": "/my-robot/build/static/js/main.20aa2381.js.map"
+    "main.css": "/static/css/main.34d57150.css",
+    "main.js": "/static/js/main.3c5c634f.js",
+    "static/media/grass.jpg": "/static/media/grass.63947fd76ffb0a9c6c8a.jpg",
+    "static/media/start.mp3": "/static/media/start.31f371aa54d6099a48e0.mp3",
+    "static/media/blade_diffuse.jpg": "/static/media/blade_diffuse.afc6a995c517c5c0bb32.jpg",
+    "static/media/blade_alpha.jpg": "/static/media/blade_alpha.fd72bbc9635d5a296576.jpg",
+    "index.html": "/index.html",
+    "static/media/stop.mp3": "/static/media/stop.37210172330c490b3141.mp3",
+    "main.34d57150.css.map": "/static/css/main.34d57150.css.map",
+    "main.3c5c634f.js.map": "/static/js/main.3c5c634f.js.map"
   },
   "entrypoints": [
     "static/css/main.34d57150.css",
-    "static/js/main.20aa2381.js"
+    "static/js/main.3c5c634f.js"
   ]
 }

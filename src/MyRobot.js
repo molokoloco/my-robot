@@ -37,7 +37,7 @@ function fadeToAction(name, duration) {
 }
 
 export default function Robot({ ...props }) {
-  console.log('Robot()')
+  //console.log('Robot()')
 
   const ref = useRef()
 

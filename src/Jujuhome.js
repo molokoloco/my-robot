@@ -1,10 +1,10 @@
 import React from 'react'
 import { Suspense, useEffect, useRef } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import BarLoader from "react-spinners/ClipLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
+import BarLoader from "react-spinners/ClipLoader"
 
 // import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
 // import { Panel, useControls } from './MultiLeva'
@@ -17,7 +17,7 @@ import Words3d from "./Words3d"
 import MySky from './MySky'
 import MyRobot from './MyRobot'
 //import Scroll from './Scroll'
-//import MyHtml from './MyHtml';
+//import MyHtml from './MyHtml'
 
 import './index.css'
 
@@ -177,8 +177,9 @@ const MyOrbitControls = () => {
   useEffect(
     () => {
       camera.position.y = 5
-      camera.position.z = 20
-      
+      camera.position.z = 15
+
+      controls.target.y = controls.target.y + 5
       controls.makeDefault = true
       controls.enableDamping = true
       controls.dampingFactor = 0.1
@@ -202,6 +203,7 @@ const MyOrbitControls = () => {
       controls.minDistance = 3.6
       //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
       //controls.screenSpacePanning = true
+      //controls.update()
       return () => {
         controls.dispose();
       };

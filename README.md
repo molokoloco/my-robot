@@ -1,6 +1,6 @@
 # [Work in progress] Julien Guézennec 2022 (aka molokoloco) ^^
 
-## DEMO : https://molokoloco.github.io/my-robot/build/
+## DEMO : https://julienweb.fr
 
 ![Demo screen](https://raw.githubusercontent.com/molokoloco/my-robot/main/public/img/capture-myrobot.png?raw=true "Demo in progress")
 
