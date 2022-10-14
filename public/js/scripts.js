@@ -69,6 +69,14 @@ $(function() {
 
     $('#btnCabinet').click(function() { // Reset form
         $('form.was-validated').removeClass('was-validated');
+
+        setTimeout(function() {
+            $('#cabinetForm .modal-body').html(`<div class="row">
+                <div class="col col-12 ms-3 mb-3">
+                    <h5 class="text-center">On s'appelle plutôt ? :-) <a href="tel:+33678135439">+33 6 61 75 64 98</a></h5>
+                </div>
+            </div>`);
+        }, 16000)
     });
 
     $('#cabinetRecurent').click(function() { // Show/Hide Créneau récurent option

@@ -94,6 +94,18 @@ h5 {
     font-size: 16px;
 }
 
+@media (max-width: 768px) {
+
+    h3 {
+        font-size: 20px;
+    }
+
+    h5 {
+        font-size: 15px;
+    }
+
+}
+
 .scroll {
   position: absolute;
   width: 100vw;
@@ -210,6 +222,7 @@ main > .container {
 }
 
 @media (max-width: 768px) {
+
     #card1 {
         top: 110px;
         left: 50px;
@@ -304,6 +317,13 @@ main > .container {
     -moz-transform: translate(3px, 3px);
     -o-transform: translate(3px, 3px);
     -ms-transform: translate(3px, 3px);
+}
+
+@media (max-width: 768px) {
+
+    .navbar-brand {
+        line-height: 40px;
+    }
 }
 
 /* .nav-item:has(.active) {
