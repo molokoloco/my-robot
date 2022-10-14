@@ -5,11 +5,6 @@ import WebGL from 'three/examples/jsm/capabilities/WebGL.js';
 import './index.css';
 import Jujuhome from './Jujuhome';
 
-// if (module.hot && process.env.NODE_ENV !== 'production') {
-//   module.hot.accept();
-//   console.log('hot');
-// }
-
 // if ( WebGL.isWebGL2Available() === false ) {
 //   document.body.appendChild( WebGL.getWebGL2ErrorMessage() );
 // }
