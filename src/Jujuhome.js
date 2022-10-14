@@ -1,5 +1,5 @@
 import React from 'react'
-import { Suspense, useEffect, useRef } from 'react'
+import { Suspense, useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
@@ -165,51 +165,41 @@ const MyOrbitControls = () => {
   const { camera, gl } = useThree();
 
   const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
+  
+  camera.position.y = 5
+  camera.position.z = 15
 
-  // const controls = useMemo(({ camera, gl }) => {
-  //   return new OrbitControls(camera, gl.domElement);
-  // }, [])
+  controls.target.y = controls.target.y + 5
+  controls.makeDefault = true
+  controls.enableDamping = true
+  controls.dampingFactor = 0.1
+  controls.autoRotate = true
+  controls.autoRotateSpeed = 0.2
+  controls.enableRotate = true
+  controls.rotateSpeed = 1
+  controls.enableZoom = true
+  controls.minZoom = 1
+  //controls.maxZoom = 10
+  //controls.noZoom = true // enableZoom = false
+  controls.zoom = 10
+  controls.enablePan = true
+  controls.panSpeed = 1
+  controls.enableDamping = true
+  controls.minPolarAngle = 0.5
+  controls.maxPolarAngle = Math.PI / 2.2
+  //controls.minAzimuthAngle = -Math.PI / 2
+  //controls.maxAzimuthAngle = Math.PI / 2
+  controls.maxDistance = 24
+  controls.minDistance = 3.6
+  //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
+  //controls.screenSpacePanning = true
+  //controls.update()
 
   useFrame(({ camera }) => {
     controls.update();
-  })
+  }) 
 
-  useEffect(
-    () => {
-      camera.position.y = 5
-      camera.position.z = 15
-
-      controls.target.y = controls.target.y + 5
-      controls.makeDefault = true
-      controls.enableDamping = true
-      controls.dampingFactor = 0.1
-      controls.autoRotate = true
-      controls.autoRotateSpeed = 0.2
-      controls.enableRotate = true
-      controls.rotateSpeed = 1
-      controls.enableZoom = true
-      controls.minZoom = 1
-      //controls.maxZoom = 10
-      //controls.noZoom = true // enableZoom = false
-      controls.zoom = 10
-      controls.enablePan = true
-      controls.panSpeed = 1
-      controls.enableDamping = true
-      controls.minPolarAngle = 0.5
-      controls.maxPolarAngle = Math.PI / 2.2
-      //controls.minAzimuthAngle = -Math.PI / 2
-      //controls.maxAzimuthAngle = Math.PI / 2
-      controls.maxDistance = 24
-      controls.minDistance = 3.6
-      //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
-      //controls.screenSpacePanning = true
-      //controls.update()
-      return () => {
-        controls.dispose();
-      };
-    }, [camera, gl, controls] );
-    return null;
-  };
+}
 
 export default function App() {
   //const [selected, setSelected] = useState([])

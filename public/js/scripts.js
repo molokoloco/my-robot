@@ -65,11 +65,24 @@ $(function() {
         });
     });
 
+    // Konami -------------------------------------------------- //
+
+    var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65'; // ↑ ↑ ↓ ↓ ← → ← → B A
+    var k = function(e){
+        kKeys.push(e.keyCode);
+        console.log(kKeys, (' '+kKeys.toString()+' ').indexOf(konami));
+        if ((' '+kKeys.toString()+' ').indexOf(konami) >= 0) {
+        console.log('ok');
+            kKeys = [];
+            $('body').append('<audio src="https://julienweb.fr/chat.mp3" autoplay></audio>');
+        }
+    }
+    $(document).keydown(k);
+
     // Form Cabinet -------------------------------------------------- //
 
     $('#btnCabinet').click(function() { // Reset form
         $('form.was-validated').removeClass('was-validated');
-
         setTimeout(function() {
             $('#cabinetForm .modal-body').html(`<div class="row">
                 <div class="col col-12 ms-3 mb-3">
