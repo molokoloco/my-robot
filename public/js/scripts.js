@@ -70,9 +70,7 @@ $(function() {
     var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65'; // ↑ ↑ ↓ ↓ ← → ← → B A
     var k = function(e){
         kKeys.push(e.keyCode);
-        console.log(kKeys, (' '+kKeys.toString()+' ').indexOf(konami));
         if ((' '+kKeys.toString()+' ').indexOf(konami) >= 0) {
-        console.log('ok');
             kKeys = [];
             $('body').append('<audio src="https://julienweb.fr/chat.mp3" autoplay></audio>');
         }
