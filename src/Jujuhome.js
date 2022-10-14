@@ -1,25 +1,23 @@
-import React, {Dom} from 'react'
-import { Suspense, useEffect, useRef, useState, useMemo, useCallback, CSSProperties } from 'react'
+import React from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame, useThree, extend, createRoot, events } from '@react-three/fiber';
-import { Cloud, useGLTF, PerspectiveCamera, Stage, CameraShake, useAnimations, Html, Text, TrackballControls, Environment, Lightformer, Select, useSelect, ContactShadows, Edges, useCursor, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
+import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-
-import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
-import { Panel, useControls } from './MultiLeva'
-import { HexColorPicker } from "react-colorful"
-import { proxy, useSnapshot } from "valtio"
-
-import ReactDOM from 'react-dom/client';
-
 import BarLoader from "react-spinners/ClipLoader";
+
+// import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
+// import { Panel, useControls } from './MultiLeva'
+// import { HexColorPicker } from "react-colorful"
+// import { proxy, useSnapshot } from "valtio"
+// import ReactDOM from 'react-dom/client';
 
 import Grass from "./Grass"
 import Words3d from "./Words3d"
 import MySky from './MySky'
 import MyRobot from './MyRobot'
 //import Scroll from './Scroll'
-import MyHtml from './MyHtml';
+//import MyHtml from './MyHtml';
 
 import './index.css'
 
@@ -29,14 +27,12 @@ import './index.css'
 
 extend(THREE)
 
-const mobile = ( navigator.userAgent.match(/Android/i)
-  || navigator.userAgent.match(/webOS/i)
-  || navigator.userAgent.match(/iPhone/i)
-  || navigator.userAgent.match(/BlackBerry/i)
-  || navigator.userAgent.match(/Windows Phone/i)
-)
-
-const scaleSparkles = Array.from({ length: 50 }, () => 2.5 + Math.random() * 10)
+// const mobile = ( navigator.userAgent.match(/Android/i)
+//   || navigator.userAgent.match(/webOS/i)
+//   || navigator.userAgent.match(/iPhone/i)
+//   || navigator.userAgent.match(/BlackBerry/i)
+//   || navigator.userAgent.match(/Windows Phone/i)
+// )
 
 // Using a Valtio state model to bridge reactivity between
 // the canvas and the dom, both can write to it and/or react to it.
@@ -56,27 +52,6 @@ const scaleSparkles = Array.from({ length: 50 }, () => 2.5 + Math.random() * 10)
 //       <h1>{snap.current}</h1>
 //     </div>
 //   )
-// }
-
-////////////////////////////////////
-
-// function ShakeCamera() {
-//   //console.log('ShakeCamera()');
-
-//   const shakeRef = useRef();
-//   const orbitRef = useRef();
-//   useEffect(() => {
-//     orbitRef.current.addEventListener("change", () => {
-//       const shake = shakeRef.current.getIntensity();
-//       shakeRef.current.setIntensity(shake + 0.015);
-//     });
-//   }, [orbitRef, shakeRef]);
-//   return (
-//     <>
-//       <OrbitControls ref={orbitRef} makeDefault/>
-//       <CameraShake ref={shakeRef} additive decay />
-//     </>
-//   );
 // }
 
 ////////////////////////////////////
@@ -105,60 +80,11 @@ const scaleSparkles = Array.from({ length: 50 }, () => 2.5 + Math.random() * 10)
   //   //controls.update();
   // });
 
-  //useThree((state) => {
-
-    // var controls = state.controls // new THREE.OrbitControls(camera, renderer.domElement);
-    // controls.autoRotate = true;
-    // controls.autoRotateSpeed = 1.0;
-    // controls.maxDistance = 65.0;
-    // if (mobile) {
-    //   controls.maxDistance = 35.0;
-    // }
-    // controls.minDistance = 5.0;
-    // controls.enableKeys = false;
-    // controls.enablePan = false;
-    // controls.update();
-
-    // const camera = state.camera
-    // camera.position.x = -10 + Math.sin(state.clock.elapsedTime) * 3
-    // camera.position.y = 5 + Math.cos(state.clock.elapsedTime) * 2
-    // camera.position.z = -10 + Math.sin(state.clock.elapsedTime) * 2
-    // camera.fov = 55
-    //camera.zoom = 3
-  //})
-
-  //return useFrame((state) => {
-
-    // var controls = state.controls // new THREE.OrbitControls(camera, renderer.domElement);
-    // controls.autoRotate = true;
-    // controls.autoRotateSpeed = 1.0;
-    // controls.maxDistance = 65.0;
-    // if (mobile) {
-    //   controls.maxDistance = 35.0;
-    // }
-    // controls.minDistance = 5.0;
-    // controls.enableKeys = false;
-    // controls.enablePan = false;
-    // controls.update();
-
-    // const camera = state.camera
-    // camera.position.x = -10 + Math.sin(state.clock.elapsedTime) * 3
-    // camera.position.y = 5 + Math.cos(state.clock.elapsedTime) * 2
-    // camera.position.z = -10 + Math.sin(state.clock.elapsedTime) * 2
-    // camera.fov = 55
-    //camera.zoom = 3
-  //})
-
   //return useFrame((state) => {
     //state.camera.position.x = THREE.MathUtils.lerp(state.camera.position.x, 1.5 + state.mouse.x / 4, 0.075)
     //state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, 1.5 + state.mouse.y / 4, 0.075)
   //})
 //}
-
-// export default function Viewer() {
-//   return (
-//   )
-// }
 
 ////////////////////////////////////
 
@@ -217,6 +143,7 @@ const scaleSparkles = Array.from({ length: 50 }, () => 2.5 + Math.random() * 10)
 // }
 
 ////////////////////////////////////
+
 const fallback = function() {
 
   const override = { // https://www.npmjs.com/package/react-spinners
@@ -225,26 +152,12 @@ const fallback = function() {
   }
 
   return (
-  <>
     <div className="h-100 d-flex align-items-center justify-content-center">
       <h4 className="text-center">Chargement...<br/>
       <BarLoader cssOverride={override} color="yellow" /></h4>
     </div>
-  </>
   )
 }
-
-// function fallback() {
-//     return (
-//         <mesh scale="2">
-//           <Html scale={100} rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 0.51]}>
-//               <div className="annotation">
-//                   WebGL not working
-//               </div>
-//           </Html>
-//         </mesh>
-//     );
-// } // <fallback/>*
 
 ////////////////////////////////////
 
@@ -253,50 +166,57 @@ const MyOrbitControls = () => {
 
   const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
 
+  // const controls = useMemo(({ camera, gl }) => {
+  //   return new OrbitControls(camera, gl.domElement);
+  // }, [])
+
   useFrame(({ camera }) => {
     controls.update();
   })
 
   useEffect(
-      () => {
-        controls.makeDefault = true
-        controls.enableDamping = true
-        controls.dampingFactor = 0.1
-        controls.autoRotate = true
-        controls.autoRotateSpeed = 0.2
-        controls.enableRotate = true
-        controls.rotateSpeed = 1
-        controls.enableZoom = true
-        controls.minZoom = 1
-        //controls.maxZoom = 10
-        //controls.noZoom = true // enableZoom = false
-        controls.zoom = 10
-        controls.enablePan = true
-        controls.panSpeed = 1
-        controls.enableDamping = true
-        controls.minPolarAngle = 0.5
-        controls.maxPolarAngle = Math.PI / 2.2
-        //controls.minAzimuthAngle = -Math.PI / 2
-        //controls.maxAzimuthAngle = Math.PI / 2
-        controls.maxDistance = 24
-        controls.minDistance = 3.6
-        //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
-        //controls.screenSpacePanning = true
-        return () => {
-          controls.dispose();
-        };
-      },
-      [camera, gl]
-  );
-  return null;
-};
+    () => {
+      camera.position.y = 5
+      camera.position.z = 20
+      
+      controls.makeDefault = true
+      controls.enableDamping = true
+      controls.dampingFactor = 0.1
+      controls.autoRotate = true
+      controls.autoRotateSpeed = 0.2
+      controls.enableRotate = true
+      controls.rotateSpeed = 1
+      controls.enableZoom = true
+      controls.minZoom = 1
+      //controls.maxZoom = 10
+      //controls.noZoom = true // enableZoom = false
+      controls.zoom = 10
+      controls.enablePan = true
+      controls.panSpeed = 1
+      controls.enableDamping = true
+      controls.minPolarAngle = 0.5
+      controls.maxPolarAngle = Math.PI / 2.2
+      //controls.minAzimuthAngle = -Math.PI / 2
+      //controls.maxAzimuthAngle = Math.PI / 2
+      controls.maxDistance = 24
+      controls.minDistance = 3.6
+      //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
+      //controls.screenSpacePanning = true
+      return () => {
+        controls.dispose();
+      };
+    }, [camera, gl, controls] );
+    return null;
+  };
 
 export default function App() {
-  const [selected, setSelected] = useState([])
+  //const [selected, setSelected] = useState([])
   const cam = useRef();
 
-  const scrollRef = useRef()
-  const scroll = useRef(0)
+  // const scrollRef = useRef()
+  // const scroll = useRef(0)
+
+  const scaleSparkles = Array.from({ length: 10 }, () => Math.random() * 6)
 
   // function onMouseWheel( e ) {
   //   //console.log('onMouseWheel',  e.target.scrollTop);
@@ -352,22 +272,20 @@ export default function App() {
           <Grass/>
           <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
           <Cloud position={[4, 15, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
-          <mesh position={[0, 10, 0]}>
-            <Words3d maxCount={100} radius={4} />
-          </mesh>
           <fog attach="fog" color="#205806" near={25} far={100} />
           <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
-            {/* <Environment preset="sunset" /> */}
-            {/* <Sparkles count={scaleSparkles.length} size={scaleSparkles} position={[0, 3.8, 0]} scale={[4, 4, 4]} speed={0.3} /> */}
+            <Environment preset="sunset" />
+            <mesh position={[0, 10, 0]}>
+              <Words3d maxCount={100} radius={4} />
+            </mesh>
+            <Sparkles color="white" count={scaleSparkles.length} size={scaleSparkles} speed={scaleSparkles} opacity="0.8" scale="5" noise="4" position={[0, 3.8, 0]} />
             {/* <Select multiple box onChange={setSelected}> */}
             <MyRobot/>
             {/* <MyHtml/> */}
             {/* </Select> */}
-            <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.4"/>
+            <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.5" />
             <MyOrbitControls/>
-            {/* <OrbitControls makeDefault autoRotate="true" enableZoom={true} enablePan={true} rotateSpeed={1} minPolarAngle={0} maxPolarAngle={Math.PI / 2.5}/> */}
             {/* <MoveCam /> */}
-            {/* <ShakeCamera /> */}
           </Stage>
         </Canvas>
       </Suspense>

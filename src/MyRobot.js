@@ -1,11 +1,11 @@
 import React from 'react'
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
-import { useGLTF, useAnimations, Edges, ContactShadows} from '@react-three/drei'
-import { proxy, useSnapshot } from "valtio"
+import { useFrame } from '@react-three/fiber'
+import { useGLTF } from '@react-three/drei'
+//import { proxy, useSnapshot } from "valtio"
 
-import pixTrans from './assets/pix.png'
+//import pixTrans from './assets/pix.png'
 import start from './assets/start.mp3'
 
 const startSound =   new Audio(start);
@@ -19,9 +19,8 @@ const startSound =   new Audio(start);
 // })
 
 let previousAction, mixer, actions, activeAction, face, rdmAction
-const api = {
-  state: 'Idle'
-}
+
+const api = { state: 'Idle' }
 
 function fadeToAction(name, duration) {
   previousAction = activeAction;
@@ -42,10 +41,10 @@ export default function Robot({ ...props }) {
 
   const ref = useRef()
 
-  const { nodes, scene, materials, animations } = useGLTF('https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb')
-  //const { ref, actions, names, mixer } = useAnimations(animations, scene)
-  const [hovered, setHovered] = useState(false)
-  const [index, setIndex] = useState(0)
+  const { scene, animations } = useGLTF('https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb')
+  // const { ref, actions, names, mixer } = useAnimations(animations, scene)
+  // const [hovered, setHovered] = useState(false)
+  // const [index, setIndex] = useState(0)
 
   //actions['Idle'].play()
 
@@ -86,7 +85,7 @@ export default function Robot({ ...props }) {
   // expressions
   face = scene.getObjectByName('Head_4')
 
-  const expressions = Object.keys(face.morphTargetDictionary)
+  //const expressions = Object.keys(face.morphTargetDictionary)
   // console.log('api', api, 'states', states, 'emotes', emotes, 'expressions', expressions);
   // console.log('face.morphTargetDictionary',face.morphTargetDictionary,'expressions',expressions);
 
@@ -99,7 +98,7 @@ export default function Robot({ ...props }) {
 
     interMorph = setInterval(() => {
       let customMorph = Math.random() > 0.5 ? 1 : 0; // 0 Angry 1 Surprised
-      if (customMorph == 1) {
+      if (customMorph === 1) {
         face.morphTargetInfluences[0] = 0
         face.morphTargetInfluences[1] = Math.random()
       }
@@ -138,8 +137,8 @@ export default function Robot({ ...props }) {
       mixer.update(delta);
   }, [mixer]);
 
-  const [active, setActive] = useState(false);
-  const [hover, setHover] = useState(false);
+  //const [active, setActive] = useState(false);
+  //const [hover, setHover] = useState(false);
 
   const onHover = useCallback((e, value) => {
     // console.log('onHover', value);
@@ -148,9 +147,7 @@ export default function Robot({ ...props }) {
     document.body.style.cursor = (value ? 'pointer' : 'auto')
   }, []); //setHovered
 
-
-
-  const robotClick = useCallback((e) => {
+  const robotClick = (e) => {
     //setActive(!active);
     rdmAction = 'Dance' //states[Math.floor(Math.random() * states.length)]
     fadeToAction(rdmAction, 0.5)
@@ -165,9 +162,9 @@ export default function Robot({ ...props }) {
     // api[t]();
     // console.log('api', api);
     // setIndex((index + 1) % names.length)
-  }, [fadeToAction, rdmAction]); //setActive
+  }
 
-  const [textureTrans] = useLoader(THREE.TextureLoader, [pixTrans]) 
+  // const [textureTrans] = useLoader(THREE.TextureLoader, [pixTrans]) 
 
   // nodes  = 'FootL_1', 'LowerLegL_1', 'LegL', 'LowerLegR_1', 'LegR', 'Head_2', 'Head_3', 'Head_4', 'ArmL', 'ShoulderL_1', 'ArmR', 'ShoulderR_1', 'Torso_2', 'Torso_3', 'FootR_1', 'HandR_1', 'HandR_2', 'HandL_1', 'HandL_2'
   // materials = 'Black', 'Grey', 'Main'
@@ -193,7 +190,7 @@ export default function Robot({ ...props }) {
       //obj.castShadow = true
       // const material = NodeMaterial.fromMaterial( obj.material )
       // obj.material = new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } )
-      obj.material.color = new THREE.Color(obj.name == 'Head_4' ? 'pink' : 'yellow' ).convertSRGBToLinear()
+      obj.material.color = new THREE.Color(obj.name === 'Head_4' ? 'pink' : 'yellow' ).convertSRGBToLinear()
       obj.material.flatShading =  false
       obj.material.needsUpdate = true
       //MyMesh.push(getMesh(obj.name));

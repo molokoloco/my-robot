@@ -1,6 +1,6 @@
 {
-  "name": "my-robot-fr",
-  "version": "0.2.1",
+  "name": "my-robot",
+  "version": "0.0.2",
   "description": "https://github.com/molokoloco/my-robot/blob/main/README.md",
   "author": "JG 2022",
   "license": "GPL-3.0-or-later",
@@ -11,11 +11,11 @@
   },
   "keywords": [
     "react",
-    "starter",
+    "experiment",
     "three"
   ],
   "main": "src/index.js",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@react-three/drei": "^9.31.1",
     "@react-three/fiber": "^8.7.4",
@@ -23,8 +23,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "lamina": "^1.1.23",
-    "leva": "^0.9.31",
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
@@ -32,7 +30,6 @@
     "react-spinners": "^0.13.6",
     "simplex-noise": "^4.0.0",
     "three": "0.140.0",
-    "valtio": "^1.7.0",
     "web-vitals": "^3.0.2"
   },
   "devDependencies": {

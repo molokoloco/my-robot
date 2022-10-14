@@ -54,6 +54,7 @@ body {
 body > * {
 	color: #b71968;
 }
+
 a {
 	color:  hotpink;
 	text-decoration: none;
@@ -109,11 +110,7 @@ h5 {
 /* Custom styles
 -------------------------------------------------- */
 
-.medoucineBg {
-    background-color: hotpink;
-}
-
-.bulleBg {
+/* .bulleBg {
     display: inline-block;
     background-color: #ffffff;
     background-color: rgba(255, 255, 255, 0.3);
@@ -127,22 +124,12 @@ h5 {
 
 #aide i {
     font-size: 20px;
-}
+} */
 
 #cabinetRecurentOptions {
     background-color: #faf4f1;
     padding: 10px;
     border-radius: 20px;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 30px;
-    line-height: 30px;
-    color: hotpink;
-    background-color: #d0e2d9;
 }
 
 
@@ -292,11 +279,11 @@ main > .container {
                 0 4px 10px rgba(0,0,0,.25),
                 0 8px 10px rgba(0,0,0,.2),
                 0 12px 20px rgba(0,0,0,.15);
-    transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    -webkit-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
 }
 
 .navbar-brand:focus, .navbar-brand:hover {
@@ -342,6 +329,15 @@ main > .container {
     font-size: 13px;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: hotpink;
+    background-color: #d0e2d9;
+}
 
 /* Boostrap overide form
 --------------------------------------------------  */
