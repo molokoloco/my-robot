@@ -4,9 +4,10 @@
 
 ## Démo : https://julienweb.fr 
 
-
-[Work in progress] Voici mon site perso avec "**React.JS**" (Une bibliothèque JavaScript pour créer des interfaces utilisateurs) et "**Three.JS**" (Une bibliothèque JavaScript 3D basé sur OpenGL). 
-J'ai utilise "**React-three-fiber**" (Un moteur de rendu React pour Three.js) pour unifier les deux et faire ce que j'avaos en tête ^^
+### Work in progress
+Voici mon site perso avec "**React.JS**" (Une bibliothèque JavaScript pour créer des interfaces utilisateurs) et "**Three.JS**" (Une bibliothèque JavaScript 3D basé sur OpenGL). 
+J'ai utilise "**React-three-fiber**" (Un moteur de rendu React pour Three.js) pour unifier les deux et faire ce que j'avais en tête ^^  
+Les sources sont ici : https://github.com/molokoloco/my-robot/tree/main/src
 
 Voici les dépendances du projet : 
 
