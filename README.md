@@ -1,8 +1,14 @@
-# [Work in progress] Julien Guézennec 2022 (aka molokoloco) ^^
+# My Robot
 
-## DEMO : https://julienweb.fr
+![Demo screen](https://github.com/molokoloco/my-robot/blob/main/public/img/capture-myrobot-1920x975.png?raw=true "Demo in progress")
 
-![Demo screen](https://raw.githubusercontent.com/molokoloco/my-robot/main/public/img/capture-myrobot.png?raw=true "Demo in progress")
+## Démo : https://julienweb.fr 
+
+
+[Work in progress] Voici mon site perso avec "**React.JS**" (Une bibliothèque JavaScript pour créer des interfaces utilisateurs) et "**Three.JS**" (Une bibliothèque JavaScript 3D basé sur OpenGL). 
+J'ai utilise "**React-three-fiber**" (Un moteur de rendu React pour Three.js) pour unifier les deux et faire ce que j'avaos en tête ^^
+
+Voici les dépendances du projet : 
 
 ```
 {
@@ -50,7 +56,4 @@
 * https://codesandbox.io/s/grass-shader-5xho4
 * https://codesandbox.io/s/spherical-word-cloud-yup2o
 * https://codesandbox.io/s/github/onion2k/r3f-by-example/tree/develop/examples/hooks/
-
-
-TODO
-Auth : https://auth0.com/blog/how-to-configure-create-react-app/
+* ...
