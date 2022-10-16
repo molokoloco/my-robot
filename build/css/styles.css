@@ -138,7 +138,6 @@ h5 {
     border-radius: 20px;
 }
 
-
 /* Boostrap overide
 --------------------------------------------------  */
 
@@ -148,10 +147,7 @@ h5 {
     --bs-body-font-size: 13px;
     --bs-btn-font-size: 13px;
     --bs-card-color: #b71968;
-}
-
-.btn-primary {
- --bs-btn-bg: hotpink;
+    --bs-btn-bg: hotpink;
 }
 
 .btn-outline-success {
@@ -189,6 +185,15 @@ main {
 main > .container {
     padding-top: 60px;
     height: 300vh;
+}
+
+#collapseCards {
+    position: absolute;
+    right: 6px;
+    bottom: 36px;
+    z-index: 400;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .card {
@@ -341,6 +346,10 @@ main > .container {
 .btn {
     border-radius: 20px;
     font-size: 13px;
+}
+
+.btn-primary {
+    background-color: hotpink;
 }
 
 footer {

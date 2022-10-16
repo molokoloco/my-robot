@@ -40,6 +40,19 @@ $(function() {
     //         //containment: "parent"
     //     });
 
+    $('#collapseCards').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ($(this).data('collapse')) {
+            $('#card1,#card2').stop().fadeIn();
+            $(this).data('collapse', false);
+        }
+        else {
+            $('#card1,#card2').stop().fadeOut();
+            $(this).data('collapse', true);
+        }
+    });
+
     // https://monim67.github.io/bootstrap-datetimepicker/
     // https://bootstrap-datepicker.readthedocs.io/en/latest/
 
