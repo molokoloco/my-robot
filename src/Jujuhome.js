@@ -2,7 +2,7 @@ import React from 'react'
 import { Suspense, useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
-import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles, Sky } from '@react-three/drei' //Sky, , OrbitControls
+import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import BarLoader from "react-spinners/ClipLoader"
 
@@ -29,7 +29,7 @@ import './index.css'
 // Should your own components rely on default controls, throughout the three they're available as:
 // const controls = useThree(state => state.controls)
 
-//extend(THREE)
+extend(THREE)
 
 // const mobile = ( navigator.userAgent.match(/Android/i)
 //   || navigator.userAgent.match(/webOS/i)
@@ -178,7 +178,7 @@ const MyOrbitControls = () => {
   controls.enableDamping = true
   controls.dampingFactor = 0.05
   controls.autoRotate = true
-  controls.autoRotateSpeed = 0.2
+  controls.autoRotateSpeed = 0.25
   controls.enableRotate = true
   controls.rotateSpeed = 1
   controls.enableZoom = true
@@ -226,16 +226,7 @@ export default function App() {
   //     return () => { window.removeEventListener( 'wheel', onMouseWheel, true ); };
   // }, []);
 
-  // function onWindowResize() {
-	// 		var SCREEN_WIDTH = $(window).width() - 300;
-	// 		var SCREEN_HEIGHT = $(window).height() -150;
-  //     $("#container").attr("width",SCREEN_WIDTH);
-  //     $("#container").attr("height",SCREEN_HEIGHT);            
-  //                           camera.position.set(0, 0, 10)
-	// 		camera.aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
-	// 	camera.updateProjectionMatrix();
-	// 		renderer.setSize( SCREEN_WIDTH,SCREEN_HEIGHT );
-	// 	}
+  // hotpink #ff69b4
 
   return (
     <>
@@ -243,26 +234,25 @@ export default function App() {
         <Canvas
           shadows
           pixelratio={[1, 1]}
-          alpha="false"
+          alpha="true"
           //dpr={[1, 2]}
           gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
           //onCreated={(state) => state.events.connect(scrollRef.current)}
           //camera={{ position: [-2, 2, 6], fov: 50, near: 1, far: 20 }}
           raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
           >
-          {/* <ScrollContainer> */}
-          {/* <MyScroll  scroll={scroll}/> */}
-          {/* </ScrollContainer> */}
-          <ambientLight intensity={0.3} />
+          <Environment preset="sunset"/>
+          <fogExp2 density={0.02} attach="fog" color="#ff69b4" near={30} far={120} />
+          {/* <ScrollContainer><MyScroll scroll={scroll}/></ScrollContainer> */}
+          <ambientLight intensity={0.2} />
+          <spotLight castShadow intensity={2} angle={0.2} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
           {/* <spotLight intensity={0.5} penumbra={1} position={[10, 10, 10]} castShadow /> */}
           {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
-          <Grass position={[0, 1, 0]}/>
-          <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5}/>
-          <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5}/>
-          <fog attach="fog" color="#205806" near={25} far={100} />
+          <Grass position={[0, 1, 0]} />
+          <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} />
+          <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} />
           <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
-            <Environment preset="sunset"/>
             <mesh position={[0, 10, 0]}>
               <Words3d maxCount={50} radius={4} />
             </mesh>

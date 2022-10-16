@@ -3,27 +3,34 @@ import * as THREE from "three"
 import React, { useRef, useMemo, Suspense } from "react"
 import { createNoise2D } from 'simplex-noise'
 import { useFrame, useLoader } from "@react-three/fiber"
-//import { useTexture } from "@react-three/drei"
 import { Geometry } from "./Geometry" // three/examples/jsm/deprecated/Geometry
+
 //These have been taken from "Realistic real-time grass rendering" by Eddie Lee, 2010
 import bladeDiffuse from "./assets/blade_diffuse.jpg"
 import bladeAlpha from "./assets/blade_alpha.jpg"
-import grass from "./assets/grass.jpg"
+import grass from "./assets/grass2.jpg"
 import "./GrassMaterial"
 
 const simplex = createNoise2D()
 
 function getYPosition(x, z) {
   var y = 2 * simplex(x / 50, z / 50)
-  // y += 4 * simplex(x / 100, z / 100)
+  //y += 4 * simplex(x / 100, z / 100)
   // y += 0.2 * simplex(x / 10, z / 10)
   return y
 }
 
 export default function Grass({ options = { bW: 0.04, bH: 0.5, joints: 5 }, width = 60, instances = 80000, ...props }) {
   const { bW, bH, joints } = options
+
   const materialRef = useRef()
   const [texture, alphaMap, earth] = useLoader(THREE.TextureLoader, [bladeDiffuse, bladeAlpha, grass]) 
+  earth.wrapS = THREE.MirroredRepeatWrapping
+  earth.wrapT = THREE.MirroredRepeatWrapping
+  earth.repeat.set( 10, 10 );
+  //earth.magFilter = THREE.LinearMipMapLinearFilter
+  earth.needsUpdate = true;
+
   const attributeData = useMemo(() => getAttributeData(instances, width), [instances, width])
   //const baseGeom = useMemo(() => new THREE.SphereGeometry(bW, 6, joints).translate(0, bH / 2, 0), [bH, bW, joints])
   const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [bH, bW, joints])
@@ -46,7 +53,7 @@ export default function Grass({ options = { bW: 0.04, bH: 0.5, joints: 5 }, widt
   return (
     <group {...props}>
       <Suspense fallback={null}>
-        <ambientLight intensity={0.2} />
+        {/* <ambientLight intensity={0.2} /> */}
         <mesh>
           <instancedBufferGeometry index={baseGeom.index} attributes-position={baseGeom.attributes.position} attributes-uv={baseGeom.attributes.uv}>
             <instancedBufferAttribute attach="attributes-offset" args={[new Float32Array(attributeData.offsets), 3]} />
@@ -57,8 +64,8 @@ export default function Grass({ options = { bW: 0.04, bH: 0.5, joints: 5 }, widt
           </instancedBufferGeometry>
           <grassMaterial ref={materialRef} map={texture} alphaMap={alphaMap} toneMapped={false} />
         </mesh>
-        <mesh position={[0, 0, 0]} geometry={groundGeo}>
-          <meshStandardMaterial map={earth} displacementMap={earth} displacementScale={0.2} color="#205806"/>
+        <mesh position={[0, 0, 0]} geometry={groundGeo} receiveShadow>
+          <meshStandardMaterial side={THREE.DoubleSide} map={earth} bumpMap={earth} bumpScale={0.2} emissive="#102a03" color="#205806"/>
         </mesh>
       </Suspense>
     </group>

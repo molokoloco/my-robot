@@ -186,8 +186,8 @@ export default function Robot({ ...props }) {
 
   scene.traverse((obj) => { // Recolor the ROBOT
     if (obj.isMesh) {
-      //obj.receiveShadow = true
-      //obj.castShadow = true
+      obj.receiveShadow = true
+      obj.castShadow = true
       // const material = NodeMaterial.fromMaterial( obj.material )
       // obj.material = new THREE.MeshBasicMaterial( { color: 0xd4d4d4 } )
       obj.material.color = new THREE.Color(obj.name === 'Head_4' ? 'pink' : 'yellow' ).convertSRGBToLinear()
@@ -200,12 +200,14 @@ export default function Robot({ ...props }) {
   // onContextMenu
 
   return (
-    <group ref={ref} dispose={null} {...props} position={[0, 0, 0]} >
+    <group ref={ref} dispose={null} {...props} position={[0, 2.5, 0]} >
       {/* {MyMesh} */}
-      <mesh castShadow={false} >{/* raycast={useCamera(anotherCamera)} */}
+      <mesh>{/* raycast={useCamera(anotherCamera)} */}
         <primitive object={scene} onClick={console.log} />
       </mesh>
-      <mesh position={[0, 2, 0]} visible={false} 
+      <mesh
+        position={[0, 2, 0]}
+        visible={false} 
         onPointerOver={(e) => onHover(e, true)}
         onPointerOut={(e) => onHover(e, false)}
         onPointerDown={robotClick} >

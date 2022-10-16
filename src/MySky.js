@@ -27,7 +27,9 @@ export default function MySky() {
     uniforms[ 'rayleigh' ].value = effectController.rayleigh
     uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient
     uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG
-    uniforms[ 'diffuse' ] = { type: "c", value: { r:1, g:1, b:0 } }
+    uniforms[ 'diffuse' ] = { type: "c", value: { r:1, g:0, b:0 } }
+
+    uniforms[ 'color' ] = 0xffffff;
 
     var elevation = effectController.elevation
     let sun = new Vector3()
@@ -36,7 +38,7 @@ export default function MySky() {
     useFrame((state, delta) => {
       if (!int) int = setTimeout(() => {
         //console.log('debounceAnim')
-        elevation += 0.003
+        elevation += 0.025
         if (elevation > 50) elevation = 0.2;
         const phi = MathUtils.degToRad( 90 - elevation )
         const theta = MathUtils.degToRad( effectController.azimuth )
