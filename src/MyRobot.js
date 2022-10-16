@@ -200,7 +200,7 @@ export default function Robot({ ...props }) {
   // onContextMenu
 
   return (
-    <group ref={ref} dispose={null} {...props} position={[0, -0.7, 0]} >
+    <group ref={ref} dispose={null} {...props} position={[0, 0, 0]} >
       {/* {MyMesh} */}
       <mesh castShadow={false} >{/* raycast={useCamera(anotherCamera)} */}
         <primitive object={scene} onClick={console.log} />

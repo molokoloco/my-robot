@@ -27,7 +27,7 @@ export default function MySky() {
     uniforms[ 'rayleigh' ].value = effectController.rayleigh
     uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient
     uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG
-    uniforms[ 'diffuse' ] = { type: "c", value: { r:1, g:0, b:0 } }
+    uniforms[ 'diffuse' ] = { type: "c", value: { r:1, g:1, b:0 } }
 
     var elevation = effectController.elevation
     let sun = new Vector3()

@@ -9,14 +9,12 @@ import stop from './assets/stop.mp3' // https://pixabay.com/sound-effects/search
 const stopSound =   new Audio(stop);
 
 const randomWords = [
-    '', 'Internet', 'Multimédia', 'développement', 'Photoshop', 'News', 'Réseaux sociaux', '2D/3D', 'Vidéo', 'Animations', 'Audio', 'Dataviz', 'IA',
-    '<HTML5/>', 'JavaScript()', 'CSS3{}', 'WebGL', 'SVG/PSD/AI', 'NodeJS()', 'Linux', 'PHP/Apache', 'MySQL', 'MangoDB', 'XML/JSON/RSS',
-    'Amazon AWS', 'Google Cloud', 'Facebook App', 'Docker', 'GIT', 'API', 'WordPress', 'SEO', 'Security', 'Social Networks'
+    'Internet', 'Multimédia', 'développement', 'JavaScript', 'HTML5', 'CSS3', 'SVG', 'JSON', 'RSS', 'WebAPI', 'WebGL', 'Canvas', 'jQuery', 'REACT', 'LESS', 'SASS', 'Three.JS', 'Boostrap', 'Custom', 'NPM/Yarn', 'WebPack', 'Grunt', 'Visual Studio Code', 'CodeSandbox', 'NotePad', 'Photoshop', 'Illustrator', 'Media encoders', 'VLC', 'Wordpress', 'Google Cloud', 'Facebook App', 'Amazon AWS', 'CloudFlare', 'Intégration', 'accessibilité', 'internationalisation', 'design/UX', 'charte graphiques', 'animation', 'interactivité', 'multimédia', 'Pixel/2D/3D', 'audio', 'streaming', 'typographie', 'SEO', 'wording', 'sécurité', 'mailing', 'dataviz', 'IA', 'analytics', 'veille', 'community', 'management', 'Formation', 'démonstration', 'présentation', 'Back-end', 'Serveurs', 'Linux', 'Windows', 'SAAS', 'PHP', 'templates', 'YAML', 'XML', 'JSON', 'RSS', 'WebSocket', 'Express.js', 'OpenAPI', 'Wordpress (PHP)', 'Socket.io', 'Custom', 'MySQL', 'MongoDB', 'Redis', 'SQLite', 'NodeJS', 'Git/GitHub', 'GitLab', 'Cmd/Shell/Bash', 'OpenSSH', 'Apache', 'Nginx', 'Docker', 'VirtualBox', 'VLC', 'CDN', 'Sécurité', 'CRON', 'monitoring', 'dashboard', 'streaming', 'cache', 'gestion DNS', 'load-balancing', 'reporting', 'SSL', 'OVH', 'Gandi', 'Google', 'GitHub', 'Serverless', 'Documentation'
 ];
 
 function Word({ children, ...props }) {
   const color = new THREE.Color()
-  const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 0.4, letterSpacing: 0, lineHeight: 1 }
+  const fontProps = { font: 'https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/font/roboto/Roboto-Regular.woff', fontSize: 0.26, letterSpacing: 0, lineHeight: 1 }
   const ref = useRef()
   const [hovered, setHovered] = useState(false)
   const over = (e) => {
@@ -42,21 +40,21 @@ export default function Words3d({ maxCount = 10, radius = 20, ...props }) {
   //console.log('Words3d()');
 
   var ref = useRef()
-  var wordsLength = randomWords.length
-
-  var tmpWords = [...randomWords].sort(() => Math.random() - 0.5)
 
   var words = useMemo(() => {
     const temp = []
     const spherical = new THREE.Spherical()
-    let count = Math.floor(Math.sqrt(wordsLength))
-    count = count > maxCount ? maxCount : count;
+    var wordsLength = randomWords.length
+    var tmpWords = [...randomWords].sort(() => Math.random() - 0.5)
+    let count = wordsLength > maxCount ? maxCount : wordsLength;
+    count = Math.floor(Math.sqrt(count))
     const phiSpan = Math.PI / (count + 1)
     const thetaSpan = (Math.PI * 2) / count
     for (let i = 1; i < count + 1; i++)
-      for (let j = 0; j < count; j++) temp.push([new THREE.Vector3().setFromSpherical(spherical.set(radius, phiSpan * i, thetaSpan * j)), tmpWords.shift()]) // randomWords[i+j]
+      for (let j = 0; j < count; j++)
+        temp.push([new THREE.Vector3().setFromSpherical(spherical.set(radius, phiSpan * i, thetaSpan * j)), tmpWords.shift()]) // randomWords[i+j]
     return temp
-  }, [wordsLength, maxCount, radius, tmpWords])
+  }, [maxCount, radius])
 
   // useFrame(({ clock }) => {
   //   ref.current.rotation.x = ref.current.rotation.y = ref.current.rotation.z = Math.sin(clock.getElapsedTime()) * 0.3

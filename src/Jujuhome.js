@@ -2,7 +2,7 @@ import React from 'react'
 import { Suspense, useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
-import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
+import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles, Sky } from '@react-three/drei' //Sky, , OrbitControls
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import BarLoader from "react-spinners/ClipLoader"
 
@@ -21,11 +21,15 @@ import MyRobot from './MyRobot'
 
 import './index.css'
 
+
+// TODO navigation 3D : https://codesandbox.io/s/image-gallery-forked-kvsrs4?file=/src/App.js + https://github.com/molefrog/wouter#uselocation-hook-working-with-the-history
+
+
 // By setting <OrbitControls makeDefault <Stage and <CameraShake are aware of the controls being used.
 // Should your own components rely on default controls, throughout the three they're available as:
 // const controls = useThree(state => state.controls)
 
-extend(THREE)
+//extend(THREE)
 
 // const mobile = ( navigator.userAgent.match(/Android/i)
 //   || navigator.userAgent.match(/webOS/i)
@@ -172,7 +176,7 @@ const MyOrbitControls = () => {
   controls.target.y = controls.target.y + 5
   controls.makeDefault = true
   controls.enableDamping = true
-  controls.dampingFactor = 0.1
+  controls.dampingFactor = 0.05
   controls.autoRotate = true
   controls.autoRotateSpeed = 0.2
   controls.enableRotate = true
@@ -186,7 +190,7 @@ const MyOrbitControls = () => {
   controls.panSpeed = 1
   controls.enableDamping = true
   controls.minPolarAngle = 0.5
-  controls.maxPolarAngle = Math.PI / 2.2
+  controls.maxPolarAngle = Math.PI / 1.7
   //controls.minAzimuthAngle = -Math.PI / 2
   //controls.maxAzimuthAngle = Math.PI / 2
   controls.maxDistance = 24
@@ -237,9 +241,10 @@ export default function App() {
     <>
       <Suspense fallback={fallback()}>
         <Canvas
-          pixelratio={[1, 1]}
           shadows
-          dpr={[1, 2]}
+          pixelratio={[1, 1]}
+          alpha="false"
+          //dpr={[1, 2]}
           gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
           //onCreated={(state) => state.events.connect(scrollRef.current)}
           //camera={{ position: [-2, 2, 6], fov: 50, near: 1, far: 20 }}
@@ -250,25 +255,16 @@ export default function App() {
           {/* </ScrollContainer> */}
           <ambientLight intensity={0.3} />
           {/* <spotLight intensity={0.5} penumbra={1} position={[10, 10, 10]} castShadow /> */}
-          {/* <Sky azimuth={0.1} turbidity={10} rayleigh={0.5} inclination={0.6} distance={200} /> */}
-          {/* <Environment preset="city">
-            <Lightformer
-              form="circle" // circle | ring | rect (optional, default = rect)
-              intensity={0.5} // power level (optional = 1)
-              color="yellow" // (optional = white)
-              scale={[100, 100]} // Scale it any way you prefer (optional = [1, 1])
-              target={[0, 0, 0]} // Target position (optional = undefined)
-            />
-          </Environment> */}
+          {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
-          <Grass/>
-          <Cloud position={[-4, 12, -5]} speed={0.2} opacity={0.8} color="#ffffff" depthTest={true}/>
-          <Cloud position={[4, 15, -5]} speed={0.2} opacity={0.5} color="#ffffff" depthTest={true}/>
+          <Grass position={[0, 1, 0]}/>
+          <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5}/>
+          <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5}/>
           <fog attach="fog" color="#205806" near={25} far={100} />
           <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}>
-            <Environment preset="sunset" />
+            <Environment preset="sunset"/>
             <mesh position={[0, 10, 0]}>
-              <Words3d maxCount={100} radius={4} />
+              <Words3d maxCount={50} radius={4} />
             </mesh>
             <Sparkles color="white" count={scaleSparkles.length} size={scaleSparkles} speed={scaleSparkles} opacity="0.8" scale="5" noise="4" position={[0, 3.8, 0]} />
             {/* <Select multiple box onChange={setSelected}> */}

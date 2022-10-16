@@ -67,27 +67,31 @@ $(function() {
 
     // Konami -------------------------------------------------- //
 
-    var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65'; // ↑ ↑ ↓ ↓ ← → ← → B A
-    var k = function(e){
-        kKeys.push(e.keyCode);
-        if ((' '+kKeys.toString()+' ').indexOf(konami) >= 0) {
-            kKeys = [];
-            $('body').append('<audio src="https://julienweb.fr/chat.mp3" autoplay></audio>');
-        }
+    var bonus = function() {
+        $('body').append('<audio src="https://julienweb.fr/chat.mp3" autoplay></audio>');
     }
-    $(document).keydown(k);
+
+    var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65'; // ↑ ↑ ↓ ↓ ← → ← → B A
+    $(document).keydown(function(e) {
+        kKeys.push(e.keyCode);
+        if ((' '+kKeys+' ').indexOf(konami) >= 0) {
+            kKeys = [];
+            bonus();
+        }
+    });
 
     // Form Cabinet -------------------------------------------------- //
 
     $('#btnCabinet').click(function() { // Reset form
         $('form.was-validated').removeClass('was-validated');
         setTimeout(function() {
+            bonus();
             $('#cabinetForm .modal-body').html(`<div class="row">
                 <div class="col col-12 ms-3 mb-3">
                     <h5 class="text-center">On s'appelle plutôt ? :-) <a href="tel:+33678135439">+33 6 61 75 64 98</a></h5>
                 </div>
             </div>`);
-        }, 16000)
+        }, 15000)
     });
 
     $('#cabinetRecurent').click(function() { // Show/Hide Créneau récurent option
