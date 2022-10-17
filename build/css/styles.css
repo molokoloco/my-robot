@@ -116,21 +116,15 @@ h5 {
 /* Custom styles
 -------------------------------------------------- */
 
-/* .bulleBg {
-    display: inline-block;
-    background-color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    padding: 0 5px;
+#me {
+    margin: 0 0 0 5px;
 }
 
-#aide {
-    padding-left: 10px;
+@media (max-width: 768px) {
+    #me {
+        display: none;
+    }
 }
-
-#aide i {
-    font-size: 20px;
-} */
 
 #cabinetRecurentOptions {
     background-color: #faf4f1;
@@ -187,17 +181,21 @@ main > .container {
     height: 300vh;
 }
 
-#collapseCards {
-    position: absolute;
-    right: 6px;
-    bottom: 36px;
-    z-index: 400;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 .card {
     background-color: #ffffffc7;
+}
+
+.card-body {
+    text-align: justify;
+}
+
+#card1,
+#card2 {
+    transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
 }
 
 #card1 {
@@ -210,6 +208,14 @@ main > .container {
     overflow: auto;
 }
 
+.moveLeft {
+    transform: translate(-120%, 0);
+    -webkit-transform: translate(-120%, 0);
+    -moz-transform: translate(-120%, 0);
+    -o-transform: translate(-120%, 0);
+    -ms-transform: translate(-120%, 0);
+}
+
 #card2 {
     position: absolute;
     top: 110px;
@@ -218,6 +224,14 @@ main > .container {
     bottom: 50px;
     z-index: 100;
     overflow: auto;
+}
+
+.moveRight {
+    transform: translate(120%, 0);
+    -webkit-transform: translate(120%, 0);
+    -moz-transform: translate(120%, 0);
+    -o-transform: translate(120%, 0);
+    -ms-transform: translate(120%, 0);
 }
 
 @media (max-width: 768px) {
@@ -324,18 +338,29 @@ main > .container {
     }
 }
 
-.nav-item:has(.active)::after {
+.nav-link.active::after {
     content: "";
     position: absolute;
     top: 25px;
+    left: 0;
     width: 97%;
     border-bottom: 3px #FFF solid;
     padding: 12px 0;
     z-index: 1;
 }
+.navbar-nav .nav-link {
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+}
 
 .navbar-nav .nav-link:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    color: hotpink;
+    background: rgba(255, 255, 255, 1);
 }
 
 .navbar-collapse.show {

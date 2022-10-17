@@ -20,7 +20,7 @@ function getYPosition(x, z) {
   return y
 }
 
-export default function Grass({ options = { bW: 0.035, bH: 0.4, joints: 4 }, width = 60, instances = 100000, ...props }) {
+export default function Grass({ options = { bW: 0.05, bH: 0.4, joints: 4 }, width = 60, instances = 100000, ...props }) {
   const { bW, bH, joints } = options
 
   const materialRef = useRef()
@@ -34,16 +34,18 @@ export default function Grass({ options = { bW: 0.035, bH: 0.4, joints: 4 }, wid
   const attributeData = useMemo(() => getAttributeData(instances, width), [instances, width])
   //const baseGeom = useMemo(() => new THREE.SphereGeometry(bW, 6, joints).translate(0, bH / 2, 0), [bH, bW, joints])
   const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [bH, bW, joints])
+  const baseGeom2 = useMemo(() => new THREE.CircleGeometry(bW, 10, joints).translate(0, bH / 2, 0), [bH, bW, joints])
 
   const groundGeo = useMemo(() => {
     //const geo = new Geometry().fromBufferGeometry(new THREE.SphereGeometry(width/2, 32, 32))
     const geo = new Geometry().fromBufferGeometry(new THREE.PlaneGeometry(width, width, 32, 32))
-    geo.verticesNeedUpdate = true
+    //const geo = new Geometry().fromBufferGeometry(new THREE.CircleGeometry(width, 32))
     geo.lookAt(new THREE.Vector3(0, 1, 0))
     for (let i = 0; i < geo.vertices.length; i++) {
       const v = geo.vertices[i]
       v.y = getYPosition(v.x, v.z)
     }
+    geo.verticesNeedUpdate = true
     geo.computeVertexNormals()
     return geo.toBufferGeometry()
   }, [width])
@@ -53,7 +55,6 @@ export default function Grass({ options = { bW: 0.035, bH: 0.4, joints: 4 }, wid
   return (
     <group {...props}>
       <Suspense fallback={null}>
-        {/* <ambientLight intensity={0.2} /> */}
         <mesh>
           <instancedBufferGeometry index={baseGeom.index} attributes-position={baseGeom.attributes.position} attributes-uv={baseGeom.attributes.uv}>
             <instancedBufferAttribute attach="attributes-offset" args={[new Float32Array(attributeData.offsets), 3]} />
@@ -83,8 +84,8 @@ function getAttributeData(instances, width) {
   let quaternion_1 = new THREE.Vector4()
 
   //The min and max angle for the growth direction (in radians)
-  const min = -0.35
-  const max = 0.35
+  const min = -0.4
+  const max = 0.4
 
   //For each instance of the grass blade
   for (let i = 0; i < instances; i++) {

@@ -28,7 +28,6 @@ export default function MySky() {
     uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient
     uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG
     uniforms[ 'diffuse' ] = { type: "c", value: { r:1, g:0, b:0 } }
-
     uniforms[ 'color' ] = 0xffffff;
 
     var elevation = effectController.elevation

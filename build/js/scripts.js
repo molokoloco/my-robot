@@ -9,6 +9,37 @@ $(function() {
 
     "use strict";
 
+    $('#screen').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+            $(this).html('<i class="bi bi-fullscreen-exit"></i>').blur();
+        }
+        else if (document.exitFullscreen) {
+            document.exitFullscreen();
+            $(this).html('<i class="bi bi-arrows-fullscreen"></i>').blur();
+        }
+        return false;
+    });
+
+    $('#collapseCards').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ($(this).data('collapse')) {
+            $('#card1').removeClass('moveLeft');
+            $('#card2').removeClass('moveRight');
+            $(this).data('collapse', false).blur();
+        }
+        else {
+            //$('#card1,#card2').stop().fadeOut();
+            $('#card1').addClass('moveLeft');
+            $('#card2').addClass('moveRight');
+            $(this).data('collapse', true).blur();
+        }
+        return false;
+    });
+
     // Div behing canvas prevent event...
 
     // var $canvas = $('canvas').focus(),
@@ -39,19 +70,6 @@ $(function() {
     //         scrollSpeed: 100//,
     //         //containment: "parent"
     //     });
-
-    $('#collapseCards').click(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ($(this).data('collapse')) {
-            $('#card1,#card2').stop().fadeIn();
-            $(this).data('collapse', false);
-        }
-        else {
-            $('#card1,#card2').stop().fadeOut();
-            $(this).data('collapse', true);
-        }
-    });
 
     // https://monim67.github.io/bootstrap-datetimepicker/
     // https://bootstrap-datepicker.readthedocs.io/en/latest/

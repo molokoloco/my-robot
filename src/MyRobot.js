@@ -46,9 +46,9 @@ export default function Robot({ ...props }) {
   // const [hovered, setHovered] = useState(false)
   // const [index, setIndex] = useState(0)
 
-  //actions['Idle'].play()
+  // actions['Idle'].play()
 
-  const states = ['Idle', 'Walking', 'Running', 'Dance', 'Death'] //, 'Standing', 'Sitting'
+  const states = ['Idle', 'Walking', 'Running', 'Dance'] //, 'Death', 'Standing', 'Sitting'
   const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp']
   //const faceExpressions = ['Angry', 'Surprised', 'Sad']
 
