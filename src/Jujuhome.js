@@ -244,28 +244,23 @@ export default function App() {
           <Environment preset="sunset"/>
           <fogExp2 density={0.016} attach="fog" color="#ff69b4" near={30} far={120} />
           {/* <ScrollContainer><MyScroll scroll={scroll}/></ScrollContainer> */}
-          <ambientLight intensity={0.2} />
+          <ambientLight intensity={0.3} />
           <pointLight intensity={0.2} position={[-10, 15, 15]} />
-          <spotLight castShadow intensity={2} angle={0.2} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
-          {/* <spotLight intensity={0.5} penumbra={1} position={[10, 10, 10]} castShadow /> */}
+          <spotLight castShadow intensity={2.2} angle={0.2} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
           {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
           <Grass position={[0, 2.5, 0]} />
           <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} />
           <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} />
-          {/* <Stage intensity={0} contactShadow={{ opacity: 1, blur: 2 }}> */}
           <mesh position={[0, 12, 0]}>
             <Words3d maxCount={50} radius={4} />
           </mesh>
           <Sparkles color="white" count={scaleSparkles.length} size={scaleSparkles} speed={scaleSparkles} opacity="0.9" scale="4" noise="10" position={[0, 5.5, 0]} />
-          {/* <Select multiple box onChange={setSelected}> */}
           <MyRobot/>
           {/* <MyHtml/> */}
-          {/* </Select> */}
           <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.5" />
           <MyOrbitControls/>
           {/* <MoveCam /> */}
-          {/* </Stage> */}
         </Canvas>
       </Suspense>
       {/* <Picker /> */}

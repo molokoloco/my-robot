@@ -9,16 +9,36 @@ $(function() {
 
     "use strict";
 
+    var elem = document.documentElement;
+
+    function openFullscreen() {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+
     $('#screen').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
-            $(this).html('<i class="bi bi-fullscreen-exit"></i>').blur();
+        if (!$(this).data('fullscreen')) {
+            openFullscreen();
+            $(this)
+                .data('fullscreen', true)
+                .html('<i class="bi bi-fullscreen-exit"></i>')
+                .blur();
         }
-        else if (document.exitFullscreen) {
-            document.exitFullscreen();
-            $(this).html('<i class="bi bi-arrows-fullscreen"></i>').blur();
+        else {
+            closeFullscreen()
+            $(this)
+                .data('fullscreen', false)
+                .html('<i class="bi bi-arrows-fullscreen"></i>')
+                .blur();
         }
         return false;
     });
@@ -32,7 +52,6 @@ $(function() {
             $(this).data('collapse', false).blur();
         }
         else {
-            //$('#card1,#card2').stop().fadeOut();
             $('#card1').addClass('moveLeft');
             $('#card2').addClass('moveRight');
             $(this).data('collapse', true).blur();
