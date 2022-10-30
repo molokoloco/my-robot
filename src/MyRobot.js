@@ -147,13 +147,53 @@ export default function Robot({ ...props }) {
     document.body.style.cursor = (value ? 'pointer' : 'auto')
   }, []); //setHovered
 
+  ////////////////////////////////////
+
+  const myPres = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, j'ai une expérience de 5 ans en startup, 2 ans freelance et 13 ans chez Bouygues Telecom. Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
+
+  var msg = null
+  var male = null
+  var voices = null
+  var speaking = false
+  var intSpeak = null
+  const searchString = new RegExp(/paul/, 'ig')
+
+  if ('speechSynthesis' in window) {
+    voices = window.speechSynthesis.getVoices()
+    msg = new SpeechSynthesisUtterance()
+    msg.lang = 'fr-FR'
+    //msg.text = 'Bonjour la compagnie'
+    //window.speechSynthesis.speak(msg);
+    for (var i = 0; i < voices.length; i++) {
+      if (voices[i].lang === 'fr-FR' && searchString.test(voices[i].name)) {
+        male = voices[i];
+        break;
+      }
+    }
+  }
+
+  ////////////////////////////////////
+
   const robotClick = (e) => {
+
     //setActive(!active);
-    rdmAction = 'Dance' //states[Math.floor(Math.random() * states.length)]
+    rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
     console.log('robotClick', rdmAction)
 
-    startSound.play()
+    if (!speaking && 'speechSynthesis' in window) {
+      speaking = true
+      window.speechSynthesis.cancel()
+      msg.text = myPres
+      if (male) msg.voice = male;
+      window.speechSynthesis.speak(msg)
+    }
+    else {
+      speaking = false
+      window.speechSynthesis.cancel()
+      intSpeak && clearTimeout(intSpeak)
+      startSound.play()
+    }
     
     // activeAction = actions[rdmAction]
     // activeAction.play()

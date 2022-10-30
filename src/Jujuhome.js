@@ -212,7 +212,7 @@ export default function App() {
   // const scrollRef = useRef()
   // const scroll = useRef(0)
 
-  const scaleSparkles = Array.from({ length: 10 }, () => 1 + Math.random() * 6)
+  const scaleSparkles = Array.from({ length: 18 }, () => 1 + Math.random() * 6)
 
   // function onMouseWheel( e ) {
   //   //console.log('onMouseWheel',  e.target.scrollTop);

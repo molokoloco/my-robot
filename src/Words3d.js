@@ -9,15 +9,26 @@ import stop from './assets/stop.mp3' // https://pixabay.com/sound-effects/search
 const stopSound =   new Audio(stop);
 
 const randomWords = [
-    'Internet', 'Multimédia', 'développement', 'JavaScript', 'HTML5', 'CSS3', 'SVG', 'JSON', 'RSS', 'WebAPI', 'WebGL', 'Canvas', 'jQuery', 'REACT', 'LESS', 'SASS', 'Three.JS', 'Boostrap', 'NPM/Yarn', 'WebPack', 'Grunt', 'Visual Studio Code', 'CodeSandbox', 'NotePad', 'Photoshop', 'Illustrator', 'Media encoders', 'VLC', 'Wordpress', 'Google Cloud', 'Facebook App', 'Amazon AWS', 'CloudFlare', 'Intégration', 'accessibilité', 'internationalisation', 'design/UX', 'charte graphiques', 'animation', 'interactivité', 'multimédia', 'Pixel/2D/3D', 'audio', 'typographie', 'SEO', 'wording', 'sécurité', 'mailing', 'dataviz', 'IA', 'analytics', 'veille', 'community', 'management', 'Formation', 'démonstration', 'présentation', 'Back-end', 'Serveurs', 'Linux', 'Windows', 'SAAS', 'PHP', 'templates', 'YAML', 'XML', 'JSON', 'RSS', 'WebSocket', 'Express.js', 'OpenAPI', 'Wordpress', 'Socket.io', 'Custom', 'MySQL', 'MongoDB', 'Redis', 'SQLite', 'NodeJS', 'Git/GitHub', 'GitLab', 'Cmd/Shell/Bash', 'OpenSSH', 'Apache', 'Nginx', 'Docker', 'VirtualBox', 'VLC', 'CDN', 'Sécurité', 'CRON', 'monitoring', 'dashboard', 'streaming', 'cache', 'gestion DNS', 'load-balancing', 'reporting', 'SSL', 'OVH', 'Gandi', 'GitHub', 'Serverless', 'Documentation'
+    'Internet', 'Multimédia', 'développement', 'JavaScript', 'HTML5', 'CSS3', 'SVG', 'JSON', 'RSS', 'WebAPI', 'WebGL', 'Canvas', 'jQuery', 'REACT', 'LESS', 'SASS', 'Three.JS', 'Bootstrap', 'NPM/Yarn', 'WebPack', 'Grunt', 'Visual Studio Code', 'CodeSandbox', 'NotePad', 'Photoshop', 'Illustrator', 'Media encoders', 'VLC', 'Wordpress', 'Google Cloud', 'Facebook App', 'Amazon AWS', 'CloudFlare', 'Intégration', 'accessibilité', 'internationalisation', 'design/UX', 'charte graphiques', 'animation', 'interactivité', 'multimédia', 'Pixel/2D/3D', 'audio', 'typographie', 'SEO', 'wording', 'sécurité', 'mailing', 'dataviz', 'IA', 'analytics', 'veille', 'community', 'management', 'Formation', 'démonstration', 'présentation', 'Back-end', 'Serveurs', 'Linux', 'Windows', 'SAAS', 'PHP', 'templates', 'YAML', 'XML', 'JSON', 'RSS', 'WebSocket', 'Express.js', 'OpenAPI', 'Wordpress', 'Socket.io', 'Custom', 'MySQL', 'MongoDB', 'Redis', 'SQLite', 'NodeJS', 'Git/GitHub', 'GitLab', 'Cmd/Shell/Bash', 'OpenSSH', 'Apache', 'Nginx', 'Docker', 'VirtualBox', 'VLC', 'CDN', 'Sécurité', 'CRON', 'monitoring', 'dashboard', 'streaming', 'cache', 'gestion DNS', 'load-balancing', 'reporting', 'SSL', 'OVH', 'Gandi', 'GitHub', 'Serverless', 'Documentation'
 ];
 
-var msg = null;
+var msg = null
+var female = null
+var voices = null
+const searchString = new RegExp(/julie/, 'ig')
+
 if ('speechSynthesis' in window) {
-  var msg = new SpeechSynthesisUtterance();
-  msg.lang = 'fr'
+  voices = window.speechSynthesis.getVoices()
+  msg = new SpeechSynthesisUtterance()
+  msg.lang = 'fr-FR'
   //msg.text = 'Bonjour la compagnie'
   //window.speechSynthesis.speak(msg);
+  for (var i = 0; i < voices.length; i++) {
+    if (voices[i].lang === 'fr-FR' && searchString.test(voices[i].name)) {
+      female = voices[i];
+      break;
+    }
+  }
 }
 
 function Word({ children, ...props }) {
@@ -45,7 +56,9 @@ function Word({ children, ...props }) {
   return <Text ref={ref} onPointerOver={over} onPointerOut={out} onClick={(e) => {
     stopSound.play()
     if (msg) setTimeout(() => {
+      window.speechSynthesis.cancel()
       msg.text = children
+      if (female) msg.voice = female;
       window.speechSynthesis.speak(msg);
     }, 300);
   }} {...props} {...fontProps} children={children} />

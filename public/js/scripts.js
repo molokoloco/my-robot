@@ -9,55 +9,15 @@ $(function() {
 
     "use strict";
 
-    var elem = document.documentElement;
+    $('#year').text(new Date().getFullYear());
+    $('#depuis').text(new Date().getFullYear() - 1998);
 
-    function openFullscreen() {
-        if (elem.requestFullscreen) elem.requestFullscreen();
-        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
-    }
-
-    function closeFullscreen() {
-        if (document.exitFullscreen) document.exitFullscreen();
-        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-        else if (document.msExitFullscreen) document.msExitFullscreen();
-    }
-
-    $('#screen').click(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if (!$(this).data('fullscreen')) {
-            openFullscreen();
-            $(this)
-                .data('fullscreen', true)
-                .html('<i class="bi bi-fullscreen-exit"></i>')
-                .blur();
-        }
-        else {
-            closeFullscreen()
-            $(this)
-                .data('fullscreen', false)
-                .html('<i class="bi bi-arrows-fullscreen"></i>')
-                .blur();
-        }
-        return false;
-    });
-
-    $('#collapseCards').click(function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        if ($(this).data('collapse')) {
-            $('#card1').removeClass('moveLeft');
-            $('#card2').removeClass('moveRight');
-            $(this).data('collapse', false).blur();
-        }
-        else {
-            $('#card1').addClass('moveLeft');
-            $('#card2').addClass('moveRight');
-            $(this).data('collapse', true).blur();
-        }
-        return false;
-    });
+    // var mobile = $(window).width() < 768 ? true : false;
+    // $(window).on('resize', function() {
+    //     mobile = $(window).width() < 768 ? true : false;
+    //     if (!mobile) removeParallax('#card1');
+    //     else makeParallax('#card1');
+    // });
 
     // Div behing canvas prevent event...
 
@@ -114,6 +74,12 @@ $(function() {
             showTodayButton: true
         });
     });
+
+    // Better Mobile NavBar -------------------------------------------------- //
+
+    $('.nav-link').on('click', function() { // auto-close bootstrap menu
+        $('.navbar-toggler').click().blur();
+    })
 
     // Konami -------------------------------------------------- //
 
@@ -183,18 +149,18 @@ $(function() {
 
     const consultationsListe = [
         { label: "Naturopathie", value: "Naturopathie" },
-        { label: "Réflexologie", value: "Réflexologie" },
-        { label: "Médecine traditionnelle chinoise", value: "Médecine traditionnelle chinoise" },
+        { label: "Réflexologie", value: "Reflexologie" },
+        { label: "Médecine traditionnelle chinoise", value: "Medecine_traditionnelle_chinoise" },
         { label: "Sophrologie", value: "Sophrologie" },
-        { label: "Ayurvéda", value: "Ayurvéda" },
+        { label: "Ayurvéda", value: "Ayurveéda" },
         { label: "Hypnose", value: "Hypnose" },
         { label: "Shiatsu", value: "Shiatsu" },
-        { label: "Psychothérapies", value: "Psychothérapies" },
+        { label: "Psychothérapies", value: "Psychotherapies" },
         { label: "Nutrition", value: "Nutrition" },
-        { label: "Aaromathérapie", value: "Aromathérapie" },
-        { label: "Ostéopathie", value: "Ostéopathie" },
-        { label: "Thérapies brèves", value: "Thérapies brèves" },
-        { label: "Auriculothérapie", value: "Auriculothérapie" }
+        { label: "Aaromathérapie", value: "Aromatherapie" },
+        { label: "Ostéopathie", value: "Osteopathie" },
+        { label: "Thérapies brèves", value: "Therapies_breves" },
+        { label: "Auriculothérapie", value: "Auriculotherapie" }
     ];
 
     var updateSortableOrder = function() {
@@ -229,53 +195,166 @@ $(function() {
     };
 
     // https://www.cssscript.com/demo/multi-select-autocomplete-selectpure/
-    var consultationsListeInput = new SelectPure("#consultationsListe", {
-        options: consultationsListe,
-        multiple: true,
-        autocomplete: true,
-        value: ["Naturopathie", "Réflexologie"],
-        icon: "fa fa-times",
-        inlineIcon: false,
-        onChange: buildSortable
-    });
+    // var consultationsListeInput = new SelectPure("#consultationsListe", {
+    //     options: consultationsListe,
+    //     multiple: true,
+    //     autocomplete: true,
+    //     value: ["Naturopathie", "Réflexologie"],
+    //     icon: "fa fa-times",
+    //     inlineIcon: false,
+    //     onChange: buildSortable
+    // });
 
-    buildSortable(["Naturopathie", "Réflexologie"]); // init first default list
+    // buildSortable(["Naturopathie", "Réflexologie"]); // init first default list
 
-    $('body').on('click', '.closeSortable', function() { // link to Remove one sortable item
-        var value = $(this).parent().data('value');
-        $(".select-pure__selected-label").each(function() {
-            if ($(this).text() == value) {
-                $(this).find('i').click(); // simulate close by user on the main selectPure so "onChange: buildSortable" call us again
-            }
-        });
-    });
+    // $('body').on('click', '.closeSortable', function() { // link to Remove one sortable item
+    //     var value = $(this).parent().data('value');
+    //     $(".select-pure__selected-label").each(function() {
+    //         if ($(this).text() == value) {
+    //             $(this).find('i').click(); // simulate close by user on the main selectPure so "onChange: buildSortable" call us again
+    //         }
+    //     });
+    // });
 
-    var wait = false;
-    var $consultationsForm = $("#consultationsForm");
+    // var wait = false;
+    // var $consultationsForm = $("#consultationsForm");
 
-    $consultationsForm.submit(function(event) {
-        event.preventDefault();
-        event.stopPropagation();
+    // $consultationsForm.submit(function(event) {
+    //     event.preventDefault();
+    //     event.stopPropagation();
 
-        // 3s minimun
-        if (wait) return false;
-        wait = true;
-        setTimeout(function() { wait = false; }, 3000);
+    //     // 3s minimun
+    //     if (wait) return false;
+    //     wait = true;
+    //     setTimeout(function() { wait = false; }, 3000);
 
-        var data = [];
-        $('#consultationsOrder li').each(function() { // Get sortable values
-            data.push($(this).data('value'));
-        });
+    //     var data = [];
+    //     $('#consultationsOrder li').each(function() { // Get sortable values
+    //         data.push($(this).data('value'));
+    //     });
 
-        var isValid = data.length;
-        if (isValid) {
-            data = JSON.stringify(data);
-            alert("Voici le contenu du formulaire envoyé au serveur :\n\n " + data);
-            $('#consultations').modal('hide');
-        } else {
-            $('#consultationsForm .invalid-feedback').show();
+    //     var isValid = data.length;
+    //     if (isValid) {
+    //         data = JSON.stringify(data);
+    //         alert("Voici le contenu du formulaire envoyé au serveur :\n\n " + data);
+    //         $('#consultations').modal('hide');
+    //     } else {
+    //         $('#consultationsForm .invalid-feedback').show();
+    //     }
+    //     return false;
+    // });
+
+
+    // Menu -------------------------------------------------- //
+
+    var elem = document.documentElement;
+
+    function openFullscreen() {
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+        else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+    }
+
+    function closeFullscreen() {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        else if (document.msExitFullscreen) document.msExitFullscreen();
+    }
+
+    $('#screen').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!$(this).data('fullscreen')) {
+            openFullscreen();
+            $(this)
+                .data('fullscreen', true)
+                .html('<i class="bi bi-fullscreen-exit"></i>')
+                .blur();
+        }
+        else {
+            closeFullscreen()
+            $(this)
+                .data('fullscreen', false)
+                .html('<i class="bi bi-arrows-fullscreen"></i>')
+                .blur();
         }
         return false;
     });
 
+    $('#collapseCards').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if ($(this).data('collapse')) {
+            $('#card1').removeClass('moveLeft');
+            $('#card2').removeClass('moveRight');
+            $(this).data('collapse', false).blur();
+        }
+        else {
+            $('#card1').addClass('moveLeft');
+            $('#card2').addClass('moveRight');
+            $(this).data('collapse', true).blur();
+        }
+        return false;
+    });
+
+    // Cards parallax -------------------------------------------------- //
+
+    // var makeParallax = function (element) {
+        
+    //     let mouseX, mouseY, intOut, intMov;
+    //     let transformAmount = 20;
+
+    //     element = $(element);
+    //     const centerX = element.offset().left + element.width() / 2;
+    //     const centerY = element.offset().top + element.height() / 2;
+
+    //     console.log('centerX', centerX, 'centerY', centerY);
+
+    //     var moveIt = function(mouseX, mouseY) {
+    //         intMov = null;
+
+    //         const percentX = (mouseX - centerX) / (element.width() / 2);
+    //         const percentY = -((mouseY - centerY) / (element.height() / 2));
+    //         element.css('transform', 'rotateY(' + percentX * transformAmount + 'deg) rotateX(' + percentY * transformAmount + 'deg)');
+
+    //         console.log('mouseX', mouseX, 'mouseY', mouseY, 'percentX', percentX, 'percentY', percentY)
+    //     };
+
+    //     element.on('mousemove', function transformPanel(mouseEvent) {
+    //         mouseX = mouseEvent.pageX;
+    //         mouseY = mouseEvent.pageY;
+            
+    //         const percentX = (mouseX - centerX) / (element.width() / 2);
+    //         const percentY = -((mouseY - centerY) / (element.height() / 2));
+    //         element.css('transform', 'rotateY(' + percentX * transformAmount + 'deg) rotateX(' + percentY * transformAmount + 'deg)');
+
+    //         console.log('mouseEvent.pageX', mouseEvent.pageX, 'percentX', percentX, 'percentY', percentY)
+
+    //         if (!intMov) intMov = setTimeout(moveIt, 300, mouseEvent.pageX, mouseEvent.pageY);
+    //     });
+
+    //     element.on('mouseenter', function handleMouseEnter() {
+    //         if (intOut) clearTimeout(intOut); 
+    //         intOut = setTimeout(element.css('transition', ''), 100);
+    //         element.css('transition', 'transform 0.1s');
+    //     });
+
+    //     element.on('mouseleave', function handleMouseLeave() {
+    //         if (intOut) clearTimeout(intOut);
+    //         intOut = setTimeout(element.css('transition', ''), 100);
+    //         element.css('transition', 'transform 0.1s');
+    //         element.css('transform', 'rotateY(0deg) rotateX(0deg)');
+    //     });
+
+    // };
+
+    // var removeParallax = function (element) {
+    //     element = $(element);
+    //     element.off('mousemove');
+    //     element.off('mouseenter');
+    //     element.off('mouseleave');
+    // };
+
+    // if (!mobile) makeParallax('#card1');
+    // //makeParallax('#card2');
 });
