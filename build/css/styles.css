@@ -287,13 +287,24 @@ main > .container {
     background: rgba(255, 255, 255, 1);
 }
 
-.navbar-collapse.show {
+.navbar-collapse {
     background: hotpink;
+    border-radius: 6px;
+}
+
+.navbar-toggler {
+    outline: 0!important;
+    border: none!important;
+    box-shadow:none!important;
 }
 
 @media (max-width: 768px) {
-    .navbar-collapse.show {
+    .navbar-collapse {
         border: 1px solid #fff;
+        position: absolute;
+        left: 10px;
+        top: 70px;
+        right: 10px;
     }
 }
 
@@ -378,7 +389,7 @@ select,
 --------------------------------------------------  */
 
 .card {
-    --border-width: 2px;
+    --border-width: 1px;
     background-color: #ffffffc7;
 
     transition: all 0.3s ease-in-out;
@@ -388,15 +399,15 @@ select,
     -ms-transition: all 0.3s ease-in-out;
 
     position: absolute;
-    border-radius: var(--border-width);
+    border-radius: 6px; /* var(--border-width); */
     opacity: 0.8;
 
     /* transform: perspective(400px) rotateX(0deg) rotateY(0deg);
 	transform-style: preserve-3d;
 	box-shadow: 1.5rem 2.5rem 5rem 0.7rem rgba(18, 4, 82, 0.603); */
 
-    resize: both;
-    overflow: hidden;
+    /* resize: both;
+    overflow: hidden; */
 }
 
 .card::after {
@@ -407,11 +418,29 @@ select,
     z-index: -1;
     width: calc(100% + var(--border-width) * 2);
     height: calc(100% + var(--border-width) * 2);
-    background: linear-gradient(60deg, #5f86f2, #a65ff2, #f25fd0, #f25f61, #f2cb5f, #abf25f, #5ff281, #5ff2f0);
+    background: linear-gradient(66deg,hotpink, orange, yellow);
     background-size: 300% 300%;
     background-position: 0 50%;
-    border-radius: calc(2 * var(--border-width));
+    border-radius: 6px; /* calc(2 * var(--border-width)); */
     animation: moveGradient 4s alternate infinite;
+}
+
+.card h3,
+.card h5,
+.card p,
+.card li {
+    filter: drop-shadow(1px 0 1px hotpink);
+    transition: filter 0.3s ease-in-out;
+    -moz-transition: filter 0.3s ease-in-out;
+    -o-transition: filter 0.3s ease-in-out;
+    -webkit-transition: filter 0.3s ease-in-out;
+    -ms-transition: filter 0.3s ease-in-out;
+}
+.card h3:hover,
+.card h5:hover,
+.card p:hover,
+.card li:hover {
+    filter: drop-shadow(3px 3px 2px hotpink);
 }
 
 .card-body {
@@ -422,10 +451,11 @@ select,
     border-radius: var(--border-width);
     transform: translateZ(60px);
 	transform-style: preserve-3d;
+    border-radius: 6px;
 }
 
 @keyframes moveGradient {
-	 50% {
+	50% {
 		 background-position: 100% 50%;
 	}
 }

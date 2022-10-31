@@ -75,12 +75,6 @@ $(function() {
         });
     });
 
-    // Better Mobile NavBar -------------------------------------------------- //
-
-    $('.nav-link').on('click', function() { // auto-close bootstrap menu
-        $('.navbar-toggler').click().blur();
-    })
-
     // Konami -------------------------------------------------- //
 
     var bonus = function() {
@@ -244,6 +238,12 @@ $(function() {
     //     return false;
     // });
 
+
+    // Better Mobile NavBar -------------------------------------------------- //
+
+    $('.nav-link').on('click', function() { // auto-close bootstrap menu
+        $('.navbar-toggler').click().blur();
+    });
 
     // Menu -------------------------------------------------- //
 
