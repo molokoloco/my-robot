@@ -2,9 +2,11 @@ import React from 'react'
 import { Suspense, useRef } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
-import { Cloud, PerspectiveCamera, Stage, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
+import { Cloud, PerspectiveCamera, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import BarLoader from "react-spinners/ClipLoader"
+
+import cloudDrei from './assets/cloud-drei.png'
 
 // import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
 // import { Panel, useControls } from './MultiLeva'
@@ -250,8 +252,8 @@ export default function App() {
           {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
           <Grass position={[0, 2.5, 0]} />
-          <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} />
-          <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} />
+          <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} texture={cloudDrei} />
+          <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} texture={cloudDrei} />
           <mesh position={[0, 12, 0]}>
             <Words3d maxCount={50} radius={4} />
           </mesh>

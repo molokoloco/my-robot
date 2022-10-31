@@ -418,7 +418,7 @@ select,
     z-index: -1;
     width: calc(100% + var(--border-width) * 2);
     height: calc(100% + var(--border-width) * 2);
-    background: linear-gradient(66deg,hotpink, orange, yellow);
+    background: linear-gradient(66deg, hotpink, white, #b71968);
     background-size: 300% 300%;
     background-position: 0 50%;
     border-radius: 6px; /* calc(2 * var(--border-width)); */

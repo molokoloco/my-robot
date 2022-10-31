@@ -1,5 +1,5 @@
 {
-  "short_name": "Juju App",
+  "short_name": "JuLien",
   "name": "JuLienWeb.fr",
   "icons": [
     {
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "hotpink",
   "background_color": "#ffffff"
 }
