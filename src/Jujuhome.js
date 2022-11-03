@@ -8,24 +8,23 @@ import BarLoader from "react-spinners/ClipLoader"
 
 import cloudDrei from './assets/cloud-drei.png'
 
-// import {OutlineEffect} from 'three/examples/jsm/effects/OutlineEffect.js'
+// import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js'
 // import { Panel, useControls } from './MultiLeva'
 // import { HexColorPicker } from "react-colorful"
 // import { proxy, useSnapshot } from "valtio"
 // import ReactDOM from 'react-dom/client';
 
-import Grass from "./Grass"
-import Words3d from "./Words3d"
+import Grass from './Grass'
+import Words3d from './Words3d'
 import MySky from './MySky'
 import MyRobot from './MyRobot'
+//import MyPlane from './MyPlane'
 //import Scroll from './Scroll'
 //import MyHtml from './MyHtml'
 
 import './index.css'
 
-
 // TODO navigation 3D : https://codesandbox.io/s/image-gallery-forked-kvsrs4?file=/src/App.js + https://github.com/molefrog/wouter#uselocation-hook-working-with-the-history
-
 
 // By setting <OrbitControls makeDefault <Stage and <CameraShake are aware of the controls being used.
 // Should your own components rely on default controls, throughout the three they're available as:
@@ -150,13 +149,11 @@ extend(THREE)
 
 ////////////////////////////////////
 
-const fallback = function() {
-
+const Fallback = function() {
   const override = { // https://www.npmjs.com/package/react-spinners
     margin: "20px auto",
     clear: "both"
   }
-
   return (
     <div className="h-100 d-flex align-items-center justify-content-center">
       <h4 className="text-center">Chargement...<br/>
@@ -172,8 +169,7 @@ const MyOrbitControls = () => {
 
   const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
   
-  camera.position.y = 5
-  camera.position.z = 15
+  camera.position.set( 10, 5, 5 );
 
   controls.target.y = controls.target.y + 5
   controls.makeDefault = true
@@ -197,11 +193,11 @@ const MyOrbitControls = () => {
   //controls.maxAzimuthAngle = Math.PI / 2
   controls.maxDistance = 24
   controls.minDistance = 3.6
-  //controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
+  controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
   //controls.screenSpacePanning = true
   //controls.update()
 
-  useFrame(({ camera }) => {
+  useFrame(() => {
     controls.update();
   }) 
 
@@ -232,7 +228,7 @@ export default function App() {
 
   return (
     <>
-      <Suspense fallback={fallback()}>
+      <Suspense fallback={Fallback()}>
         <Canvas
           shadows
           pixelratio={[1, 1]}
@@ -251,7 +247,7 @@ export default function App() {
           <spotLight castShadow intensity={2.2} angle={0.2} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
           {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
-          <Grass position={[0, 2.5, 0]} />
+          <Grass position={[0, 2.5, 0]}  opacity={0.6}/>
           <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} texture={cloudDrei} />
           <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} texture={cloudDrei} />
           <mesh position={[0, 12, 0]}>
@@ -274,14 +270,19 @@ export default function App() {
   )
 }
 
-// // Create a react root
-// const root = createRoot(document.querySelector('canvas'))
-// root.configure({ events }) // , camera: { position: [0, 0, 50] }
-// window.addEventListener('resize', () => {
-//   console.log('resize');
-//   root.configure({ size: { width: window.innerWidth, height: window.innerHeight } })
-// })
-// window.dispatchEvent(new Event('resize'))
-// //root.render(<App />)
-// ReactDOM.render(<App />, root);
-// // root.unmount()
+// function Capture() {
+//   const gl = useThree((state) => state.gl)
+//   useControls({
+//     screenshot: button(() => {
+//       const link = document.createElement('a')
+//       link.setAttribute('download', 'canvas.png')
+//       link.setAttribute(
+//         'href',
+//         gl.domElement.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+//       )
+//       link.click()
+//     })
+//   })
+
+//   return null
+// }

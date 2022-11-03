@@ -389,6 +389,7 @@ select,
 --------------------------------------------------  */
 
 .card {
+    min-width: 320px;;
     --border-width: 1px;
     background-color: #ffffffc7;
 
@@ -456,7 +457,7 @@ select,
 
 @keyframes moveGradient {
 	50% {
-		 background-position: 100% 50%;
+		background-position: 100% 50%;
 	}
 }
 
@@ -468,13 +469,13 @@ select,
     z-index: 110;
 }
 
-.moveLeft {
-    transform: translate(-120%, 0);
-    -webkit-transform: translate(-120%, 0);
-    -moz-transform: translate(-120%, 0);
-    -o-transform: translate(-120%, 0);
-    -ms-transform: translate(-120%, 0);
-}
+    .moveLeft {
+        transform: translate(-120%, 0);
+        -webkit-transform: translate(-120%, 0);
+        -moz-transform: translate(-120%, 0);
+        -o-transform: translate(-120%, 0);
+        -ms-transform: translate(-120%, 0);
+    }
 
 #card2 {
     top: 110px;
@@ -484,13 +485,13 @@ select,
     z-index: 120;
 }
 
-.moveRight {
-    transform: translate(120%, 0);
-    -webkit-transform: translate(120%, 0);
-    -moz-transform: translate(120%, 0);
-    -o-transform: translate(120%, 0);
-    -ms-transform: translate(120%, 0);
-}
+    .moveRight {
+        transform: translate(120%, 0);
+        -webkit-transform: translate(120%, 0);
+        -moz-transform: translate(120%, 0);
+        -o-transform: translate(120%, 0);
+        -ms-transform: translate(120%, 0);
+    }
 
 @media (max-width: 768px) {
     #card1 {
@@ -499,15 +500,15 @@ select,
         width: initial;
         right: 50px;
         bottom: initial;
-        height: 37%;
+        height: 36%;
     }
     #card2 {
-        top: 55%;
+        top: 56%;
         left: 50px;
         right: 50px;
         width: initial;
         bottom: initial;
-        height: 37%;
+        height: 36%;
     }
 }
 

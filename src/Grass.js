@@ -9,6 +9,7 @@ import { Geometry } from "./Geometry" // three/examples/jsm/deprecated/Geometry
 import bladeDiffuse from "./assets/blade_diffuse.jpg"
 import bladeAlpha from "./assets/blade_alpha.jpg"
 import grass from "./assets/grass2.jpg"
+
 import "./GrassMaterial"
 
 const simplex = createNoise2D()
@@ -34,7 +35,6 @@ export default function Grass({ options = { bW: 0.05, bH: 0.4, joints: 4 }, widt
   const attributeData = useMemo(() => getAttributeData(instances, width), [instances, width])
   //const baseGeom = useMemo(() => new THREE.SphereGeometry(bW, 6, joints).translate(0, bH / 2, 0), [bH, bW, joints])
   const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [bH, bW, joints])
-  const baseGeom2 = useMemo(() => new THREE.CircleGeometry(bW, 10, joints).translate(0, bH / 2, 0), [bH, bW, joints])
 
   const groundGeo = useMemo(() => {
     //const geo = new Geometry().fromBufferGeometry(new THREE.SphereGeometry(width/2, 32, 32))

@@ -111,12 +111,12 @@ export default function Robot({ ...props }) {
     interval = setInterval(() => {
       rdmAction = states[Math.floor(Math.random() * states.length)]
       fadeToAction(rdmAction, 0.5)
-      console.log('rdmAction', rdmAction)
+      //console.log('rdmAction', rdmAction)
       
       timeOut = setTimeout(() => {
         var rdmEmote = emotes[Math.floor(Math.random() * emotes.length)]
         api[rdmEmote]();
-        console.log('rdmEmote', rdmEmote)
+        //console.log('rdmEmote', rdmEmote)
       }, 6000)
 
     }, 10000)
@@ -179,7 +179,7 @@ export default function Robot({ ...props }) {
     //setActive(!active);
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
-    console.log('robotClick', rdmAction)
+    //console.log('robotClick', rdmAction)
 
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true
@@ -236,8 +236,6 @@ export default function Robot({ ...props }) {
       //MyMesh.push(getMesh(obj.name));
     }
   })
-
-  // onContextMenu
 
   return (
     <group ref={ref} dispose={null} {...props} position={[0, 2.5, 0]} >
