@@ -287,6 +287,8 @@ $(function() {
         if ($(this).data('collapse')) {
             $('#card1').removeClass('moveLeft');
             $('#card2').removeClass('moveRight');
+            $('#card1').removeClass('moveLeft');
+            $('#card2').removeClass('moveRight');
             $(this).data('collapse', false).blur();
         }
         else {
@@ -295,6 +297,43 @@ $(function() {
             $(this).data('collapse', true).blur();
         }
         return false;
+    });
+
+    // Switch FR/EN -------------------------------------------------- //
+
+    var visitorLang = 'fr';
+
+    var setLanguage = function() {
+        $('#collapseCards').data('collapse', false);
+        if (visitorLang == 'en') {
+            $('#card1').addClass('moveLeft');
+            $('#card2').addClass('moveRight');
+            $('#card3').removeClass('moveLeft');
+            $('#card4').removeClass('moveRight');
+            $('.nav-item a[href="#fr"]').removeClass('active');
+            $('.nav-item a[href="#en"]').addClass('active');
+            $('.bullshit').text('No blabla!');
+        }
+        else {
+            $('#card3').addClass('moveLeft');
+            $('#card4').addClass('moveRight');
+            $('#card1').removeClass('moveLeft');
+            $('#card2').removeClass('moveRight');
+            $('.nav-item a[href="#en"]').removeClass('active');
+            $('.nav-item a[href="#fr"]').addClass('active');
+            $('.bullshit').text('No bullshit!');
+        }
+    };
+
+    if (window.location.hash && window.location.hash == '#en') {
+        visitorLang = 'en';
+        setLanguage();
+    }
+
+    $(window).on('hashchange', function() {
+        if (window.location.hash && window.location.hash == '#en') visitorLang = 'en';
+        else visitorLang = 'fr';
+        setLanguage();
     });
 
     // Cards parallax -------------------------------------------------- //

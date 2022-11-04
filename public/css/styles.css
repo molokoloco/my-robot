@@ -214,6 +214,19 @@ main > .container {
     padding: 5px;
 }
 
+.nav-item svg {
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -ms-transition: opacity 0.3s ease-in-out;
+}
+
+.nav-item:hover svg {
+    opacity: 0.8;
+}
+
 .navbar-brand {
     color: #fff;
     line-height: 60px;
@@ -262,16 +275,6 @@ main > .container {
     }
 }
 
-.nav-link.active::after {
-    content: "";
-    position: absolute;
-    top: 25px;
-    left: 0;
-    width: 97%;
-    border-bottom: 3px #FFF solid;
-    padding: 12px 0;
-    z-index: 1;
-}
 .navbar-nav .nav-link {
     border-radius: 10px;
     transition: all 0.3s ease-in-out;
@@ -389,7 +392,7 @@ select,
 --------------------------------------------------  */
 
 .card {
-    min-width: 320px;;
+    min-width: 320px;
     --border-width: 1px;
     background-color: #ffffffc7;
 
@@ -461,7 +464,8 @@ select,
 	}
 }
 
-#card1 {
+#card1,
+#card3 {
     top: 110px;
     left: 50px;
     width: 33%;
@@ -477,7 +481,8 @@ select,
         -ms-transform: translate(-120%, 0);
     }
 
-#card2 {
+#card2,
+#card4 {
     top: 110px;
     right: 50px;
     width: 33%;
@@ -494,18 +499,23 @@ select,
     }
 
 @media (max-width: 768px) {
-    #card1 {
+    .card {
+        min-width: auto;
+    }
+    #card1,
+    #card3 {
         top: 110px;
-        left: 50px;
+        left: 30px;
         width: initial;
-        right: 50px;
+        right: 30px;
         bottom: initial;
         height: 36%;
     }
-    #card2 {
+    #card2,
+    #card4 {
         top: 56%;
-        left: 50px;
-        right: 50px;
+        left: 30px;
+        right: 30px;
         width: initial;
         bottom: initial;
         height: 36%;
