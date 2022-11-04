@@ -227,6 +227,7 @@ main > .container {
     opacity: 0.8;
 }
 
+
 .navbar-brand {
     color: #fff;
     line-height: 60px;
@@ -288,6 +289,19 @@ main > .container {
     text-decoration: none;
     color: hotpink;
     background: rgba(255, 255, 255, 1);
+}
+
+@media (min-width: 768px) {
+    .nav-link.active::after {
+        content: "";
+        position: absolute;
+        top: 25px;
+        left: 0;
+        width: 97%;
+        border-bottom: 3px #FFF solid;
+        padding: 12px 0;
+        z-index: 1;
+    } 
 }
 
 .navbar-collapse {

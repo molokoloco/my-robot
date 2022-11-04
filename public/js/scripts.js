@@ -303,11 +303,11 @@ $(function() {
 
     // Switch FR/EN -------------------------------------------------- //
 
-    var visitorLang = 'fr';
+    window.visitorLang = 'fr';
 
     var setLanguage = function() {
         $('#collapseCards').data('collapse', false);
-        if (visitorLang == 'en') {
+        if (window.visitorLang == 'en') {
             $('#card1').addClass('moveLeft');
             $('#card2').addClass('moveRight');
             $('#card3').removeClass('moveLeft');
@@ -328,13 +328,13 @@ $(function() {
     };
 
     if (window.location.hash && window.location.hash == '#en') {
-        visitorLang = 'en';
+        window.visitorLang = 'en';
         setLanguage();
     }
 
     $(window).on('hashchange', function() {
-        if (window.location.hash && window.location.hash == '#en') visitorLang = 'en';
-        else visitorLang = 'fr';
+        if (window.location.hash && window.location.hash == '#en') window.visitorLang = 'en';
+        else window.visitorLang = 'fr';
         setLanguage();
     });
 

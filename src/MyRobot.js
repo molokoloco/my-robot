@@ -149,28 +149,35 @@ export default function Robot({ ...props }) {
 
   ////////////////////////////////////
 
-  const myPres = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, j'ai une expérience de 5 ans en startup, 2 ans freelance et 13 ans chez Bouygues Telecom. Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
+  const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
 
-  var msg = null
+  const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop/mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
+
+  var msg = new SpeechSynthesisUtterance()
+  var voices = window.speechSynthesis.getVoices()
+
+  var myPres = null
   var male = null
-  var voices = null
   var speaking = false
   var intSpeak = null
-  const searchString = new RegExp(/paul/, 'ig')
+  var searchString = null
 
-  if ('speechSynthesis' in window) {
-    voices = window.speechSynthesis.getVoices()
-    msg = new SpeechSynthesisUtterance()
-    msg.lang = 'fr-FR'
-    //msg.text = 'Bonjour la compagnie'
-    //window.speechSynthesis.speak(msg);
-    for (var i = 0; i < voices.length; i++) {
-      if (voices[i].lang === 'fr-FR' && searchString.test(voices[i].name)) {
-        male = voices[i];
-        break;
+  const setupLang = function () {
+    myPres = (window.visitorLang && window.visitorLang === 'en' ? myPres_en : myPres_fr)
+    searchString = (window.visitorLang && window.visitorLang === 'en' ? new RegExp(/English Male/, 'ig') : new RegExp(/paul/, 'ig'))
+    if ('speechSynthesis' in window) {
+      msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
+      //msg.text = 'Bonjour la compagnie'
+      //window.speechSynthesis.speak(msg);
+      for (var i = 0; i < voices.length; i++) {
+        if (searchString.test(voices[i].name)) { //voices[i].lang === 'fr-FR' && 
+          male = voices[i];
+          break;
+        }
       }
     }
   }
+  setupLang()
 
   ////////////////////////////////////
 
@@ -180,6 +187,7 @@ export default function Robot({ ...props }) {
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
     //console.log('robotClick', rdmAction)
+    setupLang();
 
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true
