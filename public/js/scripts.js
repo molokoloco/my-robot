@@ -287,13 +287,15 @@ $(function() {
         if ($(this).data('collapse')) {
             $('#card1').removeClass('moveLeft');
             $('#card2').removeClass('moveRight');
-            $('#card1').removeClass('moveLeft');
-            $('#card2').removeClass('moveRight');
+            $('#card3').removeClass('moveLeft');
+            $('#card4').removeClass('moveRight');
             $(this).data('collapse', false).blur();
         }
         else {
             $('#card1').addClass('moveLeft');
             $('#card2').addClass('moveRight');
+            $('#card3').addClass('moveLeft');
+            $('#card4').addClass('moveRight');
             $(this).data('collapse', true).blur();
         }
         return false;
