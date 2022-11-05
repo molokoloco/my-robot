@@ -10,7 +10,7 @@ $(function() {
     "use strict";
 
     $('#year').text(new Date().getFullYear());
-    $('#depuis').text(new Date().getFullYear() - 1998);
+    $('#depuis,#since').text(new Date().getFullYear() - 1998);
 
     // var mobile = $(window).width() < 768 ? true : false;
     // $(window).on('resize', function() {
@@ -301,7 +301,7 @@ $(function() {
         return false;
     });
 
-    // Switch FR/EN -------------------------------------------------- //
+    // Switch FR/EN -------------------------------------------------- // Card 1/2 Franchies 3/4 Anglaises
 
     window.visitorLang = 'fr';
 
@@ -329,8 +329,9 @@ $(function() {
 
     if (window.location.hash && window.location.hash == '#en') {
         window.visitorLang = 'en';
-        setLanguage();
     }
+    
+    setLanguage();
 
     $(window).on('hashchange', function() {
         if (window.location.hash && window.location.hash == '#en') window.visitorLang = 'en';
