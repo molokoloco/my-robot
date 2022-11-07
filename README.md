@@ -43,6 +43,14 @@ Voici les dépendances du projet :
 }
 ```
 
+Dev and build :
+
+```
+npm i
+npm run start
+npm run build
+```
+
 ### Sources
 
 * https://threejs.org/examples/webgl_animation_skinning_morph.html

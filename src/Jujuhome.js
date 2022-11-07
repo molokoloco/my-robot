@@ -169,7 +169,7 @@ const MyOrbitControls = () => {
 
   const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
   
-  camera.position.set( 10, 5, 5 );
+  camera.position.set( 0, 6, 8 );
 
   controls.target.y = controls.target.y + 5
   controls.makeDefault = true
@@ -183,7 +183,7 @@ const MyOrbitControls = () => {
   controls.minZoom = 1
   //controls.maxZoom = 10
   //controls.noZoom = true // enableZoom = false
-  controls.zoom = 10
+  controls.zoom = 0
   controls.enablePan = true
   controls.panSpeed = 1
   controls.enableDamping = true
