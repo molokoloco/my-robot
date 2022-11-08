@@ -1,8 +1,6 @@
 /*
     Copyright : Julien Guézennec © 2022 https://julienweb.fr
-    Repository : https://github.com/molokoloco/medoucine/
-
-    + https://getbootstrap.com/docs/5.2/getting-started/introduction/
+    Repository : https://github.com/molokoloco/my-robot
 */
 
 $(function() {
@@ -75,7 +73,7 @@ $(function() {
         });
     });
 
-    // Konami -------------------------------------------------- //
+    // K0nam1 -------------------------------------------------- //
 
     var bonus = function() {
         $('body').append('<audio src="https://julienweb.fr/chat.mp3" autoplay></audio>');
@@ -238,16 +236,16 @@ $(function() {
     //     return false;
     // });
 
-
     // Better Mobile NavBar -------------------------------------------------- //
 
     $('.nav-link').on('click', function() { // auto-close bootstrap menu
         $('.navbar-toggler').click().blur();
     });
 
-    // Menu -------------------------------------------------- //
+    // Menu FullScreen (1 BTN mobile / 1 BTN desktop)-------------------------------------------------- //
 
     var elem = document.documentElement;
+    var $btnFull = $('#screen1,#screen2');
 
     function openFullscreen() {
         if (elem.requestFullscreen) elem.requestFullscreen();
@@ -261,19 +259,19 @@ $(function() {
         else if (document.msExitFullscreen) document.msExitFullscreen();
     }
 
-    $('#screen').click(function(e) {
+    $btnFull.click(function(e) {
         e.preventDefault();
         e.stopPropagation();
         if (!$(this).data('fullscreen')) {
             openFullscreen();
-            $(this)
+            $btnFull
                 .data('fullscreen', true)
                 .html('<i class="bi bi-fullscreen-exit"></i>')
                 .blur();
         }
         else {
             closeFullscreen()
-            $(this)
+            $btnFull
                 .data('fullscreen', false)
                 .html('<i class="bi bi-arrows-fullscreen"></i>')
                 .blur();
@@ -281,32 +279,38 @@ $(function() {
         return false;
     });
 
-    $('#collapseCards').click(function(e) {
+    // Hide cards (FR:1-2 / EN:3-4) -------------------------------------------------- // Card 1/2 Franchies 3/4 Anglaises
+
+    $('.bullshit').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
-        if ($(this).data('collapse')) {
-            $('#card1').removeClass('moveLeft');
-            $('#card2').removeClass('moveRight');
-            $('#card3').removeClass('moveLeft');
-            $('#card4').removeClass('moveRight');
-            $(this).data('collapse', false).blur();
+        if ($(this).data('noShit')) {
+            if (window.visitorLang == 'en') {
+                $('#card3').removeClass('moveLeft');
+                $('#card4').removeClass('moveRight');
+            }
+            else {
+                $('#card1').removeClass('moveLeft');
+                $('#card2').removeClass('moveRight');
+            }
+            $(this).data('noShit', false).blur();
         }
         else {
             $('#card1').addClass('moveLeft');
             $('#card2').addClass('moveRight');
             $('#card3').addClass('moveLeft');
             $('#card4').addClass('moveRight');
-            $(this).data('collapse', true).blur();
+            $(this).data('noShit', true).blur();
         }
         return false;
     });
 
-    // Switch FR/EN -------------------------------------------------- // Card 1/2 Franchies 3/4 Anglaises
+    // Switch FR/EN for Cards -------------------------------------------------- // Card 1/2 Franchies 3/4 Anglaises
 
     window.visitorLang = 'fr';
 
     var setLanguage = function() {
-        $('#collapseCards').data('collapse', false);
+        $('.bullshit').data('noShit', false);
         if (window.visitorLang == 'en') {
             $('#card1').addClass('moveLeft');
             $('#card2').addClass('moveRight');
@@ -327,17 +331,21 @@ $(function() {
         }
     };
 
-    if (window.location.hash && window.location.hash == '#en') {
+    $('.nav-item a[href="#en"]').on('click', function() {
         window.visitorLang = 'en';
-    }
-    
-    setLanguage();
-
-    $(window).on('hashchange', function() {
-        if (window.location.hash && window.location.hash == '#en') window.visitorLang = 'en';
-        else window.visitorLang = 'fr';
         setLanguage();
     });
+
+    $('.nav-item a[href="#fr"]').on('click', function() {
+        window.visitorLang = 'fr';
+        setLanguage();
+    });
+
+    if (window.location.hash && window.location.hash === '#en') {
+        window.visitorLang = 'en';
+    }
+
+    setLanguage();
 
     // Cards parallax -------------------------------------------------- //
 
