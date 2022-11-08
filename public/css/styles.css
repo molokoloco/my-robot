@@ -465,6 +465,13 @@ select,
     filter: drop-shadow(3px 3px 2px hotpink);
 }
 
+.card h3:hover .fluo,
+.card h5:hover .fluo,
+.card p:hover .fluo,
+.card li:hover .fluo {
+    background-color: rgb(255 255 0 / 86%);
+}
+
 .card-body {
     text-align: justify;
     overflow-wrap: break-word;

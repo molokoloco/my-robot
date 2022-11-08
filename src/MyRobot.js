@@ -125,6 +125,7 @@ export default function Robot({ ...props }) {
       clearTimeout(timeOut)
       clearInterval(interMorph)
       clearInterval(interval)
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel()
     }
   }, [actions, api]);
 
@@ -153,30 +154,32 @@ export default function Robot({ ...props }) {
 
   const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop/mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
 
-  var msg = new SpeechSynthesisUtterance()
-  var voices = window.speechSynthesis.getVoices()
-
+  var msg = null
+  var voices = null
   var myPres = null
   var male = null
   var speaking = false
   var intSpeak = null
   var searchString = null
 
+  if ('SpeechSynthesisUtterance' in window) msg = new SpeechSynthesisUtterance()
+  if ('speechSynthesis' in window) voices = window.speechSynthesis.getVoices()
+
   const setupLang = function () {
+    if (!('speechSynthesis' in window)) return;
     myPres = (window.visitorLang && window.visitorLang === 'en' ? myPres_en : myPres_fr)
     searchString = (window.visitorLang && window.visitorLang === 'en' ? new RegExp(/English Male/, 'ig') : new RegExp(/paul/, 'ig'))
-    if ('speechSynthesis' in window) {
-      msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
-      //msg.text = 'Bonjour la compagnie'
-      //window.speechSynthesis.speak(msg);
-      for (var i = 0; i < voices.length; i++) {
-        if (searchString.test(voices[i].name)) { //voices[i].lang === 'fr-FR' && 
-          male = voices[i];
-          break;
-        }
+    msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
+    //msg.text = 'Bonjour la compagnie'
+    //window.speechSynthesis.speak(msg);
+    for (var i = 0; i < voices.length; i++) {
+      if (searchString.test(voices[i].name)) { //voices[i].lang === 'fr-FR' && 
+        male = voices[i]
+        break
       }
     }
   }
+
   setupLang()
 
   ////////////////////////////////////
@@ -187,13 +190,13 @@ export default function Robot({ ...props }) {
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
     //console.log('robotClick', rdmAction)
-    setupLang();
+    setupLang()
 
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true
       window.speechSynthesis.cancel()
       msg.text = myPres
-      if (male) msg.voice = male;
+      if (male) msg.voice = male
       window.speechSynthesis.speak(msg)
     }
     else {
