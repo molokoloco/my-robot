@@ -2,14 +2,13 @@
 
 ![Demo screen](https://github.com/molokoloco/my-robot/blob/main/public/img/capture-myrobot-1920x975.png?raw=true "Demo in progress")
 
-## Démo : https://julienweb.fr 
+### Démo : https://julienweb.fr 
 
-### Work in progress
-Voici mon site perso avec "**React.JS**" (Une bibliothèque JavaScript pour créer des interfaces utilisateurs) et "**Three.JS**" (Une bibliothèque JavaScript 3D basé sur OpenGL). 
-J'ai utilise "**React-three-fiber**" (Un moteur de rendu React pour Three.js) pour unifier les deux et faire ce que j'avais en tête ^^  
-Les sources sont ici : https://github.com/molokoloco/my-robot/tree/main/src
+WebGL interactive robot made with React-three-fiber renderer for Three.js.  
+I'have made a lot of mistakes but have a lot of fun, and do a lot of experiments :)
+Check it! http://julienweb.fr code https://github.com/molokoloco/my-robot/blob/main/src/Jujuhome.js
 
-Voici les dépendances du projet : 
+Project dependencies : 
 
 ```
 {
@@ -30,14 +29,14 @@ Voici les dépendances du projet :
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "lamina": "^1.1.23",
-    "leva": "^0.9.31",
     "react": "^18.2.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.6",
     "simplex-noise": "^4.0.0",
     "three": "0.140.0",
-    "valtio": "^1.7.0",
+    "vite": "^3.1.8",
     "web-vitals": "^3.0.2"
   },
 }
@@ -51,14 +50,12 @@ npm run start
 npm run build
 ```
 
-### Sources
+### Sources...
 
 * https://threejs.org/examples/webgl_animation_skinning_morph.html
 * https://threejs.org/examples/webgl2_volume_cloud.html
-
 * https://github.com/pmndrs/react-three-fiber
 * https://github.com/pmndrs/drei
-
 * https://codesandbox.io/s/friendly-cookies-v9mmc
 * https://codesandbox.io/embed/react-three-render3d-qobqy
 * https://codesandbox.io/s/staging-and-camerashake-0ycwe?file=/src/style.css:112-132
