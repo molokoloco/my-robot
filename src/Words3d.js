@@ -16,30 +16,34 @@ const randomWords_en = [
     'Internet', 'Multimedia', 'Development', 'JavaScript', 'HTML5', 'CSS3', 'SVG', 'JSON', 'RSS', 'WebAPI', 'WebGL', 'Canvas', 'jQuery ', 'REACT', 'LESS', 'SASS', 'Three.JS', 'Bootstrap', 'NPM/Yarn', 'WebPack', 'Grunt', 'Visual Studio Code', 'CodeSandbox', 'NotePad ', 'Photoshop', 'Illustrator', 'Media encoders', 'VLC', 'Wordpress', 'Google Cloud', 'Facebook App', 'Amazon AWS', 'CloudFlare', 'Integration', 'Accessibility', 'internationalization', 'Design/UX', 'Graphic charter', 'Animation', 'Interactivity', 'Multimedia', 'Pixel/2D/3D', 'Audio', 'Typography', 'SEO', 'Wording' , 'Security', 'Mailing', 'Dataviz', 'IA', 'Analytics', 'Watch', 'Community', 'Management', 'Training', 'Demonstration', 'Presentation', 'Back-end' , 'Servers', 'Linux', 'Windows', 'SAAS', 'PHP', 'templates', 'YAML', 'XML', 'JSON', 'RSS', 'WebSocket', 'Express.js' , 'OpenAPI', 'Wordpress', 'Socket.io', 'Custom', 'MySQL', 'MongoDB', 'Redis', 'SQLite', 'NodeJS', 'Git/GitHub', 'GitLab', ' Cmd/Shell/Bash', 'OpenSSH', 'Apa che', 'Nginx', 'Docker', 'VirtualBox', 'VLC', 'CDN', 'Security', 'CRON', 'Monitoring', 'dashboard', 'Streaming', 'Cache', 'DNS management ', 'Load-balancing', 'Reporting', 'SSL', 'OVH', 'Gandi', 'GitHub', 'Serverless', 'Documentation', 'Art'
 ]
 
-var randomWords = null
-var msg = null
-var female = null
-var voices = null
-var searchString = null
+var msg, voices, randomWords, female, searchString = null
 
 const setupLang = function () {
-  randomWords = (window.visitorLan && window.visitorLang === 'en' ? randomWords_en : randomWords_fr)
-  searchString = (window.visitorLang && window.visitorLang === 'en' ? new RegExp(/English Female/, 'ig') : new RegExp(/julie/, 'ig')) // Only on reload for now :-/
-  if ('speechSynthesis' in window) {
-    voices = window.speechSynthesis.getVoices()
-    msg = new SpeechSynthesisUtterance()
-    msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
-    //msg.text = 'Bonjour la compagnie'
-    //window.speechSynthesis.speak(msg);
-    for (var i = 0; i < voices.length; i++) {
-      if (searchString.test(voices[i].name)) {
-        female = voices[i];
-        break;
-      }
+  if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return false;
+  voices = window.speechSynthesis.getVoices()
+  msg = new SpeechSynthesisUtterance()
+  if (window.visitorLang && window.visitorLang === 'en') {
+    randomWords = randomWords_en
+    msg.lang = 'en-GB'
+    searchString = new RegExp(/English Female/, 'ig')
+  }
+  else {
+    randomWords = randomWords_fr
+    msg.lang = 'fr-FR'
+    searchString = new RegExp(/Julie/, 'ig')
+  }
+  female = null
+  for (var i = 0; i < voices.length; i++) {
+    if (searchString.test(voices[i].name)) {
+      female = voices[i]
+      break
     }
   }
+  if (female) msg.voice = female
+  return true;
 }
-setupLang()
+
+setupLang();
 
 // TOdo redraw words after lang change ! ///////////////
 
@@ -67,13 +71,13 @@ function Word({ children, ...props }) {
   
   return <Text ref={ref} onPointerOver={over} onPointerOut={out} onClick={(e) => {
     stopSound.play()
-    setupLang();
-    if (msg) setTimeout(() => {
+    if (setupLang()) {
       window.speechSynthesis.cancel()
-      msg.text = children
-      if (female) msg.voice = female;
-      window.speechSynthesis.speak(msg);
-    }, 300);
+      setTimeout(() => {
+        msg.text = children
+        window.speechSynthesis.speak(msg)
+      }, 300)
+    }
   }} {...props} {...fontProps} children={children} />
 }
 

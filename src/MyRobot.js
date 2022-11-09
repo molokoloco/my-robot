@@ -38,39 +38,6 @@ function fadeToAction(name, duration) {
 
 ////////////////////////////////////
 
-const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
-
-const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop/mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
-
-var msg = null
-var voices = null
-var myPres = null
-var male = null
-var speaking = false
-var searchString = null
-
-if ('SpeechSynthesisUtterance' in window) msg = new SpeechSynthesisUtterance()
-if ('speechSynthesis' in window) voices = window.speechSynthesis.getVoices()
-
-const setupLang = function () {
-  if (!('speechSynthesis' in window)) return;
-  myPres = (window.visitorLang && window.visitorLang === 'en' ? myPres_en : myPres_fr)
-  msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
-  male = null;
-  searchString = (window.visitorLang && window.visitorLang === 'en' ? new RegExp(/English Male/, 'ig') : new RegExp(/paul/, 'ig'))
-  for (var i = 0; i < voices.length; i++) {
-    if (searchString.test(voices[i].name)) { //voices[i].lang === 'fr-FR' && 
-      male = voices[i]
-      break
-    }
-  }
-  if (male) msg.voice = male
-}
-
-setupLang()
-
-////////////////////////////////////
-
 export default function Robot({ ...props }) {
   //console.log('Robot()')
 
@@ -190,6 +157,38 @@ export default function Robot({ ...props }) {
 
   ////////////////////////////////////
 
+  const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
+  const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop/mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
+
+  var msg, voices, myPres, male, speaking, searchString = null
+
+  const setupLang = function () {
+    if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return false;
+    voices = window.speechSynthesis.getVoices()
+    msg = new SpeechSynthesisUtterance()
+    if (window.visitorLang && window.visitorLang === 'en') {
+      myPres = myPres_en
+      msg.lang = 'en-GB'
+      searchString = new RegExp(/English Male/, 'ig')
+    }
+    else {
+      myPres = myPres_fr
+      msg.lang = 'fr-FR'
+      searchString = new RegExp(/Paul/, 'ig')
+    }
+    male = null
+    for (var i = 0; i < voices.length; i++) {
+      if (searchString.test(voices[i].name)) {
+        male = voices[i]
+        break
+      }
+    }
+    if (male) msg.voice = male
+    return true;
+  }            
+
+  ////////////////////////////////////
+
   const robotClick = (e) => {
 
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
@@ -198,25 +197,17 @@ export default function Robot({ ...props }) {
 
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true
-      setupLang()
-      msg.text = myPres
-      if (male) msg.voice = male
-      window.speechSynthesis.speak(msg)
+      if (setupLang()) {
+        msg.text = myPres
+        window.speechSynthesis.speak(msg)
+      }
     }
     else if (speaking) {
       speaking = false
-      window.speechSynthesis.cancel()
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel()
       startSound.play()
     }
     
-    // setActive(!active);
-    // activeAction = actions[rdmAction]
-    // activeAction.play()
-    // var t = 'Jump'; //actionsList[Math.floor(Math.random() * actionsList.length)]
-    // api[t]();
-    // console.log('api', api);
-    // setIndex((index + 1) % names.length)
-
     return false;
   }
 
