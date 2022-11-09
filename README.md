@@ -42,6 +42,7 @@ npm run build
 
 ### Sources...
 
+* https://codesandbox.io/s/three-js-robot-anims-tbodc4
 * https://threejs.org/examples/webgl_animation_skinning_morph.html
 * https://threejs.org/examples/webgl2_volume_cloud.html
 * https://github.com/pmndrs/react-three-fiber

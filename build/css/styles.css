@@ -450,11 +450,11 @@ select,
     background-color: #ffffffc7;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 
-    transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    -webkit-transition: all 0.3s ease-in-out;
-    -ms-transition: all 0.3s ease-in-out;
+    transition: translate 0.3s ease-in-out;
+    -moz-transition: translate 0.3s ease-in-out;
+    -o-transition: translate 0.3s ease-in-out;
+    -webkit-transition: translate 0.3s ease-in-out;
+    -ms-transition: translate 0.3s ease-in-out;
 
     position: absolute;
     border-radius: 6px; /* var(--border-width); */
@@ -601,7 +601,6 @@ select,
 .card ul > li > svg {
     margin: 2px 6px 3px 0;
 }
-
 
 /* jQuery UI Sortables
 --------------------------------------------------  */

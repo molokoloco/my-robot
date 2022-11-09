@@ -36,6 +36,41 @@ function fadeToAction(name, duration) {
     .play();
 }
 
+////////////////////////////////////
+
+const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
+
+const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop/mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
+
+var msg = null
+var voices = null
+var myPres = null
+var male = null
+var speaking = false
+var searchString = null
+
+if ('SpeechSynthesisUtterance' in window) msg = new SpeechSynthesisUtterance()
+if ('speechSynthesis' in window) voices = window.speechSynthesis.getVoices()
+
+const setupLang = function () {
+  if (!('speechSynthesis' in window)) return;
+  myPres = (window.visitorLang && window.visitorLang === 'en' ? myPres_en : myPres_fr)
+  msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
+  male = null;
+  searchString = (window.visitorLang && window.visitorLang === 'en' ? new RegExp(/English Male/, 'ig') : new RegExp(/paul/, 'ig'))
+  for (var i = 0; i < voices.length; i++) {
+    if (searchString.test(voices[i].name)) { //voices[i].lang === 'fr-FR' && 
+      male = voices[i]
+      break
+    }
+  }
+  if (male) msg.voice = male
+}
+
+setupLang()
+
+////////////////////////////////////
+
 export default function Robot({ ...props }) {
   //console.log('Robot()')
 
@@ -45,7 +80,6 @@ export default function Robot({ ...props }) {
   // const { ref, actions, names, mixer } = useAnimations(animations, scene)
   // const [hovered, setHovered] = useState(false)
   // const [index, setIndex] = useState(0)
-
   // actions['Idle'].play()
 
   const states = ['Idle', 'Walking', 'Running', 'Dance'] //, 'Death', 'Standing', 'Sitting'
@@ -85,7 +119,7 @@ export default function Robot({ ...props }) {
   // expressions
   face = scene.getObjectByName('Head_4')
 
-  //const expressions = Object.keys(face.morphTargetDictionary)
+  // const expressions = Object.keys(face.morphTargetDictionary)
   // console.log('api', api, 'states', states, 'emotes', emotes, 'expressions', expressions);
   // console.log('face.morphTargetDictionary',face.morphTargetDictionary,'expressions',expressions);
 
@@ -134,8 +168,14 @@ export default function Robot({ ...props }) {
   //     const action = mixer.clipAction(clip);
   //     action.play();
   // });
+
+  let frame = 0
+  
   useFrame((state, delta) => {
-      mixer.update(delta);
+      frame = frame <= 100 ? frame + 1 : frame
+      if (frame <= 100) ref.current.rotation.y += 6 / frame
+
+      mixer.update(delta)
   }, [mixer]);
 
   //const [active, setActive] = useState(false);
@@ -150,88 +190,38 @@ export default function Robot({ ...props }) {
 
   ////////////////////////////////////
 
-  const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop/mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
-
-  const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop/mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
-
-  var msg = null
-  var voices = null
-  var myPres = null
-  var male = null
-  var speaking = false
-  var intSpeak = null
-  var searchString = null
-
-  if ('SpeechSynthesisUtterance' in window) msg = new SpeechSynthesisUtterance()
-  if ('speechSynthesis' in window) voices = window.speechSynthesis.getVoices()
-
-  const setupLang = function () {
-    if (!('speechSynthesis' in window)) return;
-    myPres = (window.visitorLang && window.visitorLang === 'en' ? myPres_en : myPres_fr)
-    searchString = (window.visitorLang && window.visitorLang === 'en' ? new RegExp(/English Male/, 'ig') : new RegExp(/paul/, 'ig'))
-    msg.lang = (window.visitorLang && window.visitorLang === 'en' ? 'en-GB' : 'fr-FR')
-    //msg.text = 'Bonjour la compagnie'
-    //window.speechSynthesis.speak(msg);
-    for (var i = 0; i < voices.length; i++) {
-      if (searchString.test(voices[i].name)) { //voices[i].lang === 'fr-FR' && 
-        male = voices[i]
-        break
-      }
-    }
-  }
-
-  setupLang()
-
-  ////////////////////////////////////
-
   const robotClick = (e) => {
 
-    //setActive(!active);
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
-    //console.log('robotClick', rdmAction)
-    setupLang()
+    // console.log('robotClick', rdmAction)
 
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true
-      window.speechSynthesis.cancel()
+      setupLang()
       msg.text = myPres
       if (male) msg.voice = male
       window.speechSynthesis.speak(msg)
     }
-    else {
+    else if (speaking) {
       speaking = false
       window.speechSynthesis.cancel()
-      intSpeak && clearTimeout(intSpeak)
       startSound.play()
     }
     
+    // setActive(!active);
     // activeAction = actions[rdmAction]
     // activeAction.play()
-    
     // var t = 'Jump'; //actionsList[Math.floor(Math.random() * actionsList.length)]
     // api[t]();
     // console.log('api', api);
     // setIndex((index + 1) % names.length)
-  }
 
-  // const [textureTrans] = useLoader(THREE.TextureLoader, [pixTrans]) 
+    return false;
+  }
 
   // nodes  = 'FootL_1', 'LowerLegL_1', 'LegL', 'LowerLegR_1', 'LegR', 'Head_2', 'Head_3', 'Head_4', 'ArmL', 'ShoulderL_1', 'ArmR', 'ShoulderR_1', 'Torso_2', 'Torso_3', 'FootR_1', 'HandR_1', 'HandR_2', 'HandL_1', 'HandL_2'
   // materials = 'Black', 'Grey', 'Main'
-
-  // let mi = 0;
-  // const getMesh = function(name) {
-  //   return <mesh
-  //     key={mi++}
-  //     castShadow
-  //     receiveShadow
-  //     geometry={nodes[name].geometry}
-  //     material={materials.Main}
-  //     material-color={(name == 'Head_4' ? 'Pink' : 'Yellow')}
-  //     onPointerOver={(e) => onHover(e, true)}
-  //     onPointerOut={(e) => onHover(e, false)}></mesh>
-  // }
 
   // let MyMesh = [];
 
@@ -248,10 +238,11 @@ export default function Robot({ ...props }) {
     }
   })
 
+  ////////////////////////////////////
+
   return (
     <group ref={ref} dispose={null} {...props} position={[0, 2.5, 0]} >
-      {/* {MyMesh} */}
-      <mesh>{/* raycast={useCamera(anotherCamera)} */}
+      <mesh>
         <primitive object={scene} onClick={console.log} />
       </mesh>
       <mesh
@@ -262,10 +253,7 @@ export default function Robot({ ...props }) {
         onPointerDown={robotClick} >
         <boxGeometry args={[3*1.2, 5*1.2, 3*1.2]}/>
         <meshBasicMaterial alphaTest="0.5" wireframe />
-        {/* <meshBasicMaterial opacity="0" transparent="true" thickness="0" transmission="0" depthTest={true}/> */}
-        {/* wireframe map={textureTrans} alphaTest="true" needUpdate="true" transparent="false" opacity="0.5" depthWrite="false" side={THREE.DoubleSide} color   */}
       </mesh>
-      {/* <ContactShadows position={[0, 0, 0]} opacity={0.75} scale={10} blur={2.5} far={4} /> */}
     </group>
   )
 }
