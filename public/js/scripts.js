@@ -90,7 +90,7 @@ $(function() {
 
     // Form Cabinet -------------------------------------------------- //
 
-    $('#btnCabinet').click(function() { // Reset form
+    $('#btnCabinet_fr,#btnCabinet_en').click(function() { // Reset form
         $('form.was-validated').removeClass('was-validated');
         setTimeout(function() {
             bonus();
@@ -308,6 +308,9 @@ $(function() {
     // Switch FR/EN for Cards -------------------------------------------------- // Card 1/2 Franchies 3/4 Anglaises
 
     window.visitorLang = 'fr';
+    if (window.location.hash && window.location.hash === '#en') {
+        window.visitorLang = 'en';
+    }
 
     var setLanguage = function() {
         $('.bullshit').data('noShit', false);
@@ -341,11 +344,17 @@ $(function() {
         setLanguage();
     });
 
-    if (window.location.hash && window.location.hash === '#en') {
-        window.visitorLang = 'en';
-    }
-
     setLanguage();
+
+    // Cards appear on open only -------------------------------------------------- //
+
+    if (window.visitorLang == 'en') $('#card3,#card4').addClass('appear');
+    else $('#card1,#card2').addClass('appear');
+
+    setTimeout(function() {
+        if (window.visitorLang == 'en') $('#card3,#card4').removeClass('appear');
+        else $('#card1,#card2').removeClass('appear');
+    }, 8000);
 
     // Cards parallax -------------------------------------------------- //
 

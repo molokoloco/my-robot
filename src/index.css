@@ -10,10 +10,10 @@
   -ms-user-select: none;
   user-select: none; */
   position: absolute;
-  top: 60px;
+  top: 0;
   left: 0;
   right: 0;
-  bottom: 30px;
+  bottom: 0;
   z-index: 1;
 }
 
@@ -28,18 +28,5 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  pointer-events: none;
-} */
-
-/* .scroll {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  overflow-y: auto;
-  top: 0;
-  left: 0;
-}
-
-.label {
   pointer-events: none;
 } */

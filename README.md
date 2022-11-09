@@ -2,7 +2,7 @@
 
 ![Demo screen](https://github.com/molokoloco/my-robot/blob/main/public/img/capture-myrobot-1920x975.png?raw=true "Demo in progress")
 
-### Démo : https://julienweb.fr 
+### Demo : https://julienweb.fr 
 
 WebGL interactive robot made with React-three-fiber renderer for Three.js.  
 I'have made a lot of mistakes but have a lot of fun, and do a lot of experiments :)
@@ -12,16 +12,6 @@ Project dependencies :
 
 ```
 {
-  "name": "my-robot-fr",
-  "version": "0.2.1",
-  "description": "https://github.com/molokoloco/my-robot/blob/main/README.md",
-  "author": "JG 2022",
-  "license": "GPL-3.0-or-later",
-  "homepage": "https://molokoloco.github.io/my-robot/build/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/molokoloco/my-robot.git"
-  },
   "dependencies": {
     "@react-three/drei": "^9.31.1",
     "@react-three/fiber": "^8.7.4",
@@ -38,7 +28,7 @@ Project dependencies :
     "three": "0.140.0",
     "vite": "^3.1.8",
     "web-vitals": "^3.0.2"
-  },
+  }
 }
 ```
 

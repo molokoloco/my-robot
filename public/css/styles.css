@@ -54,12 +54,16 @@ body > * {
 }
 
 a {
-	color:  hotpink;
+	color: hotpink;
 	text-decoration: none;
 }
 
 a:hover {
 	text-decoration: underline;
+}
+
+a:hover[rel="noopener"] {
+	text-decoration: underline dotted;
 }
 
 button {
@@ -116,6 +120,11 @@ p {
 
 .label {
   pointer-events: none;
+}
+
+.smallcaps {
+    font-variant: small-caps;
+    font-size: 120%;
 }
 
 /* Custom styles
@@ -234,6 +243,7 @@ a.nav-fullscreen {
 }
 
 .nav-item svg {
+    margin-left:3px;
     opacity: 0.5;
     transition: opacity 0.3s ease-in-out;
     -moz-transition: opacity 0.3s ease-in-out;
@@ -245,7 +255,6 @@ a.nav-fullscreen {
 .nav-item:hover svg {
     opacity: 0.8;
 }
-
 
 .navbar-brand {
     color: #fff;
@@ -269,7 +278,8 @@ a.nav-fullscreen {
     -ms-transition: all 0.3s ease-in-out;
 }
 
-.navbar-brand:focus, .navbar-brand:hover {
+.navbar-brand:focus,
+.navbar-brand:hover {
     text-decoration: none;
     color: yellow;
     text-shadow: 0 0 0 #ccc,
@@ -425,10 +435,11 @@ select,
 --------------------------------------------------  */
 
 .cardContainer {
-    top: 0;
+    position: absolute;
+    top: 60px;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 30px;
     z-index: 50;
     overflow: hidden;
 }
@@ -437,6 +448,7 @@ select,
     min-width: 320px;
     --border-width: 1px;
     background-color: #ffffffc7;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 
     transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
@@ -454,6 +466,20 @@ select,
 
     /* resize: both;
     overflow: hidden; */
+}
+
+.appear {
+    animation: appear-in 1.8s ease-in-out 5s 1 forwards;
+    opacity: 0;
+}
+
+@keyframes appear-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.8;
+    }
 }
 
 .card::after {
@@ -516,10 +542,10 @@ select,
 
 #card1,
 #card3 {
-    top: 110px;
+    top: 50px;
     left: 50px;
     width: 33%;
-    bottom: 50px;
+    bottom: 30px;
     z-index: 110;
 }
 
@@ -533,10 +559,10 @@ select,
 
 #card2,
 #card4 {
-    top: 110px;
+    top: 50px;
     right: 50px;
     width: 33%;
-    bottom: 50px;
+    bottom: 30px;
     z-index: 120;
 }
 
@@ -554,7 +580,7 @@ select,
     }
     #card1,
     #card3 {
-        top: 110px;
+        top: 50px;
         left: 30px;
         width: initial;
         right: 30px;
