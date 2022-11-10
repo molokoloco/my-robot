@@ -4,15 +4,19 @@
 
     + https://getbootstrap.com/docs/5.2/getting-started/introduction/
 
-    Hot Pink (hotpink)
-        color: #b71968;
-    Ultra Pink
-        color: #ff6fff;
-    Navy Dark Soul
-        color: #b71968
-    Yellow soul
-        color: #ffff00
+    Hot Pink ("hotpink") color: #b71968
+    Ultra Pink color: #ff6fff
+    Navy Dark Soul color: #b71968
+    Yellow soul ("yellow") color: #ffff00
 */
+
+/* YO */
+
+::-webkit-selection {background-color:yellow;color:hotpink;}
+::-moz-selection {background-color:yellow;color:hotpink;}
+::-ms-selection {background-color:yellow;color:hotpink;}
+::-o-selection {background-color:yellow;color:hotpink;}
+::selection {background-color:yellow;color:hotpink;}
 
 /* Default styles
 -------------------------------------------------- */
