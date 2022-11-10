@@ -38,19 +38,18 @@ export default class WindLayer extends Abstract {
   `
 
   static fragmentShader = `
-  varying vec3 v_pos;
-  uniform float u_noiseScale;
-  uniform float u_noiseStrength;
-  uniform vec3 u_colorA;
-  uniform vec3 u_colorB;
+    varying vec3 v_pos;
+    uniform float u_noiseScale;
+    uniform float u_noiseStrength;
+    uniform vec3 u_colorA;
+    uniform vec3 u_colorB;
 
-  vec4 main() {
-    float n = lamina_noise_perlin(v_pos * u_noiseScale) * u_noiseStrength;
-    vec3 c =  mix(u_colorB, u_colorA, n);
-    return vec4(vec3(c), 1.);
-  }
+    vec4 main() {
+      float n = lamina_noise_perlin(v_pos * u_noiseScale) * u_noiseStrength;
+      vec3 c =  mix(u_colorB, u_colorA, n);
+      return vec4(vec3(c), 1.);
+    }
   `
-
   constructor(props) {
     super(WindLayer, {
       name: 'GrassLayer',

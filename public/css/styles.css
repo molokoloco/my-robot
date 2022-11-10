@@ -3,8 +3,16 @@
     Repository : https://github.com/molokoloco/my-robot
 
     + https://getbootstrap.com/docs/5.2/getting-started/introduction/
-*/
 
+    Hot Pink (hotpink)
+        color: #b71968;
+    Ultra Pink
+        color: #ff6fff;
+    Navy Dark Soul
+        color: #b71968
+    Yellow soul
+        color: #ffff00
+*/
 
 /* Default styles
 -------------------------------------------------- */
@@ -59,6 +67,7 @@ a {
 }
 
 a:hover {
+    color:#ff6fff; /* Ultra pink */
 	text-decoration: underline;
 }
 
@@ -371,6 +380,7 @@ footer {
     line-height: 30px;
     color: hotpink;
     background-color: #d0e2d9;
+    overflow: hidden;
 }
 
 /* Boostrap overide form
@@ -445,25 +455,21 @@ select,
 }
 
 .card {
+    position: absolute;
+    border-radius: 6px; /* var(--border-width); */
+    opacity: 0.8;
     min-width: 320px;
     --border-width: 1px;
     background-color: #ffffffc7;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
-
-    transition: translate 0.3s ease-in-out;
-    -moz-transition: translate 0.3s ease-in-out;
-    -o-transition: translate 0.3s ease-in-out;
-    -webkit-transition: translate 0.3s ease-in-out;
-    -ms-transition: translate 0.3s ease-in-out;
-
-    position: absolute;
-    border-radius: 6px; /* var(--border-width); */
-    opacity: 0.8;
-
+    transition: transform 0.4s ease-in-out;
+    -moz-transition: -moz-transform 0.4s ease-in-out;
+    -o-transition: -o-transform 0.4s ease-in-out;
+    -webkit-transition: -webkit-transform 0.4s ease-in-out;
+    -ms-transition: -ms-transform 0.4s ease-in-out;
     /* transform: perspective(400px) rotateX(0deg) rotateY(0deg);
 	transform-style: preserve-3d;
 	box-shadow: 1.5rem 2.5rem 5rem 0.7rem rgba(18, 4, 82, 0.603); */
-
     /* resize: both;
     overflow: hidden; */
 }

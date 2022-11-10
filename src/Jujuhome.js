@@ -224,7 +224,7 @@ export default function App() {
   //     return () => { window.removeEventListener( 'wheel', onMouseWheel, true ); };
   // }, []);
 
-  // hotpink #ff69b4
+  // hotpink #ff69b4 // color:#ff6fff; /* Ultra pink */
 
   return (
     <>
