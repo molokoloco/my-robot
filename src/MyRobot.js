@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 //import { proxy, useSnapshot } from "valtio"
 
+import RobotExpressive from './assets/RobotExpressive.glb'
 //import pixTrans from './assets/pix.png'
 import start from './assets/start.mp3'
 
@@ -43,11 +44,46 @@ export default function Robot({ ...props }) {
 
   const ref = useRef()
 
-  const { scene, animations } = useGLTF('https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb')
+  const { scene, animations } = useGLTF(RobotExpressive) // https://threejs.org/examples/models/gltf/RobotExpressive/RobotExpressive.glb
   // const { ref, actions, names, mixer } = useAnimations(animations, scene)
   // const [hovered, setHovered] = useState(false)
   // const [index, setIndex] = useState(0)
   // actions['Idle'].play()
+
+  ////////////////////////////////////
+
+  const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop et mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
+  const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop and mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
+
+  var msg, voices, myPres, male, speaking, searchString = null
+
+  if (('speechSynthesis' in window) && ('SpeechSynthesisUtterance' in window)) {
+    voices = window.speechSynthesis.getVoices()
+    msg = new SpeechSynthesisUtterance()
+  }
+
+  const setupLang = function () {
+    if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return false;
+    if (window.visitorLang && window.visitorLang === 'en') {
+      myPres = myPres_en
+      msg.lang = 'en-GB'
+      searchString = new RegExp(/English Male/, 'ig')
+    }
+    else {
+      myPres = myPres_fr
+      msg.lang = 'fr-FR'
+      searchString = new RegExp(/Paul/, 'ig')
+    }
+    male = null
+    for (var i = 0; i < voices.length; i++) {
+      if (searchString.test(voices[i].name)) {
+        male = voices[i]
+        break
+      }
+    }
+    if (male) msg.voice = male
+    return true;
+  }      
 
   const states = ['Idle', 'Walking', 'Running', 'Dance'] //, 'Death', 'Standing', 'Sitting'
   const emotes = ['Jump', 'Yes', 'No', 'Wave', 'Punch', 'ThumbsUp']
@@ -90,13 +126,20 @@ export default function Robot({ ...props }) {
   // console.log('api', api, 'states', states, 'emotes', emotes, 'expressions', expressions);
   // console.log('face.morphTargetDictionary',face.morphTargetDictionary,'expressions',expressions);
 
-  let interval, interMorph, timeOut = null
+  let interval, interMorph, timeOut, sayHello = null
 
   useEffect(() => {
 
     activeAction = actions[api.state]
     activeAction.play()
 
+    sayHello  = setTimeout(() => {
+      if (setupLang()) {
+        msg.text = 'Bonjour !'
+        window.speechSynthesis.speak(msg)
+      }
+    }, 5000);
+    
     interMorph = setInterval(() => {
       let customMorph = Math.random() > 0.5 ? 1 : 0; // 0 Angry 1 Surprised
       if (customMorph === 1) {
@@ -113,19 +156,17 @@ export default function Robot({ ...props }) {
       rdmAction = states[Math.floor(Math.random() * states.length)]
       fadeToAction(rdmAction, 0.5)
       //console.log('rdmAction', rdmAction)
-      
       timeOut = setTimeout(() => {
         var rdmEmote = emotes[Math.floor(Math.random() * emotes.length)]
         api[rdmEmote]();
-        //console.log('rdmEmote', rdmEmote)
       }, 6000)
-
     }, 10000)
 
     return () => {
       clearTimeout(timeOut)
       clearInterval(interMorph)
       clearInterval(interval)
+      clearTimeout(sayHello)
       if ('speechSynthesis' in window) window.speechSynthesis.cancel()
     }
   }, [actions, api]);
@@ -140,8 +181,7 @@ export default function Robot({ ...props }) {
   
   useFrame((state, delta) => {
       frame = frame <= 100 ? frame + 1 : frame
-      if (frame <= 100) ref.current.rotation.y += 6 / frame
-
+      if (frame <= 100) ref.current.rotation.y += 6 / frame // Turn at start
       mixer.update(delta)
   }, [mixer]);
 
@@ -149,52 +189,18 @@ export default function Robot({ ...props }) {
   //const [hover, setHover] = useState(false);
 
   const onHover = useCallback((e, value) => {
-    // console.log('onHover', value);
-    // e.stopPropagation();
-    // setHovered(value);
     document.body.style.cursor = (value ? 'pointer' : 'auto')
-  }, []); //setHovered
-
-  ////////////////////////////////////
-
-  const myPres_fr = `Bonjour, je suis Julien Guézennec, j'ai créé mes premiers sites en 1998 et je suis devenu passionné d'Internet, du code et du multimédia. Depuis 24 ans, je n'ai cessé d'apprendre. Entre autres, Je suis spécialisé dans le développement front et back-end de sites desktop et mobiles et expert dans de nombreux domaines. J'aime concevoir et développer des interfaces utilisateur. Je me soucie de l'UX, de la réactivité, de l'accessibilité et de la maintenabilité.`
-  const myPres_en = `Hello, I am Julien Guézennec, I created my first sites in 1998 and I became passionate about the Internet, code and multimedia. For 24 years, I haven't stopped learning. I am specialized in the front and back-end development of desktop and mobile sites and an expert in many fields. I enjoy designing and developing user interfaces. I care about UX, responsiveness, accessibility and maintainability.`
-
-  var msg, voices, myPres, male, speaking, searchString = null
-
-  const setupLang = function () {
-    if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return false;
-    voices = window.speechSynthesis.getVoices()
-    msg = new SpeechSynthesisUtterance()
-    if (window.visitorLang && window.visitorLang === 'en') {
-      myPres = myPres_en
-      msg.lang = 'en-GB'
-      searchString = new RegExp(/English Male/, 'ig')
-    }
-    else {
-      myPres = myPres_fr
-      msg.lang = 'fr-FR'
-      searchString = new RegExp(/Paul/, 'ig')
-    }
-    male = null
-    for (var i = 0; i < voices.length; i++) {
-      if (searchString.test(voices[i].name)) {
-        male = voices[i]
-        break
-      }
-    }
-    if (male) msg.voice = male
-    return true;
-  }            
+  }, []);      
 
   ////////////////////////////////////
 
   const robotClick = (e) => {
-
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
     // console.log('robotClick', rdmAction)
 
+    return;
+    
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true
       if (setupLang()) {
@@ -207,13 +213,11 @@ export default function Robot({ ...props }) {
       if ('speechSynthesis' in window) window.speechSynthesis.cancel()
       startSound.play()
     }
-    
     return false;
   }
 
   // nodes  = 'FootL_1', 'LowerLegL_1', 'LegL', 'LowerLegR_1', 'LegR', 'Head_2', 'Head_3', 'Head_4', 'ArmL', 'ShoulderL_1', 'ArmR', 'ShoulderR_1', 'Torso_2', 'Torso_3', 'FootR_1', 'HandR_1', 'HandR_2', 'HandL_1', 'HandL_2'
   // materials = 'Black', 'Grey', 'Main'
-
   // let MyMesh = [];
 
   scene.traverse((obj) => { // Recolor the ROBOT
@@ -243,7 +247,7 @@ export default function Robot({ ...props }) {
         onPointerOut={(e) => onHover(e, false)}
         onPointerDown={robotClick} >
         <boxGeometry args={[3*1.2, 5*1.2, 3*1.2]}/>
-        <meshBasicMaterial alphaTest="0.5" wireframe />
+        <meshBasicMaterial alphaTest="0.5" />
       </mesh>
     </group>
   )

@@ -9,6 +9,26 @@ $(function() {
 
     $('#year').text(new Date().getFullYear());
     $('#depuis,#since').text(new Date().getFullYear() - 1998);
+    
+
+/*
+    image.png
+
+    #root {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    $('#me').on('mousenter', function() {
+
+    })
+
+    */
+    
 
     // var mobile = $(window).width() < 768 ? true : false;
     // $(window).on('resize', function() {

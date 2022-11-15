@@ -1,5 +1,5 @@
 import React from 'react'
-import { Suspense, useRef } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
 import { Cloud, PerspectiveCamera, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
@@ -18,6 +18,7 @@ import Grass from './Grass'
 import Words3d from './Words3d'
 import MySky from './MySky'
 import MyRobot from './MyRobot'
+import Bengal from './Bengal'
 //import MyPlane from './MyPlane'
 //import Scroll from './Scroll'
 //import MyHtml from './MyHtml'
@@ -204,13 +205,24 @@ const MyOrbitControls = () => {
 }
 
 export default function App() {
-  //const [selected, setSelected] = useState([])
+
   const cam = useRef();
+  const [bonus, setBonus] = useState(false)
 
   // const scrollRef = useRef()
   // const scroll = useRef(0)
 
   const scaleSparkles = Array.from({ length: 18 }, () => 1 + Math.random() * 6)
+
+  // K0nam1 -------------------------------------------------- //
+  var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65'; // ↑ ↑ ↓ ↓ ← → ← → B A
+  const handleKeyDown = event => {
+    kKeys.push(event.keyCode);
+    if ((' '+kKeys+' ').indexOf(konami) >= 0) {
+        kKeys = [];
+        setBonus(true);
+    }
+  };
 
   // function onMouseWheel( e ) {
   //   //console.log('onMouseWheel',  e.target.scrollTop);
@@ -230,6 +242,8 @@ export default function App() {
     <>
       <Suspense fallback={Fallback()}>
         <Canvas
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
           shadows
           pixelratio={[1, 1]}
           alpha="true"
@@ -244,7 +258,7 @@ export default function App() {
           {/* <ScrollContainer><MyScroll scroll={scroll}/></ScrollContainer> */}
           <ambientLight intensity={0.3} />
           <pointLight intensity={0.2} position={[-10, 15, 15]} />
-          <spotLight castShadow intensity={2.2} angle={0.2} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
+          <spotLight castShadow intensity={2.2} angle={0.5} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
           {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
           <Grass position={[0, 2.5, 0]}  opacity={0.6}/>
@@ -255,6 +269,7 @@ export default function App() {
           </mesh>
           <Sparkles color="white" count={scaleSparkles.length} size={scaleSparkles} speed={scaleSparkles} opacity="0.9" scale="4" noise="10" position={[0, 5.5, 0]} />
           <MyRobot/>
+          {bonus && <Bengal/>}
           {/* <MyHtml/> */}
           <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.5" />
           <MyOrbitControls/>
