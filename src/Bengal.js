@@ -13,11 +13,12 @@ import * as THREE from 'three'
 import React, { useRef, useEffect, useCallback } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 // import { useFrame } from '@react-three/fiber'
+const gltfPath = '/bengal/scene-transformed.glb'
 
 export default function Bengal(props) {
 
   const group = useRef()
-  const { scene, nodes, materials, animations } = useGLTF('/bengal/scene-transformed.glb')
+  const { nodes, materials, animations } = useGLTF(gltfPath)
   
   const { actions } = useAnimations(animations, group) // ref, mixer, names, actions, clips
   // console.log('ref, mixer, names, actions, clips', ref, mixer, names, actions, clips)
@@ -81,4 +82,4 @@ export default function Bengal(props) {
   )
 }
 
-useGLTF.preload('/bengal.glb')
+useGLTF.preload(gltfPath)

@@ -42,7 +42,7 @@ export default function MySky() {
         const phi = MathUtils.degToRad( 90 - elevation )
         const theta = MathUtils.degToRad( effectController.azimuth )
         sun.setFromSphericalCoords( 1, phi, theta )
-        mesh.current.material.uniforms[ 'sunPosition' ].value.copy( sun )
+        mesh.current?.material.uniforms[ 'sunPosition' ].value.copy( sun )
         int = null
       }, 1000);
     })
