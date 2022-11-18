@@ -198,8 +198,6 @@ export default function Robot({ ...props }) {
     rdmAction = states[Math.floor(Math.random() * states.length)] // 'Dance'
     fadeToAction(rdmAction, 0.5)
     // console.log('robotClick', rdmAction)
-
-    return;
     
     if (!speaking && 'speechSynthesis' in window) {
       speaking = true

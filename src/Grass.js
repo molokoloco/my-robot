@@ -5,7 +5,7 @@ import { createNoise2D } from 'simplex-noise'
 import { useFrame, useLoader } from "@react-three/fiber"
 import { Geometry } from "./Geometry" // three/examples/jsm/deprecated/Geometry
 
-//These have been taken from "Realistic real-time grass rendering" by Eddie Lee, 2010
+// These have been taken from "Realistic real-time grass rendering" by Eddie Lee, 2010
 import bladeDiffuse from "./assets/blade_diffuse.jpg"
 import bladeAlpha from "./assets/blade_alpha.jpg"
 import grass from "./assets/grass2.jpg"
@@ -21,7 +21,7 @@ function getYPosition(x, z) {
   return y
 }
 
-export default function Grass({ options = { bW: 0.05, bH: 0.4, joints: 4 }, width = 60, instances = 100000, ...props }) {
+export default function Grass({ options = { bW: 0.05, bH: 0.4, joints: 4 }, width = 60, instances = 250000, ...props }) {
   const { bW, bH, joints } = options
 
   const materialRef = useRef()
@@ -37,7 +37,6 @@ export default function Grass({ options = { bW: 0.05, bH: 0.4, joints: 4 }, widt
   const baseGeom = useMemo(() => new THREE.PlaneGeometry(bW, bH, 1, joints).translate(0, bH / 2, 0), [bH, bW, joints])
 
   const groundGeo = useMemo(() => {
-    //const geo = new Geometry().fromBufferGeometry(new THREE.SphereGeometry(width/2, 32, 32))
     const geo = new Geometry().fromBufferGeometry(new THREE.PlaneGeometry(width, width, 32, 32))
     //const geo = new Geometry().fromBufferGeometry(new THREE.CircleGeometry(width, 32))
     geo.lookAt(new THREE.Vector3(0, 1, 0))
