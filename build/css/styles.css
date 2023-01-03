@@ -18,6 +18,11 @@
 ::-o-selection {background-color:yellow;color:hotpink;}
 ::selection {background-color:yellow;color:hotpink;}
 
+
+/* G Font
+-------------------------------------------------- */
+/* @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap'); */
+
 /* Default styles
 -------------------------------------------------- */
 
@@ -97,8 +102,9 @@ h1 {
   line-height: 0.7em;
 }
 
-h5 {
-    font-size: 24px;
+h3 {
+    font-size: 26px;
+    font-weight: 100;
 }
 
 h4 {
@@ -271,8 +277,10 @@ a.nav-fullscreen {
 
 .navbar-brand {
     color: #fff;
-    line-height: 60px;
-    width: 180px;
+    line-height: 33px;
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 33px;
+    width: 220px;
     text-align: center;
     text-shadow: 0 1px 0 #ccc,
                 0 2px 0 #bbb,
@@ -461,7 +469,7 @@ select,
 .card {
     position: absolute;
     border-radius: 6px; /* var(--border-width); */
-    opacity: 0.8;
+    opacity: 0.66;
     min-width: 320px;
     --border-width: 1px;
     background-color: #ffffffc7;
@@ -506,6 +514,12 @@ select,
     border-radius: 6px; /* calc(2 * var(--border-width)); */
     animation: moveGradient 4s alternate infinite;
 }
+
+/* .card h3 {
+    font-family: 'Sedgwick Ave Display', cursive;
+    font-size: 33px;
+    line-height: 33px;
+} */
 
 .card h3,
 .card h5,

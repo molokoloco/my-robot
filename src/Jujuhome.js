@@ -19,13 +19,14 @@ import Words3d from './Words3d'
 import MySky from './MySky'
 import MyRobot from './MyRobot'
 import Bengal from './Bengal'
-//import MyPlane from './MyPlane'
+import MyPlane from './MyPlane'
 //import Scroll from './Scroll'
 //import MyHtml from './MyHtml'
 
 import './index.css'
 
-// TODO navigation 3D : https://codesandbox.io/s/image-gallery-forked-kvsrs4?file=/src/App.js + https://github.com/molefrog/wouter#uselocation-hook-working-with-the-history
+// TODO navigation 3D : https://codesandbox.io/s/image-gallery-forked-kvsrs4?file=/src/App.js
+// + https://github.com/molefrog/wouter#uselocation-hook-working-with-the-history
 
 // By setting <OrbitControls makeDefault <Stage and <CameraShake are aware of the controls being used.
 // Should your own components rely on default controls, throughout the three they're available as:
@@ -167,11 +168,8 @@ const Fallback = function() {
 
 const MyOrbitControls = () => {
   const { camera, gl } = useThree();
-
-  const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
-  
   camera.position.set( 0, 6, 8 );
-
+  const controls = new OrbitControls(camera, gl.domElement); // main gl.domElement document.querySelector('#root')
   controls.target.y = controls.target.y + 5
   controls.makeDefault = true
   controls.enableDamping = true
@@ -197,32 +195,26 @@ const MyOrbitControls = () => {
   controls.mouseButtons = {LEFT:THREE.MOUSE.ROTATE, MIDDLE:THREE.MOUSE.PAN, RIGHT:THREE.MOUSE.DOLLY}
   //controls.screenSpacePanning = true
   //controls.update()
-
   useFrame(() => {
     controls.update();
   }) 
-
 }
 
 export default function App() {
 
-  const cam = useRef();
+  const cam = useRef()
   const [bonus, setBonus] = useState(false)
-
-  // const scrollRef = useRef()
-  // const scroll = useRef(0)
-
   const scaleSparkles = Array.from({ length: 18 }, () => 1 + Math.random() * 6)
 
   // K0nam1 -------------------------------------------------- //
-  var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65'; // ↑ ↑ ↓ ↓ ← → ← → B A
-  const handleKeyDown = event => {
-    kKeys.push(event.keyCode);
+  var kKeys = [], konami = '38,38,40,40,37,39,37,39,66,65' // ↑ ↑ ↓ ↓ ← → ← → B A
+  const handleKeyDown = (event => {
+    kKeys.push(event.keyCode)
     if ((' '+kKeys+' ').indexOf(konami) >= 0) {
-        kKeys = [];
-        setBonus(true);
+        kKeys = []
+        setBonus(true)
     }
-  };
+  })
 
   // function onMouseWheel( e ) {
   //   //console.log('onMouseWheel',  e.target.scrollTop);
@@ -248,9 +240,13 @@ export default function App() {
           pixelratio={[1, 1]}
           alpha="true"
           //dpr={[1, 2]}
-          gl={{antialias:true, outputEncoding:THREE.sRGBEncoding, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure:0.4}}
+          gl={{
+            antialias: true,
+            outputEncoding: THREE.sRGBEncoding,
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: 0.4
+          }}
           //onCreated={(state) => state.events.connect(scrollRef.current)}
-          //camera={{ position: [-2, 2, 6], fov: 50, near: 1, far: 20 }}
           raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
           >
           <Environment preset="sunset"/>
@@ -262,6 +258,7 @@ export default function App() {
           {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
           <MySky/>
           <Grass position={[0, 2.5, 0]}  opacity={0.6}/>
+          {/* <MyPlane/> */}
           <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} texture={cloudDrei} />
           <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} texture={cloudDrei} />
           <mesh position={[0, 12, 0]}>
@@ -272,8 +269,7 @@ export default function App() {
           {bonus && <Bengal/>}
           {/* <MyHtml/> */}
           <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.5" />
-          <MyOrbitControls/>
-          {/* <MoveCam /> */}
+          <MyOrbitControls makeDefault/>
         </Canvas>
       </Suspense>
       {/* <Picker /> */}

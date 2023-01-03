@@ -1,5 +1,5 @@
 {
-  "short_name": "JuLien",
+  "short_name": "JuLienWeb",
   "name": "JuLienWeb.fr",
   "icons": [
     {
@@ -8,8 +8,11 @@
       "type": "image/x-icon"
     }
   ],
-  "start_url": ".",
+  "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "hotpink",
-  "background_color": "#ffffff"
+  "theme_color": "#ff69b4",
+  "background_color": "#ffffff",
+  "description": "Développeur créatif ツ\nJe fais des sites et applications Internet multi-plateforme...",
+  "lang": "fr",
+  "orientation": "landscape"
 }

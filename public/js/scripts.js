@@ -7,9 +7,15 @@ $(function() {
 
     "use strict";
 
-    $('#year').text(new Date().getFullYear());
-    $('#depuis,#since').text(new Date().getFullYear() - 1998);
-    
+
+    // Update dates in text
+    var date = new Date(); 
+    $('#year').text(date.getFullYear());
+    $('#depuis,#since').text(date.getFullYear() - 1998);
+    if (date.getHours() >= 18) {
+        $('.bonjour').text('Bonsoir");
+        $('.hello').text('Good evening');
+    }
 
 /*
     image.png
