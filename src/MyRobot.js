@@ -180,9 +180,9 @@ export default function Robot({ ...props }) {
   let frame = 0
   
   useFrame((state, delta) => {
-      frame = frame <= 100 ? frame + 1 : frame
-      if (frame <= 100) ref.current.rotation.y += 6 / frame // Turn at start
-      mixer.update(delta)
+    frame = frame <= 100 ? frame + 1 : frame
+    if (frame <= 100) ref.current.rotation.y += 6 / frame // Turn at start
+    mixer.update(delta)
   }, [mixer]);
 
   //const [active, setActive] = useState(false);

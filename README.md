@@ -54,3 +54,4 @@ npm run build
 * https://codesandbox.io/s/spherical-word-cloud-yup2o
 * https://codesandbox.io/s/github/onion2k/r3f-by-example/tree/develop/examples/hooks/
 * ...
+nvm 

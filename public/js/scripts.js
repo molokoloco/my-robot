@@ -13,7 +13,7 @@ $(function() {
     $('#year').text(date.getFullYear());
     $('#depuis,#since').text(date.getFullYear() - 1998);
     if (date.getHours() >= 18) {
-        $('.bonjour').text('Bonsoir");
+        $('.bonjour').text('Bonsoir');
         $('.hello').text('Good evening');
     }
 
@@ -125,7 +125,7 @@ $(function() {
                     <h5 class="text-center">On s'appelle plutôt ? :-) <a href="tel:+33678135439">+33 6 61 75 64 98</a></h5>
                 </div>
             </div>`);
-        }, 15000)
+        }, 8000)
     });
 
     $('#cabinetRecurent').click(function() { // Show/Hide Créneau récurent option
@@ -443,3 +443,12 @@ $(function() {
     // if (!mobile) makeParallax('#card1');
     // //makeParallax('#card2');
 });
+
+
+// https://www.pwabuilder.com/reportcard?site=https://julienweb.fr/
+// if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register('/js/pwabuilder-sw.js');
+//     self.addEventListener('activate', event => {
+//         event.waitUntil(clients.claim());
+//     });
+// }
