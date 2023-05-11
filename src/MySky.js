@@ -4,12 +4,12 @@ import { Vector3, MathUtils } from 'three';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
 
 export default function MySky() {
-    //console.log('MySky()');
+    //console.log('MySky()')
     const mesh = useRef()
 
     let mySky = new Sky()
     mySky.scale.setScalar( 450000 )
-    //mySky.material.opacity = 0.2;
+    mySky.material.opacity = 0.2;
     //mySky.material.color = new THREE.Color( 'red' ).convertSRGBToLinear()
 
     const effectController = {
@@ -28,15 +28,14 @@ export default function MySky() {
     uniforms[ 'mieCoefficient' ].value = effectController.mieCoefficient
     uniforms[ 'mieDirectionalG' ].value = effectController.mieDirectionalG
     uniforms[ 'diffuse' ] = { type: "c", value: { r:1, g:0, b:0 } }
-    uniforms[ 'color' ] = 0xffffff;
+    uniforms[ 'color' ] = 0xffffff
 
-    var elevation = effectController.elevation
+    let elevation = effectController.elevation
     let sun = new Vector3()
-    var int = null
+    let int = null
 
     useFrame((state, delta) => {
       if (!int) int = setTimeout(() => {
-        //console.log('debounceAnim')
         elevation += 0.025
         if (elevation > 50) elevation = 0.2;
         const phi = MathUtils.degToRad( 90 - elevation )

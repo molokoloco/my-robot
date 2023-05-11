@@ -1,13 +1,13 @@
 import React from 'react'
-import { Suspense, useRef, useState } from 'react'
+import { useRef, useState } from 'react' //Suspense, 
 import * as THREE from 'three'
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber'
-import { Cloud, PerspectiveCamera, Environment, Sparkles } from '@react-three/drei' //Sky, , OrbitControls
+import { Cloud, PerspectiveCamera, Sparkles } from '@react-three/drei' //Sky, , OrbitControls, Environment
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
-import BarLoader from "react-spinners/ClipLoader"
+//import BarLoader from "react-spinners/ClipLoader"
 
 import cloudDrei from './assets/cloud-drei.png'
-
+// import venise from './assets/venice_sunset_1k.hdr'
 // import { OutlineEffect } from 'three/examples/jsm/effects/OutlineEffect.js'
 // import { Panel, useControls } from './MultiLeva'
 // import { HexColorPicker } from "react-colorful"
@@ -19,7 +19,7 @@ import Words3d from './Words3d'
 import MySky from './MySky'
 import MyRobot from './MyRobot'
 import Bengal from './Bengal'
-import MyPlane from './MyPlane'
+//import MyPlane from './MyPlane'
 //import Scroll from './Scroll'
 //import MyHtml from './MyHtml'
 
@@ -151,18 +151,18 @@ extend(THREE)
 
 ////////////////////////////////////
 
-const Fallback = function() {
-  const override = { // https://www.npmjs.com/package/react-spinners
-    margin: "20px auto",
-    clear: "both"
-  }
-  return (
-    <div className="h-100 d-flex align-items-center justify-content-center">
-      <h4 className="text-center">Chargement...<br/>
-      <BarLoader cssOverride={override} color="yellow" /></h4>
-    </div>
-  )
-}
+// const Fallback = function() {
+//   const override = { // https://www.npmjs.com/package/react-spinners
+//     margin: "20px auto",
+//     clear: "both"
+//   }
+//   return (
+//     <div className="h-100 d-flex align-items-center justify-content-center">
+//       <h4 className="text-center">Chargement...<br/>
+//       <BarLoader cssOverride={override} color="yellow" /></h4>
+//     </div>
+//   )
+// }
 
 ////////////////////////////////////
 
@@ -231,53 +231,49 @@ export default function App() {
   // hotpink #ff69b4 // color:#ff6fff; /* Ultra pink */
 
   return (
-    <>
-      <Suspense fallback={Fallback()}>
-        <Canvas
-          tabIndex={0}
-          onKeyDown={handleKeyDown}
-          shadows
-          pixelratio={[1, 1]}
-          alpha="true"
-          //dpr={[1, 2]}
-          gl={{
-            antialias: true,
-            outputEncoding: THREE.sRGBEncoding,
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 0.4
-          }}
-          //onCreated={(state) => state.events.connect(scrollRef.current)}
-          raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
-          >
-          <Environment preset="sunset"/>
-          <fogExp2 density={0.016} attach="fog" color="#ff69b4" near={30} far={120} />
-          {/* <ScrollContainer><MyScroll scroll={scroll}/></ScrollContainer> */}
-          <ambientLight intensity={0.3} />
-          <pointLight intensity={0.2} position={[-10, 15, 15]} />
-          <spotLight castShadow intensity={2.2} angle={0.5} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
-          {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
-          <MySky/>
-          <Grass position={[0, 2.5, 0]}  opacity={0.6}/>
-          {/* <MyPlane/> */}
-          <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} texture={cloudDrei} />
-          <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} texture={cloudDrei} />
-          <mesh position={[0, 12, 0]}>
-            <Words3d maxCount={50} radius={4} />
-          </mesh>
-          <Sparkles color="white" count={scaleSparkles.length} size={scaleSparkles} speed={scaleSparkles} opacity="0.9" scale="4" noise="10" position={[0, 5.5, 0]} />
-          <MyRobot/>
-          {bonus && <Bengal/>}
-          {/* <MyHtml/> */}
-          <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.5" />
-          <MyOrbitControls makeDefault/>
-        </Canvas>
-      </Suspense>
-      {/* <Picker /> */}
-      {/* <Panel selected={selected} /> */}
-      {/* <div ref={scrollRef} className="scroll">
-        <div style={{ height: `300vh`, pointerEvents: 'none'}}></div>
-      </div> */}
-    </>
+    <Canvas
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      shadows
+      pixelratio={[1, 1]}
+      alpha="true"
+      //dpr={[1, 2]}
+      gl={{
+        antialias: true,
+        //outputEncoding: THREE.sRGBEncoding,
+        toneMapping: THREE.ACESFilmicToneMapping,
+        toneMappingExposure: 0.4
+      }}
+      //onCreated={(state) => state.events.connect(scrollRef.current)}
+      raycaster={{ computeOffsets: ({ clientX, clientY }) => ({ offsetX: clientX, offsetY: clientY }) }}
+      >{/* <Suspense fallback={Fallback()}> */}
+        {/*<Environment files={venise}/> preset="sunset" */}
+        <fogExp2 density={0.016} attach="fog" color="#ff69b4" near={30} far={120} />
+        {/* <ScrollContainer><MyScroll scroll={scroll}/></ScrollContainer> */}
+        <ambientLight intensity={0.3} />
+        <pointLight intensity={0.2} position={[-10, 15, 15]} />
+        <spotLight castShadow intensity={2.2} angle={0.5} penumbra={1} position={[10, 20, -15]} shadow-mapSize={[1024, 1024]} shadow-bias={-0.0001} />
+        {/* <Sky distance={450000} sunPosition={[0, 1, 0]} azimuth={0.25} turbidity={10} rayleigh={0.5} inclination={0.6} /> */}
+        <MySky/>
+        <Grass position={[0, 2.5, 0]}  opacity={0.6}/>
+        {/* <MyPlane/> */}
+        <Cloud position={[-4, 18, -5]} scale="1.4" speed={0.2} opacity={0.6} color="#ffffff" depth={2.5} texture={cloudDrei} />
+        <Cloud position={[4, 14, -5]} speed={0.4} opacity={0.25} color="#ffffff" depth={1.5} texture={cloudDrei} />
+        <mesh position={[0, 12, 0]}>
+          <Words3d maxCount={50} radius={4} />
+        </mesh>
+        <Sparkles color="white" count={scaleSparkles.length} size={scaleSparkles} speed={scaleSparkles} opacity="0.9" scale="4" noise="10" position={[0, 5.5, 0]} />
+        <MyRobot/>
+        {bonus && <Bengal/>}
+        {/* <MyHtml/> */}
+        <PerspectiveCamera ref={cam} makeDefault fov={40} near={0.1} far={50} zoom="0.5" />
+        <MyOrbitControls makeDefault/>
+        {/* <Picker /> */}
+        {/* <Panel selected={selected} /> */}
+        {/* <div ref={scrollRef} className="scroll">
+          <div style={{ height: `300vh`, pointerEvents: 'none'}}></div>
+        </div> */}
+      </Canvas>
   )
 }
 
