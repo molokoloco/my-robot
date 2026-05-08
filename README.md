@@ -3,7 +3,7 @@
 ![Demo screen](https://github.com/molokoloco/my-robot/blob/main/public/img/capture-myrobot-1920x975.png?raw=true "Demo in progress")
 
 ### Demo : https://julienweb.fr/my-robot/ 
-#### Little robot here https://julienweb.fr
+#### Little robot (without the grass) here [https://julienweb.fr/julien-guezennec-cest-qui/](https://julienweb.fr/julien-guezennec-cest-qui/)
 
 WebGL interactive robot made with React-three-fiber renderer for Three.js.  
 I'have made a lot of mistakes but have a lot of fun, and do a lot of experiments :)
